@@ -9,30 +9,33 @@ const envelope = {
   parts: [{ component: "hyperscribe/Page", props: { title: "t" }, children: [] }]
 };
 
-test("render: default theme notion applied", async () => {
+test("render: default theme is studio", async () => {
   const html = await render(envelope);
-  assert.match(html, /\[data-theme="notion"\]/);
-  assert.match(html, /data-theme="notion"/); // also as html attribute
+  assert.match(html, /data-theme="studio"/);
+  assert.match(html, /\[data-theme="studio"\]/);
 });
 
-test("render: --theme name picked up via options.theme", async () => {
-  const html = await render(envelope, { theme: "notion" });
-  assert.match(html, /data-theme="notion"/);
-});
+for (const name of ["studio", "midnight", "void", "gallery"]) {
+  test(`render: --theme ${name} applied`, async () => {
+    const html = await render(envelope, { theme: name });
+    assert.match(html, new RegExp(`data-theme="${name}"`));
+    assert.match(html, new RegExp(`\\[data-theme="${name}"\\]`));
+  });
+}
 
-test("render: linear theme applied", async () => {
-  const html = await render(envelope, { theme: "linear" });
-  assert.match(html, /data-theme="linear"/);
-  assert.match(html, /\[data-theme="linear"\]/);
-});
-
-test("render: mode toggler always injected regardless of theme", async () => {
-  const notionHtml = await render(envelope, { theme: "notion" });
-  const linearHtml = await render(envelope, { theme: "linear" });
-  assert.match(notionHtml, /id="hs-mode-toggler"/);
-  assert.match(linearHtml, /id="hs-mode-toggler"/);
+test("render: mode toggler always injected", async () => {
+  const html = await render(envelope, { theme: "studio" });
+  assert.match(html, /id="hs-mode-toggler"/);
 });
 
 test("render: unknown theme throws", async () => {
   await assert.rejects(() => render(envelope, { theme: "nope" }), /theme/i);
+});
+
+test("render: old theme name notion throws with clear error", async () => {
+  await assert.rejects(() => render(envelope, { theme: "notion" }), /Unknown theme/);
+});
+
+test("render: old theme name linear throws with clear error", async () => {
+  await assert.rejects(() => render(envelope, { theme: "linear" }), /Unknown theme/);
 });

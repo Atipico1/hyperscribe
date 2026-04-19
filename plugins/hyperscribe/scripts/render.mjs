@@ -70,7 +70,7 @@ export async function render(doc, options = {}) {
     throw err;
   }
 
-  const themeName = options.theme || "notion";
+  const themeName = options.theme || "studio";
   const themeCss = loadTheme(themeName); // throws if unknown
   const toggler = modeTogglerHtml();
 
@@ -176,7 +176,7 @@ function printHelp() {
 Options:
   --in <path>          JSON input file (or pipe via stdin)
   --out <path>         Output HTML file (required unless --validate-only)
-  --theme <name>       Theme name (e.g. "notion"); defaults to "notion"
+  --theme <name>       Theme name (studio|midnight|void|gallery); defaults to "studio"
   --title <string>     Override Page.title
   --quiet              Suppress progress logs
   --validate-only      Validate JSON, do not render
