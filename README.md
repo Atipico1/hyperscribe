@@ -88,7 +88,7 @@ cd hyperscribe
 echo '<envelope.json>' | node plugins/hyperscribe/scripts/render.mjs --out page.html
 ```
 
-Any agent or tool that can emit the JSON envelope described in [`plugins/hyperscribe/SKILL.md`](plugins/hyperscribe/SKILL.md) can drive this renderer.
+Any agent or tool that can emit the JSON envelope described in [`plugins/hyperscribe/skills/hyperscribe/SKILL.md`](plugins/hyperscribe/skills/hyperscribe/SKILL.md) can drive this renderer.
 
 ## Uninstall
 
@@ -206,7 +206,7 @@ Your per-user theme + mode preference is stored at `~/.hyperscribe/preference.md
 ## How it works
 
 1. **User runs a command.** In Claude Code, the user types something like `/hyperscribe "architecture for a rate limiter"`.
-2. **Skill prompt loads.** The plugin injects [`SKILL.md`](plugins/hyperscribe/SKILL.md) and the command template, giving the model the catalog, envelope format, and the rule that props carry semantic data only.
+2. **Skill prompt loads.** The plugin injects [`SKILL.md`](plugins/hyperscribe/skills/hyperscribe/SKILL.md) and the command template, giving the model the catalog, envelope format, and the rule that props carry semantic data only.
 3. **Claude emits JSON.** The model classifies the intent, picks components, and produces an A2UI envelope — no HTML, no CSS, no styling decisions. Unknown component names, missing required props, and out-of-range enums are caught in step 4, not left to a broken browser render.
 4. **CLI validates + renders.** `plugins/hyperscribe/scripts/render.mjs` walks the envelope against the schema in `plugins/hyperscribe/spec/catalog.json`; on success it builds a single HTML document with inlined CSS and per-component SSR. Exit codes: `0` success, `1` JSON parse error, `2` schema validation failure, `3` IO error, `4` render runtime error.
 5. **Self-contained HTML lands on disk.** Output is written to `~/.hyperscribe/out/<slug>-<timestamp>.html`. No network, no external CSS, no build step — the file opens on a plane.

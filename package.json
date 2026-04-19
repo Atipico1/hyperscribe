@@ -1,7 +1,7 @@
 {
   "name": "hyperscribe",
   "private": true,
-  "version": "0.4.0-alpha",
+  "version": "0.4.1-alpha",
   "description": "A2UI-style visual explainer — LLM emits component JSON, zero-dep Node renders self-contained HTML",
   "type": "module",
   "engines": {
