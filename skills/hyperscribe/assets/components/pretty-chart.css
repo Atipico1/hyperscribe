@@ -1,0 +1,46 @@
+.hs-pchart {
+  margin: var(--hs-space-5) 0;
+  padding: var(--hs-space-5);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-large);
+  background: var(--hs-color-bg);
+  box-shadow: var(--hs-shadow-card);
+}
+.hs-pchart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.hs-pchart-title {
+  font-family: var(--hs-font-sans);
+  font-size: 18px;
+  font-weight: 700;
+  fill: var(--hs-color-fg);
+  letter-spacing: -0.4px;
+}
+.hs-pchart-grid {
+  stroke: var(--hs-color-fg-muted);
+  stroke-opacity: 0.18;
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+.hs-pchart-tick {
+  font-family: var(--hs-font-sans);
+  font-size: 10px;
+  fill: var(--hs-color-fg-muted);
+}
+.hs-pchart-xlabel {
+  font-family: var(--hs-font-sans);
+  font-size: 10px;
+  fill: var(--hs-color-fg-muted);
+}
+.hs-pchart-bar-rect { }
+.hs-pchart-line {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.hs-pchart-dot { }

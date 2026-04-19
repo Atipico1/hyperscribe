@@ -1,0 +1,99 @@
+.hs-annotated-code {
+  margin: 1.5rem 0;
+  background: var(--hs-color-surface);
+  border: var(--hs-border-whisper);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--hs-shadow-card);
+}
+
+.hs-annotated-code-filename {
+  padding: 0.5rem 1rem;
+  font-family: var(--hs-font-mono);
+  font-size: 12px;
+  color: var(--hs-color-fg-muted);
+  background: var(--hs-color-surface-alt);
+  border-bottom: var(--hs-border-whisper);
+}
+
+.hs-annotated-code-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
+  gap: 0;
+}
+
+@media (max-width: 720px) {
+  .hs-annotated-code-grid { grid-template-columns: 1fr; }
+}
+
+.hs-annotated-code-code {
+  padding: 0.75rem 0.5rem 0.75rem 0;
+  overflow-x: auto;
+  font-family: var(--hs-font-mono);
+  font-size: 13px;
+}
+
+.hs-annotated-code-code table { border-collapse: collapse; width: 100%; }
+.hs-annotated-code-code pre { margin: 0; white-space: pre; font: inherit; }
+
+.hs-annotated-code-line td { padding: 0.1rem 0.5rem; vertical-align: top; }
+.hs-annotated-code-lineno {
+  color: var(--hs-color-fg-muted);
+  text-align: right;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+  width: 2.5rem;
+}
+.hs-annotated-code-src { position: relative; }
+
+.hs-annotated-code-notes {
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+  border-left: var(--hs-border-whisper);
+  background: var(--hs-color-surface-alt);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  .hs-annotated-code-notes { border-left: 0; border-top: var(--hs-border-whisper); }
+}
+
+.hs-annotated-code-note {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.hs-annotated-code-note-title {
+  font-weight: 600;
+  font-size: 13px;
+  font-family: var(--hs-font-sans);
+  color: var(--hs-color-fg);
+}
+
+.hs-annotated-code-note-text {
+  font-size: 13px;
+  color: var(--hs-color-fg-muted);
+  font-family: var(--hs-font-sans);
+  line-height: 1.45;
+}
+
+.hs-annotated-code-pin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  margin-inline: 0.35rem;
+  border-radius: 999px;
+  background: var(--hs-color-accent);
+  color: #fff;
+  font-family: var(--hs-font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  flex: 0 0 auto;
+}

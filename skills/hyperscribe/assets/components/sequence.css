@@ -1,0 +1,70 @@
+.hs-seq-wrap {
+  margin: var(--hs-space-5) 0;
+  padding: var(--hs-space-5);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-comfort);
+  background: var(--hs-color-surface);
+  overflow-x: auto;
+}
+.hs-seq {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+.hs-seq-pbox {
+  fill: var(--hs-color-surface-alt);
+  stroke: rgba(0, 0, 0, 0.1);
+  stroke-width: 1;
+}
+.hs-seq-ptitle {
+  font-family: var(--hs-font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  fill: var(--hs-color-fg);
+}
+.hs-seq-psub {
+  font-family: var(--hs-font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--hs-color-fg-muted);
+}
+.hs-seq-lifeline {
+  stroke: rgba(0, 0, 0, 0.14);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.hs-seq-arrow {
+  stroke: rgba(0, 0, 0, 0.85);
+  stroke-width: 1.25;
+  fill: none;
+}
+.hs-seq-arrow-dashed {
+  stroke-dasharray: 5 4;
+}
+.hs-seq-head {
+  fill: rgba(0, 0, 0, 0.85);
+  stroke: none;
+}
+.hs-seq-head-open {
+  stroke: rgba(0, 0, 0, 0.85);
+  stroke-width: 1.5;
+  fill: none;
+}
+.hs-seq-msg-text {
+  font-family: var(--hs-font-sans);
+  font-size: 12.5px;
+  font-weight: 500;
+  fill: var(--hs-color-fg);
+}
+.hs-seq-note-box {
+  fill: var(--hs-note-bg);
+  stroke: var(--hs-note-border);
+  stroke-width: 1;
+}
+.hs-seq-note-text {
+  font-family: var(--hs-font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  fill: var(--hs-note-text);
+}

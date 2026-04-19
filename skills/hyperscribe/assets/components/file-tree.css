@@ -1,0 +1,72 @@
+.hs-file-tree {
+  margin: 1.5rem 0;
+  font-family: var(--hs-font-mono);
+  font-size: 14px;
+  background: var(--hs-color-surface-alt);
+  border: var(--hs-border-whisper);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  box-shadow: var(--hs-shadow-card);
+}
+
+.hs-file-tree-root,
+.hs-file-tree-children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hs-file-tree-children {
+  padding-left: 1.25rem;
+  border-left: 1px dashed rgba(127,127,127,0.2);
+  margin-left: 0.5rem;
+}
+
+.hs-file-tree-node {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+  color: var(--hs-color-fg);
+}
+
+.hs-file-tree-icon {
+  width: 1rem;
+  text-align: center;
+  color: var(--hs-color-fg-muted);
+  flex: 0 0 auto;
+}
+
+.hs-file-tree-dir .hs-file-tree-label {
+  font-weight: 600;
+}
+
+.hs-file-tree-file .hs-file-tree-label {
+  color: var(--hs-color-fg-muted);
+}
+
+.hs-file-tree-node-highlight-primary {
+  background: var(--hs-color-badge-bg);
+  color: var(--hs-color-badge-text);
+  border-radius: 4px;
+  padding-inline: 0.4rem;
+}
+
+.hs-file-tree-node-highlight-secondary {
+  background: var(--hs-tone-info-bg);
+  color: var(--hs-tone-info-fg);
+  border-radius: 4px;
+  padding-inline: 0.4rem;
+}
+
+.hs-file-tree-node-highlight-muted {
+  opacity: 0.5;
+}
+
+.hs-file-tree-caption {
+  margin-top: 0.75rem;
+  font-family: var(--hs-font-sans);
+  font-size: 13px;
+  color: var(--hs-color-fg-muted);
+  text-align: center;
+}

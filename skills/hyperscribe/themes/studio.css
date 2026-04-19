@@ -1,0 +1,110 @@
+/* ===== Studio theme — light is default, [data-mode="dark"] overrides ===== */
+
+[data-theme="studio"] {
+  /* Surfaces */
+  --hs-color-fg: rgba(0, 0, 0, 0.95);
+  --hs-color-bg: #ffffff;
+  --hs-color-surface: #ffffff;
+  --hs-color-surface-alt: #f6f5f4;
+  --hs-color-surface-dark: #31302e;
+
+  /* Foreground */
+  --hs-color-fg-muted: #615d59;
+  --hs-color-fg-placeholder: #a39e98;
+
+  /* Chrome accents */
+  --hs-color-accent: #0075de;
+  --hs-color-accent-active: #005bab;
+  --hs-color-navy: #213183;
+  --hs-color-purple: #391c57;
+  --hs-color-pink: #ff64c8;
+  --hs-color-teal: #2a9d99;
+  --hs-color-brown: #523410;
+  --hs-color-focus: #097fe8;
+  --hs-color-badge-bg: #f2f9ff;
+  --hs-color-badge-text: #097fe8;
+  --hs-color-success: #1aae39;
+  --hs-color-warn: #dd5b00;
+
+  /* Borders & shadows */
+  --hs-border-whisper: 1px solid rgba(0, 0, 0, 0.1);
+  --hs-shadow-card: rgba(0,0,0,0.04) 0 4px 18px,
+                    rgba(0,0,0,0.027) 0 2.025px 7.84688px,
+                    rgba(0,0,0,0.02) 0 0.8px 2.925px,
+                    rgba(0,0,0,0.01) 0 0.175px 1.04062px;
+  --hs-shadow-deep: rgba(0,0,0,0.01) 0 1px 3px,
+                    rgba(0,0,0,0.02) 0 3px 7px,
+                    rgba(0,0,0,0.02) 0 7px 15px,
+                    rgba(0,0,0,0.04) 0 14px 28px,
+                    rgba(0,0,0,0.05) 0 23px 52px;
+
+  /* Typography */
+  --hs-font-sans: "NotionInter", Inter, -apple-system, system-ui,
+                  "Segoe UI", Helvetica, "Apple Color Emoji", Arial,
+                  "Segoe UI Emoji", "Segoe UI Symbol";
+  --hs-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular,
+                  Menlo, Consolas, monospace;
+
+  /* Semantic tones (Callout, Comparison verdict, CodeDiff, KPI delta) */
+  --hs-tone-info-bg:    #f2f9ff;
+  --hs-tone-info-fg:    #097fe8;
+  --hs-tone-warn-bg:    #fff8f0;
+  --hs-tone-warn-fg:    #c2410c;
+  --hs-tone-success-bg: #f1fbf3;
+  --hs-tone-success-fg: #166534;
+  --hs-tone-danger-bg:  #fff5f5;
+  --hs-tone-danger-fg:  #991b1b;
+
+  /* Note tint (Sequence, Mermaid note) */
+  --hs-note-bg:     #fef9c3;
+  --hs-note-border: #eab308;
+  --hs-note-text:   #713f12;
+}
+
+[data-theme="studio"][data-mode="dark"] {
+  --hs-color-fg: rgba(255, 255, 255, 0.94);
+  --hs-color-bg: #191918;
+  --hs-color-surface: #232322;
+  --hs-color-surface-alt: #2a2a28;
+  --hs-color-surface-dark: #0f0f0e;
+
+  --hs-color-fg-muted: #a39e98;
+  --hs-color-fg-placeholder: #6e6b67;
+
+  --hs-color-accent: #4dabff;
+  --hs-color-accent-active: #2d8de0;
+  --hs-color-navy: #8891d0;
+  --hs-color-purple: #c084fc;
+  --hs-color-pink: #ff89d9;
+  --hs-color-teal: #5eead4;
+  --hs-color-brown: #a8784d;
+  --hs-color-focus: #60a5fa;
+  --hs-color-badge-bg: rgba(77, 171, 255, 0.12);
+  --hs-color-badge-text: #7cc0ff;
+  --hs-color-success: #4ade80;
+  --hs-color-warn: #fb923c;
+
+  --hs-border-whisper: 1px solid rgba(255, 255, 255, 0.08);
+  --hs-shadow-card: rgba(0,0,0,0.35) 0 4px 18px,
+                    rgba(0,0,0,0.25) 0 2.025px 7.84688px,
+                    rgba(0,0,0,0.18) 0 0.8px 2.925px,
+                    rgba(0,0,0,0.12) 0 0.175px 1.04062px;
+  --hs-shadow-deep: rgba(0,0,0,0.15) 0 1px 3px,
+                    rgba(0,0,0,0.25) 0 3px 7px,
+                    rgba(0,0,0,0.3) 0 7px 15px,
+                    rgba(0,0,0,0.4) 0 14px 28px,
+                    rgba(0,0,0,0.5) 0 23px 52px;
+
+  --hs-tone-info-bg:    rgba(77, 171, 255, 0.12);
+  --hs-tone-info-fg:    #7cc0ff;
+  --hs-tone-warn-bg:    rgba(251, 146, 60, 0.14);
+  --hs-tone-warn-fg:    #fdba74;
+  --hs-tone-success-bg: rgba(74, 222, 128, 0.12);
+  --hs-tone-success-fg: #86efac;
+  --hs-tone-danger-bg:  rgba(248, 113, 113, 0.15);
+  --hs-tone-danger-fg:  #fca5a5;
+
+  --hs-note-bg:     rgba(234, 179, 8, 0.15);
+  --hs-note-border: #eab308;
+  --hs-note-text:   #fde68a;
+}

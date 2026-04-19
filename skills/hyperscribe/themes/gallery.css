@@ -1,0 +1,93 @@
+/* ===== Gallery theme — Apple-inspired, cinematic binary surfaces ===== */
+
+[data-theme="gallery"] {
+  --hs-color-fg: #1d1d1f;
+  --hs-color-bg: #ffffff;
+  --hs-color-surface: #ffffff;
+  --hs-color-surface-alt: #f5f5f7;
+  --hs-color-surface-dark: #1d1d1f;
+
+  --hs-color-fg-muted: rgba(0, 0, 0, 0.8);
+  --hs-color-fg-placeholder: rgba(0, 0, 0, 0.48);
+
+  --hs-color-accent: #0071e3;
+  --hs-color-accent-active: #0058b0;
+  --hs-color-navy: #001e4a;
+  --hs-color-purple: #5856d6;
+  --hs-color-pink: #ff2d92;
+  --hs-color-teal: #30b0c7;
+  --hs-color-brown: #a2845e;
+  --hs-color-focus: #0071e3;
+  --hs-color-badge-bg: rgba(0, 113, 227, 0.08);
+  --hs-color-badge-text: #0066cc;
+  --hs-color-success: #30a14c;
+  --hs-color-warn: #ca5010;
+
+  /* Apple almost never uses visible borders */
+  --hs-border-whisper: 1px solid transparent;
+  /* Signature Apple soft diffused shadow */
+  --hs-shadow-card: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
+  --hs-shadow-deep: rgba(0, 0, 0, 0.12) 0 10px 40px,
+                    rgba(0, 0, 0, 0.08) 0 4px 16px;
+
+  --hs-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                  "SF Pro Display", "Helvetica Neue", Helvetica, Arial,
+                  "Inter Variable", Inter, system-ui, sans-serif;
+  --hs-font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo,
+                  "Cascadia Mono", Consolas, "Courier New", monospace;
+
+  --hs-tone-info-bg:    rgba(0, 113, 227, 0.08);
+  --hs-tone-info-fg:    #0066cc;
+  --hs-tone-warn-bg:    rgba(202, 80, 16, 0.10);
+  --hs-tone-warn-fg:    #ca5010;
+  --hs-tone-success-bg: rgba(48, 161, 76, 0.10);
+  --hs-tone-success-fg: #30a14c;
+  --hs-tone-danger-bg:  rgba(215, 58, 73, 0.10);
+  --hs-tone-danger-fg:  #d73a49;
+
+  --hs-note-bg:     #fef9c3;
+  --hs-note-border: #eab308;
+  --hs-note-text:   #713f12;
+}
+
+[data-theme="gallery"][data-mode="dark"] {
+  --hs-color-fg: #f5f5f7;
+  --hs-color-bg: #000000;
+  --hs-color-surface: #1d1d1f;
+  --hs-color-surface-alt: #272729;
+  --hs-color-surface-dark: #000000;
+
+  --hs-color-fg-muted: rgba(255, 255, 255, 0.7);
+  --hs-color-fg-placeholder: rgba(255, 255, 255, 0.4);
+
+  --hs-color-accent: #2997ff;
+  --hs-color-accent-active: #5eb0ff;
+  --hs-color-navy: #8e9fcd;
+  --hs-color-purple: #a3a3ff;
+  --hs-color-pink: #ff6bb0;
+  --hs-color-teal: #5eead4;
+  --hs-color-brown: #c4a47c;
+  --hs-color-focus: #2997ff;
+  --hs-color-badge-bg: rgba(41, 151, 255, 0.12);
+  --hs-color-badge-text: #5eb0ff;
+  --hs-color-success: #4ade80;
+  --hs-color-warn: #fb923c;
+
+  --hs-border-whisper: 1px solid transparent;
+  --hs-shadow-card: rgba(0, 0, 0, 0.50) 3px 5px 30px 0px;
+  --hs-shadow-deep: rgba(0, 0, 0, 0.35) 0 10px 40px,
+                    rgba(0, 0, 0, 0.25) 0 4px 16px;
+
+  --hs-tone-info-bg:    rgba(41, 151, 255, 0.12);
+  --hs-tone-info-fg:    #5eb0ff;
+  --hs-tone-warn-bg:    rgba(251, 146, 60, 0.14);
+  --hs-tone-warn-fg:    #fdba74;
+  --hs-tone-success-bg: rgba(74, 222, 128, 0.12);
+  --hs-tone-success-fg: #86efac;
+  --hs-tone-danger-bg:  rgba(248, 113, 113, 0.15);
+  --hs-tone-danger-fg:  #fca5a5;
+
+  --hs-note-bg:     rgba(234, 179, 8, 0.15);
+  --hs-note-border: #eab308;
+  --hs-note-text:   #fde68a;
+}

@@ -1,0 +1,18 @@
+.hs-image {
+  margin: var(--hs-space-5) 0;
+  padding: 0;
+  text-align: center;
+}
+.hs-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--hs-radius-comfort);
+  border: var(--hs-border-whisper);
+  display: inline-block;
+}
+.hs-image-caption {
+  margin-top: var(--hs-space-2);
+  font-size: 13px;
+  color: var(--hs-color-fg-muted);
+  line-height: 1.4;
+}

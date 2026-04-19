@@ -1,0 +1,95 @@
+/* ===== Void theme — dark-native, pure black, Framer-inspired ===== */
+
+[data-theme="void"] {
+  /* Surfaces (light variant of a dark-first theme) */
+  --hs-color-fg: #0a0a0a;
+  --hs-color-bg: #fafafa;
+  --hs-color-surface: #ffffff;
+  --hs-color-surface-alt: #f0f0f0;
+  --hs-color-surface-dark: #0a0a0a;
+
+  --hs-color-fg-muted: #4d4d4d;
+  --hs-color-fg-placeholder: #8a8a8a;
+
+  --hs-color-accent: #0066cc;
+  --hs-color-accent-active: #0055b3;
+  --hs-color-navy: #0a2b66;
+  --hs-color-purple: #3b1780;
+  --hs-color-pink: #d946ef;
+  --hs-color-teal: #0e7490;
+  --hs-color-brown: #5c3317;
+  --hs-color-focus: #0099ff;
+  --hs-color-badge-bg: rgba(0, 153, 255, 0.08);
+  --hs-color-badge-text: #0066cc;
+  --hs-color-success: #15803d;
+  --hs-color-warn: #c2410c;
+
+  --hs-border-whisper: 1px solid rgba(0, 0, 0, 0.08);
+  --hs-shadow-card: rgba(0,0,0,0.06) 0 4px 18px,
+                    rgba(0,0,0,0.04) 0 2px 8px;
+  --hs-shadow-deep: rgba(0,0,0,0.04) 0 1px 3px,
+                    rgba(0,0,0,0.06) 0 10px 30px;
+
+  --hs-font-sans: "Inter Variable", Inter, -apple-system, system-ui,
+                  "Segoe UI", Helvetica, Arial, sans-serif;
+  --hs-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular,
+                  Menlo, Consolas, monospace;
+
+  --hs-tone-info-bg:    rgba(0, 102, 204, 0.08);
+  --hs-tone-info-fg:    #0066cc;
+  --hs-tone-warn-bg:    rgba(194, 65, 12, 0.08);
+  --hs-tone-warn-fg:    #c2410c;
+  --hs-tone-success-bg: rgba(21, 128, 61, 0.08);
+  --hs-tone-success-fg: #15803d;
+  --hs-tone-danger-bg:  rgba(153, 27, 27, 0.08);
+  --hs-tone-danger-fg:  #991b1b;
+
+  --hs-note-bg:     rgba(234, 179, 8, 0.10);
+  --hs-note-border: #ca8a04;
+  --hs-note-text:   #713f12;
+}
+
+[data-theme="void"][data-mode="dark"] {
+  /* The signature Framer-inspired variant — pure black */
+  --hs-color-fg: #ffffff;
+  --hs-color-bg: #000000;
+  --hs-color-surface: #000000;
+  --hs-color-surface-alt: #090909;
+  --hs-color-surface-dark: #000000;
+
+  --hs-color-fg-muted: #a6a6a6;
+  --hs-color-fg-placeholder: rgba(255, 255, 255, 0.4);
+
+  --hs-color-accent: #0099ff;
+  --hs-color-accent-active: #33aeff;
+  --hs-color-navy: #6d8ad0;
+  --hs-color-purple: #c084fc;
+  --hs-color-pink: #f472b6;
+  --hs-color-teal: #5eead4;
+  --hs-color-brown: #a8784d;
+  --hs-color-focus: #0099ff;
+  --hs-color-badge-bg: rgba(0, 153, 255, 0.12);
+  --hs-color-badge-text: #33aeff;
+  --hs-color-success: #4ade80;
+  --hs-color-warn: #fb923c;
+
+  /* Signature blue ring shadow for containment */
+  --hs-border-whisper: 1px solid rgba(0, 153, 255, 0.15);
+  --hs-shadow-card: rgba(255, 255, 255, 0.10) 0 0.5px 0 0.5px,
+                    rgba(0, 0, 0, 0.25) 0 10px 30px;
+  --hs-shadow-deep: rgba(255, 255, 255, 0.10) 0 0.5px 0 0.5px,
+                    rgba(0, 0, 0, 0.45) 0 20px 60px;
+
+  --hs-tone-info-bg:    rgba(0, 153, 255, 0.12);
+  --hs-tone-info-fg:    #33aeff;
+  --hs-tone-warn-bg:    rgba(251, 146, 60, 0.14);
+  --hs-tone-warn-fg:    #fdba74;
+  --hs-tone-success-bg: rgba(74, 222, 128, 0.12);
+  --hs-tone-success-fg: #86efac;
+  --hs-tone-danger-bg:  rgba(248, 113, 113, 0.15);
+  --hs-tone-danger-fg:  #fca5a5;
+
+  --hs-note-bg:     rgba(234, 179, 8, 0.15);
+  --hs-note-border: #eab308;
+  --hs-note-text:   #fde68a;
+}

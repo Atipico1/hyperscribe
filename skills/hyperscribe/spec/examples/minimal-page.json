@@ -1,0 +1,14 @@
+{
+  "a2ui_version": "0.9",
+  "catalog": "hyperscribe/v1",
+  "is_task_complete": true,
+  "parts": [
+    {
+      "component": "hyperscribe/Page",
+      "props": { "title": "Hello" },
+      "children": [
+        { "component": "hyperscribe/Prose", "props": { "markdown": "This is a minimal page." } }
+      ]
+    }
+  ]
+}

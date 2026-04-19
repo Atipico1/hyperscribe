@@ -1,0 +1,18 @@
+.hs-callout {
+  border-left: 4px solid var(--hs-color-accent);
+  background: var(--hs-color-surface-alt);
+  border-radius: var(--hs-radius-std);
+  padding: var(--hs-space-4) var(--hs-space-5);
+  margin: var(--hs-space-4) 0;
+}
+.hs-callout-title {
+  font-weight: 700;
+  margin-bottom: var(--hs-space-2);
+}
+.hs-callout-body > p:first-child { margin-top: 0; }
+.hs-callout-body > p:last-child { margin-bottom: 0; }
+.hs-callout-info { border-left-color: var(--hs-color-accent); background: var(--hs-tone-info-bg); }
+.hs-callout-note { border-left-color: var(--hs-color-fg-muted); }
+.hs-callout-warn { border-left-color: var(--hs-color-warn); background: var(--hs-tone-warn-bg); }
+.hs-callout-success { border-left-color: var(--hs-color-success); background: var(--hs-tone-success-bg); }
+.hs-callout-danger { border-left-color: var(--hs-tone-danger-fg); background: var(--hs-tone-danger-bg); }

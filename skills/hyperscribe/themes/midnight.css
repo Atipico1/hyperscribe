@@ -1,0 +1,114 @@
+/* ===== Midnight theme — light is default, [data-mode="dark"] overrides ===== */
+
+@import url('https://rsms.me/inter/inter.css');
+
+[data-theme="midnight"] {
+  /* Surfaces (Linear light neutrals) */
+  --hs-color-fg: #08090a;
+  --hs-color-bg: #f7f8f8;
+  --hs-color-surface: #ffffff;
+  --hs-color-surface-alt: #f3f4f5;
+  --hs-color-surface-dark: #e6e6e6;
+
+  --hs-color-fg-muted: #62666d;
+  --hs-color-fg-placeholder: #8a8f98;
+
+  --hs-color-accent: #5e6ad2;
+  --hs-color-accent-active: #4e58b3;
+  --hs-color-navy: #5e6ad2;
+  --hs-color-purple: #7a7fad;
+  --hs-color-pink: #ff64c8;
+  --hs-color-teal: #10b981;
+  --hs-color-brown: #a8784d;
+  --hs-color-focus: #5e6ad2;
+  --hs-color-badge-bg: rgba(94, 106, 210, 0.08);
+  --hs-color-badge-text: #4e58b3;
+  --hs-color-success: #10b981;
+  --hs-color-warn: #d97706;
+
+  --hs-border-whisper: 1px solid #e6e6e6;
+  --hs-shadow-card: rgba(0,0,0,0.04) 0 1px 3px,
+                    rgba(0,0,0,0.06) 0 4px 12px;
+  --hs-shadow-deep: rgba(0,0,0,0.08) 0 2px 6px,
+                    rgba(0,0,0,0.1) 0 8px 24px;
+
+  --hs-font-sans: "Inter Variable", Inter, -apple-system, system-ui,
+                  "SF Pro Display", "Segoe UI", Helvetica, Arial;
+  --hs-font-mono: "Berkeley Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --hs-tone-info-bg:    rgba(94, 106, 210, 0.08);
+  --hs-tone-info-fg:    #4e58b3;
+  --hs-tone-warn-bg:    rgba(217, 119, 6, 0.1);
+  --hs-tone-warn-fg:    #b45309;
+  --hs-tone-success-bg: rgba(16, 185, 129, 0.1);
+  --hs-tone-success-fg: #047857;
+  --hs-tone-danger-bg:  rgba(220, 38, 38, 0.1);
+  --hs-tone-danger-fg:  #b91c1c;
+
+  --hs-note-bg:     rgba(113, 112, 255, 0.08);
+  --hs-note-border: rgba(113, 112, 255, 0.4);
+  --hs-note-text:   #4e58b3;
+}
+
+[data-theme="midnight"][data-mode="dark"] {
+  /* Midnight's native dark canvas */
+  --hs-color-fg: #f7f8f8;
+  --hs-color-bg: #08090a;
+  --hs-color-surface: #0f1011;
+  --hs-color-surface-alt: #191a1b;
+  --hs-color-surface-dark: #010102;
+
+  --hs-color-fg-muted: #8a8f98;
+  --hs-color-fg-placeholder: #62666d;
+
+  --hs-color-accent: #7170ff;
+  --hs-color-accent-active: #828fff;
+  --hs-color-navy: #5e6ad2;
+  --hs-color-purple: #7a7fad;
+  --hs-color-pink: #ff89d9;
+  --hs-color-teal: #10b981;
+  --hs-color-brown: #a8784d;
+  --hs-color-focus: #7170ff;
+  --hs-color-badge-bg: rgba(113, 112, 255, 0.12);
+  --hs-color-badge-text: #828fff;
+  --hs-color-success: #10b981;
+  --hs-color-warn: #ff9a62;
+
+  --hs-border-whisper: 1px solid rgba(255, 255, 255, 0.08);
+  --hs-shadow-card: rgba(0,0,0,0.2) 0 0 0 1px,
+                    rgba(0,0,0,0.4) 0 2px 4px;
+  --hs-shadow-deep: rgba(0,0,0,0.3) 0px 8px 24px,
+                    rgba(0,0,0,0.2) 0px 0px 0px 1px;
+
+  --hs-tone-info-bg:    rgba(113, 112, 255, 0.12);
+  --hs-tone-info-fg:    #a5a3ff;
+  --hs-tone-warn-bg:    rgba(255, 154, 98, 0.14);
+  --hs-tone-warn-fg:    #ffb284;
+  --hs-tone-success-bg: rgba(16, 185, 129, 0.14);
+  --hs-tone-success-fg: #5eead4;
+  --hs-tone-danger-bg:  rgba(248, 113, 113, 0.14);
+  --hs-tone-danger-fg:  #fca5a5;
+
+  --hs-note-bg:     rgba(113, 112, 255, 0.1);
+  --hs-note-border: rgba(113, 112, 255, 0.45);
+  --hs-note-text:   #d0d6e0;
+}
+
+[data-theme="midnight"] body {
+  font-feature-settings: "cv01", "ss03";
+  font-weight: 400;
+}
+[data-theme="midnight"] .hs-page-title,
+[data-theme="midnight"] .hs-section-title {
+  font-weight: 510;
+  letter-spacing: -0.022em;
+}
+[data-theme="midnight"] .hs-heading-h2 { letter-spacing: -0.022em; font-weight: 510; }
+[data-theme="midnight"] .hs-heading-h3 { letter-spacing: -0.012em; font-weight: 590; }
+[data-theme="midnight"] .hs-heading-h4 { font-weight: 590; }
+[data-theme="midnight"] .hs-page-subtitle,
+[data-theme="midnight"] .hs-section-lead {
+  color: var(--hs-color-fg-muted);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
