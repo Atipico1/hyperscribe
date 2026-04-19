@@ -28,6 +28,11 @@ import { KPICard } from "./components/kpi-card.mjs";
 import { Dashboard } from "./components/dashboard.mjs";
 import { SlideDeck } from "./components/slide-deck.mjs";
 import { Slide } from "./components/slide.mjs";
+import { FileTree } from "./components/file-tree.mjs";
+import { DependencyGraph } from "./components/dependency-graph.mjs";
+import { FileCard } from "./components/file-card.mjs";
+import { AnnotatedCode } from "./components/annotated-code.mjs";
+import { ERDDiagram } from "./components/erd-diagram.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PLUGIN_ROOT = resolve(__dirname, "..");
@@ -57,7 +62,12 @@ const REGISTRY = {
   "hyperscribe/KPICard": KPICard,
   "hyperscribe/Dashboard": Dashboard,
   "hyperscribe/SlideDeck": SlideDeck,
-  "hyperscribe/Slide": Slide
+  "hyperscribe/Slide": Slide,
+  "hyperscribe/FileTree": FileTree,
+  "hyperscribe/DependencyGraph": DependencyGraph,
+  "hyperscribe/FileCard": FileCard,
+  "hyperscribe/AnnotatedCode": AnnotatedCode,
+  "hyperscribe/ERDDiagram": ERDDiagram
 };
 
 export async function render(doc, options = {}) {

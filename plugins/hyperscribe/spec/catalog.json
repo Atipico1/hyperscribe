@@ -409,6 +409,58 @@
         "image": { "type": "string" },
         "quote": { "type": "string" }
       }
+    },
+    "hyperscribe/FileTree": {
+      "description": "Directory/file structure visualization. Recursive nodes with optional highlights.",
+      "children": "forbidden",
+      "props": {
+        "nodes": { "type": "array", "required": true, "description": "Recursive tree of { name, type: 'dir'|'file', path?, children?, highlight?: 'primary'|'secondary'|'muted' }" },
+        "showIcons": { "type": "boolean", "default": true },
+        "caption": { "type": "string" }
+      }
+    },
+    "hyperscribe/DependencyGraph": {
+      "description": "Module/import dependency visualization (ranked layout).",
+      "children": "forbidden",
+      "props": {
+        "nodes": { "type": "array", "required": true, "description": "Array of { id, label, type?: 'module'|'package'|'external', tag?: string }" },
+        "edges": { "type": "array", "required": true, "description": "Array of { from, to, kind?: 'import'|'type'|'runtime', cyclic?: boolean }" },
+        "layout": { "type": "string", "enum": ["ranks"], "required": true },
+        "ranks": { "type": "array", "required": true, "description": "Array of arrays of node ids (caller-supplied layout)" }
+      }
+    },
+    "hyperscribe/FileCard": {
+      "description": "Per-file summary card — name, path, LOC, responsibility, exports, change state.",
+      "children": "forbidden",
+      "props": {
+        "name":           { "type": "string", "required": true },
+        "path":           { "type": "string" },
+        "loc":            { "type": "number" },
+        "responsibility": { "type": "string", "required": true },
+        "exports":        { "type": "array", "description": "Array of { name, kind: 'function'|'class'|'const'|'type' }" },
+        "state":          { "type": "string", "enum": ["modified","added","removed","stable"], "default": "stable" },
+        "icon":           { "type": "string" }
+      }
+    },
+    "hyperscribe/AnnotatedCode": {
+      "description": "Code block with numbered pins linking to side annotations.",
+      "children": "forbidden",
+      "props": {
+        "lang":        { "type": "string", "required": true },
+        "code":        { "type": "string", "required": true },
+        "filename":    { "type": "string" },
+        "annotations": { "type": "array", "required": true, "description": "Array of { line, pin, title, body }" },
+        "pinStyle":    { "type": "string", "enum": ["numbered","lettered"], "default": "numbered" }
+      }
+    },
+    "hyperscribe/ERDDiagram": {
+      "description": "Entity-relationship diagram — DB/type schemas with pk/fk/nullable markers and cardinality links.",
+      "children": "forbidden",
+      "props": {
+        "entities":      { "type": "array", "required": true, "description": "Array of { id, name, fields: [{ name, type, key?: 'pk'|'fk', nullable?: boolean }] }" },
+        "relationships": { "type": "array", "required": true, "description": "Array of { from, to, cardinality: '1-1'|'1-n'|'n-n', label? }" },
+        "layout":        { "type": "string", "enum": ["grid","columns"], "default": "grid" }
+      }
     }
   }
 }
