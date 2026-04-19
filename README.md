@@ -41,18 +41,44 @@ Credit where it's due: `visual-explainer` pioneered the behavioral pattern (proa
 
 ## Install
 
-### Claude Code (recommended)
+### Any agent — Claude Code, Codex, Cursor, OpenCode, … (recommended)
+
+```bash
+npx skills add Atipico1/hyperscribe
+```
+
+This installs four skills via the [open agent skills CLI](https://github.com/vercel-labs/skills):
+
+| Skill | Purpose |
+|---|---|
+| `hyperscribe` | General-purpose visual HTML renderer (ships the engine) |
+| `hyperscribe-slides` | Slide deck mode |
+| `hyperscribe-diff` | PR / diff review page |
+| `hyperscribe-share` | Deploy an output to Vercel, return a public URL |
+
+The CLI auto-detects which agents are present (Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Windsurf, Warp, and 40+ more) and writes each `SKILL.md` into that agent's skill path. Pick a subset with `--skill` or target one agent with `-a`:
+
+```bash
+npx skills add Atipico1/hyperscribe --skill hyperscribe --skill hyperscribe-slides
+npx skills add Atipico1/hyperscribe -a claude-code -a codex
+```
+
+The `hyperscribe` skill is the only one that carries the renderer; the other three depend on it being installed.
+
+### Claude Code — native plugin marketplace
+
+If you only use Claude Code and want the `/hyperscribe`, `/hyperscribe:slides`, `/hyperscribe:diff`, `/hyperscribe:share` **slash commands**, install via the plugin marketplace instead (skills alone don't register slash commands):
 
 ```
 /plugin marketplace add Atipico1/hyperscribe
 /plugin install hyperscribe@hyperscribe-marketplace
 ```
 
-The `/hyperscribe`, `/hyperscribe:slides`, `/hyperscribe:diff`, and `/hyperscribe:share` commands become available once the plugin is installed.
+The two paths coexist — pick plugin marketplace for slash commands, `npx skills` for auto-activating SKILL.md across many agents.
 
-### Other agents / manual use
+### Manual use (any language / bespoke pipeline)
 
-The renderer has zero runtime dependencies and can be invoked directly:
+The renderer has zero runtime dependencies:
 
 ```bash
 git clone https://github.com/Atipico1/hyperscribe.git
@@ -62,7 +88,26 @@ cd hyperscribe
 echo '<envelope.json>' | node plugins/hyperscribe/scripts/render.mjs --out page.html
 ```
 
-Any agent (Codex, Pi, bespoke pipelines) that can produce the JSON envelope described in [`plugins/hyperscribe/SKILL.md`](plugins/hyperscribe/SKILL.md) can use this renderer.
+Any agent or tool that can emit the JSON envelope described in [`plugins/hyperscribe/SKILL.md`](plugins/hyperscribe/SKILL.md) can drive this renderer.
+
+## Uninstall
+
+```bash
+# One-shot: removes all four skills from every agent (project + global scope)
+curl -fsSL https://raw.githubusercontent.com/Atipico1/hyperscribe/main/uninstall.sh | bash
+
+# Or use the skills CLI directly:
+npx skills remove --agent '*' hyperscribe hyperscribe-slides hyperscribe-diff hyperscribe-share
+npx skills remove --global --agent '*' hyperscribe hyperscribe-slides hyperscribe-diff hyperscribe-share
+```
+
+If you installed via Claude Code plugin marketplace, remove that separately:
+
+```
+/plugin uninstall hyperscribe@hyperscribe-marketplace
+```
+
+Rendered HTML output at `~/.hyperscribe/out/` is preserved. Delete manually with `rm -rf ~/.hyperscribe` if desired.
 
 ## Quick start
 
@@ -143,9 +188,20 @@ The design system is Notion-inspired — warm neutrals, whisper borders, Inter f
 
 ## Themes
 
-Two bundled themes as of v0.3.1: `notion` (default, warm Notion-inspired) and `linear` (Linear-inspired, Inter Variable + OpenType features). Each theme ships with both **light and dark modes** in the same CSS file. Theme is **fixed at render time** (pass `--theme <name>` to `render.mjs`); **light/dark mode** is toggled by the user via the circular button in the top-right of every rendered page. The choice is persisted in `localStorage` as `hyperscribe.mode`, and `prefers-color-scheme: dark` is honored on first load.
+Four bundled themes, each shipping both **light and dark modes** in a single CSS file. Pass `--theme <name>` at render time to pick one; use `--mode light|dark` to force initial color mode (omit for `prefers-color-scheme` + localStorage).
 
-Themes are pure CSS variable overrides — `plugins/hyperscribe/themes/*.css`. Each file defines tokens under `[data-theme="<name>"]` (light) and `[data-theme="<name>"][data-mode="dark"]` (dark). Semantic tones (`--hs-tone-{info|warn|success|danger}-{bg|fg}`) and the surface palette (`--hs-color-surface`, `--hs-color-surface-alt`) keep components legible in both modes without hardcoded colors.
+| Name | Character | Best for |
+|---|---|---|
+| `studio` | Warm, paper-feel — the default | Docs, long reads, stable reference pages |
+| `midnight` | Cool, developer-dark — Inter Variable + OpenType | Terminal-adjacent technical content |
+| `void` | Pure-black dark-first, electric blue ring accents | Product pages, launch decks, high-contrast demos |
+| `gallery` | Cinematic alternating surfaces, soft diffused shadow | Executive summaries, product showcases |
+
+Themes are pure CSS-variable overrides (`plugins/hyperscribe/themes/*.css`). Each defines tokens under `[data-theme="<name>"]` (light) and `[data-theme="<name>"][data-mode="dark"]` (dark). Semantic tones (`--hs-tone-{info|warn|success|danger}-{bg|fg}`) and surface palette (`--hs-color-surface*`) keep components legible across all four.
+
+**Breaking change in v0.4:** The former `notion` and `midnight` theme names are renamed to `studio` and `midnight` respectively; `linear` is renamed to `midnight`. The old names no longer resolve — update any `--theme notion` / `--theme linear` calls to the new names. Running with the old names now throws `Unknown theme "notion". Available: studio, midnight, void, gallery`.
+
+Your per-user theme + mode preference is stored at `~/.hyperscribe/preference.md` after first run. A project-local `./.hyperscribe/preference.md` overrides it. Delete either file to re-run first-run setup.
 
 ## How it works
 
@@ -160,7 +216,7 @@ Themes are pure CSS variable overrides — `plugins/hyperscribe/themes/*.css`. E
 
 - **v0.4** — locally-inlined Mermaid and Chart.js so output is truly offline-capable; streaming render for long pages; additional themes (blueprint / editorial / paper / mono).
 - **v0.5** — plugin API for user-defined components, A2UI two-way sync (renderer emits state updates back to the agent), theming via `~/.hyperscribe/theme.json` at full token scope.
-- **On demand** — `npm`-published CLI so non-Claude-Code users can `npx hyperscribe` without cloning the repo.
+- **Native installer polish** — `npx skills add Atipico1/hyperscribe` already works across 45+ agents (shipped in v0.3.1); follow-ups: symlink-mode diagnostics, CI recipe, and richer per-agent integration tests.
 
 ## Contributing
 
