@@ -192,10 +192,10 @@ Four bundled themes, each shipping both **light and dark modes** in a single CSS
 
 | Name | Character | Best for |
 |---|---|---|
-| `studio` | Warm, paper-feel — the default | Docs, long reads, stable reference pages |
-| `midnight` | Cool, developer-dark — Inter Variable + OpenType | Terminal-adjacent technical content |
-| `void` | Pure-black dark-first, electric blue ring accents | Product pages, launch decks, high-contrast demos |
-| `gallery` | Cinematic alternating surfaces, soft diffused shadow | Executive summaries, product showcases |
+| `studio` | Airtable — clean enterprise canvas, Haas-style typography, Airtable Blue accent, blue-tinted multi-layer shadow | Product launch pages, design reviews, polished docs |
+| `midnight` | Cal.com — purely grayscale (no brand colors), Cal Sans display + Inter body, 3-layer ring shadow system | Technical writeups, minimalist reports, long-form reading |
+| `void` | Bugatti — architectural black canvas, Unbounded display at massive scale, UPPERCASE mono UI, 3-color palette (black/white/gray) | Launch decks, hero moments, high-drama showcases |
+| `gallery` | Apple — cinematic black↔light-gray section alternation, SF Pro with tight negative tracking, Apple Blue as sole accent | Executive summaries, product showcases, investor-facing decks |
 
 Themes are pure CSS-variable overrides (`plugins/hyperscribe/themes/*.css`). Each defines tokens under `[data-theme="<name>"]` (light) and `[data-theme="<name>"][data-mode="dark"]` (dark). Semantic tones (`--hs-tone-{info|warn|success|danger}-{bg|fg}`) and surface palette (`--hs-color-surface*`) keep components legible across all four.
 

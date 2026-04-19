@@ -179,7 +179,7 @@ function parseArgs(argv) {
       case "--validate-only": args.validateOnly = true; break;
       case "--no-save-envelope": args.saveEnvelope = false; break;
       case "--version":
-        console.log("hyperscribe 0.4.2-alpha");
+        console.log("hyperscribe 0.5.0-alpha");
         process.exit(0);
       case "--help":
         printHelp();

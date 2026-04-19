@@ -1,114 +1,135 @@
-/* ===== Midnight theme — light is default, [data-mode="dark"] overrides ===== */
+/* ===== Midnight theme — Cal.com-inspired: grayscale confidence + Cal Sans display ===== */
 
-@import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 [data-theme="midnight"] {
-  /* Surfaces (Linear light neutrals) */
-  --hs-color-fg: #08090a;
-  --hs-color-bg: #f7f8f8;
+  /* Monochrome only — boldness through contrast, not hue */
+  --hs-color-fg: #242424;                            /* Charcoal */
+  --hs-color-bg: #ffffff;
   --hs-color-surface: #ffffff;
-  --hs-color-surface-alt: #f3f4f5;
-  --hs-color-surface-dark: #e6e6e6;
+  --hs-color-surface-alt: #f5f5f5;
+  --hs-color-surface-dark: #111111;
 
-  --hs-color-fg-muted: #62666d;
-  --hs-color-fg-placeholder: #8a8f98;
+  --hs-color-fg-muted: #898989;                      /* Mid Gray */
+  --hs-color-fg-placeholder: #bcbcbc;
 
-  --hs-color-accent: #5e6ad2;
-  --hs-color-accent-active: #4e58b3;
-  --hs-color-navy: #5e6ad2;
-  --hs-color-purple: #7a7fad;
-  --hs-color-pink: #ff64c8;
-  --hs-color-teal: #10b981;
-  --hs-color-brown: #a8784d;
-  --hs-color-focus: #5e6ad2;
-  --hs-color-badge-bg: rgba(94, 106, 210, 0.08);
-  --hs-color-badge-text: #4e58b3;
-  --hs-color-success: #10b981;
-  --hs-color-warn: #d97706;
+  /* Chrome — grayscale; only links use blue */
+  --hs-color-accent: #242424;                        /* Dark CTA */
+  --hs-color-accent-active: #111111;
+  --hs-color-navy: #1f2937;
+  --hs-color-purple: #6b7280;
+  --hs-color-pink: #9ca3af;
+  --hs-color-teal: #6b7280;
+  --hs-color-brown: #78716c;
+  --hs-color-focus: rgba(59, 130, 246, 0.5);
+  --hs-color-badge-bg: #f5f5f5;
+  --hs-color-badge-text: #242424;
+  --hs-color-success: #059669;
+  --hs-color-warn: #b45309;
 
-  --hs-border-whisper: 1px solid #e6e6e6;
-  --hs-shadow-card: rgba(0,0,0,0.04) 0 1px 3px,
-                    rgba(0,0,0,0.06) 0 4px 12px;
-  --hs-shadow-deep: rgba(0,0,0,0.08) 0 2px 6px,
-                    rgba(0,0,0,0.1) 0 8px 24px;
+  /* Cal.com signature 3-layer ring + contact + diffuse shadow */
+  --hs-border-whisper: 1px solid rgba(34, 42, 53, 0.08);
+  --hs-shadow-card: rgba(19, 19, 22, 0.7) 0 1px 5px -4px,
+                    rgba(34, 42, 53, 0.08) 0 0 0 1px,
+                    rgba(34, 42, 53, 0.05) 0 4px 8px 0;
+  --hs-shadow-deep: rgba(19, 19, 22, 0.8) 0 2px 8px -6px,
+                    rgba(34, 42, 53, 0.10) 0 0 0 1px,
+                    rgba(34, 42, 53, 0.08) 0 8px 16px 0;
 
-  --hs-font-sans: "Inter Variable", Inter, -apple-system, system-ui,
-                  "SF Pro Display", "Segoe UI", Helvetica, Arial;
-  --hs-font-mono: "Berkeley Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* Cal Sans display, Inter body */
+  --hs-font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --hs-font-display: "Cal Sans", "Inter", -apple-system, sans-serif;
+  --hs-font-mono: "JetBrains Mono", "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --hs-tone-info-bg:    rgba(94, 106, 210, 0.08);
-  --hs-tone-info-fg:    #4e58b3;
-  --hs-tone-warn-bg:    rgba(217, 119, 6, 0.1);
-  --hs-tone-warn-fg:    #b45309;
-  --hs-tone-success-bg: rgba(16, 185, 129, 0.1);
-  --hs-tone-success-fg: #047857;
-  --hs-tone-danger-bg:  rgba(220, 38, 38, 0.1);
-  --hs-tone-danger-fg:  #b91c1c;
+  /* Semantic — mostly grayscale, minor tint on success/warn for legibility */
+  --hs-tone-info-bg:    #f5f5f5;
+  --hs-tone-info-fg:    #242424;
+  --hs-tone-warn-bg:    #f5f5f5;
+  --hs-tone-warn-fg:    #78716c;
+  --hs-tone-success-bg: #f5f5f5;
+  --hs-tone-success-fg: #242424;
+  --hs-tone-danger-bg:  #f5f5f5;
+  --hs-tone-danger-fg:  #111111;
 
-  --hs-note-bg:     rgba(113, 112, 255, 0.08);
-  --hs-note-border: rgba(113, 112, 255, 0.4);
-  --hs-note-text:   #4e58b3;
+  --hs-note-bg:     #f5f5f5;
+  --hs-note-border: #898989;
+  --hs-note-text:   #242424;
 }
 
 [data-theme="midnight"][data-mode="dark"] {
-  /* Midnight's native dark canvas */
-  --hs-color-fg: #f7f8f8;
-  --hs-color-bg: #08090a;
-  --hs-color-surface: #0f1011;
-  --hs-color-surface-alt: #191a1b;
-  --hs-color-surface-dark: #010102;
+  /* Inverted monochrome — same grayscale confidence on dark canvas */
+  --hs-color-fg: #f5f5f5;
+  --hs-color-bg: #0a0a0a;
+  --hs-color-surface: #171717;
+  --hs-color-surface-alt: #242424;
+  --hs-color-surface-dark: #000000;
 
-  --hs-color-fg-muted: #8a8f98;
-  --hs-color-fg-placeholder: #62666d;
+  --hs-color-fg-muted: #898989;
+  --hs-color-fg-placeholder: #525252;
 
-  --hs-color-accent: #7170ff;
-  --hs-color-accent-active: #828fff;
-  --hs-color-navy: #5e6ad2;
-  --hs-color-purple: #7a7fad;
-  --hs-color-pink: #ff89d9;
-  --hs-color-teal: #10b981;
-  --hs-color-brown: #a8784d;
-  --hs-color-focus: #7170ff;
-  --hs-color-badge-bg: rgba(113, 112, 255, 0.12);
-  --hs-color-badge-text: #828fff;
-  --hs-color-success: #10b981;
-  --hs-color-warn: #ff9a62;
+  --hs-color-accent: #f5f5f5;
+  --hs-color-accent-active: #ffffff;
+  --hs-color-focus: #f5f5f5;
+  --hs-color-badge-bg: #242424;
+  --hs-color-badge-text: #f5f5f5;
 
   --hs-border-whisper: 1px solid rgba(255, 255, 255, 0.08);
-  --hs-shadow-card: rgba(0,0,0,0.2) 0 0 0 1px,
-                    rgba(0,0,0,0.4) 0 2px 4px;
-  --hs-shadow-deep: rgba(0,0,0,0.3) 0px 8px 24px,
-                    rgba(0,0,0,0.2) 0px 0px 0px 1px;
+  --hs-shadow-card: rgba(0, 0, 0, 0.9) 0 1px 5px -4px,
+                    rgba(255, 255, 255, 0.06) 0 0 0 1px,
+                    rgba(0, 0, 0, 0.4) 0 4px 8px 0;
+  --hs-shadow-deep: rgba(0, 0, 0, 1) 0 2px 8px -6px,
+                    rgba(255, 255, 255, 0.08) 0 0 0 1px,
+                    rgba(0, 0, 0, 0.5) 0 8px 16px 0;
 
-  --hs-tone-info-bg:    rgba(113, 112, 255, 0.12);
-  --hs-tone-info-fg:    #a5a3ff;
-  --hs-tone-warn-bg:    rgba(255, 154, 98, 0.14);
-  --hs-tone-warn-fg:    #ffb284;
-  --hs-tone-success-bg: rgba(16, 185, 129, 0.14);
-  --hs-tone-success-fg: #5eead4;
-  --hs-tone-danger-bg:  rgba(248, 113, 113, 0.14);
-  --hs-tone-danger-fg:  #fca5a5;
+  --hs-tone-info-bg:    #242424;
+  --hs-tone-info-fg:    #f5f5f5;
+  --hs-tone-warn-bg:    #242424;
+  --hs-tone-warn-fg:    #e5e5e5;
+  --hs-tone-success-bg: #242424;
+  --hs-tone-success-fg: #f5f5f5;
+  --hs-tone-danger-bg:  #242424;
+  --hs-tone-danger-fg:  #ffffff;
 
-  --hs-note-bg:     rgba(113, 112, 255, 0.1);
-  --hs-note-border: rgba(113, 112, 255, 0.45);
-  --hs-note-text:   #d0d6e0;
+  --hs-note-bg:     #242424;
+  --hs-note-border: #898989;
+  --hs-note-text:   #f5f5f5;
 }
 
-[data-theme="midnight"] body {
-  font-feature-settings: "cv01", "ss03";
-  font-weight: 400;
-}
+/* === Midnight character: Cal Sans tight display, Inter body, grayscale discipline === */
 [data-theme="midnight"] .hs-page-title,
 [data-theme="midnight"] .hs-section-title {
-  font-weight: 510;
-  letter-spacing: -0.022em;
+  font-family: var(--hs-font-display);
+  font-weight: 600;
+  line-height: 1.10;
+  letter-spacing: 0;
 }
-[data-theme="midnight"] .hs-heading-h2 { letter-spacing: -0.022em; font-weight: 510; }
-[data-theme="midnight"] .hs-heading-h3 { letter-spacing: -0.012em; font-weight: 590; }
-[data-theme="midnight"] .hs-heading-h4 { font-weight: 590; }
+[data-theme="midnight"] .hs-heading-h2 {
+  font-family: var(--hs-font-display);
+  font-weight: 600;
+  line-height: 1.10;
+  letter-spacing: 0;
+}
+[data-theme="midnight"] .hs-heading-h3,
+[data-theme="midnight"] .hs-heading-h4 {
+  font-family: var(--hs-font-display);
+  font-weight: 600;
+  letter-spacing: 0.011em;        /* +0.2px positive tracking at sub-display sizes */
+  line-height: 1.2;
+}
+[data-theme="midnight"] body { font-weight: 400; }
 [data-theme="midnight"] .hs-page-subtitle,
 [data-theme="midnight"] .hs-section-lead {
-  color: var(--hs-color-fg-muted);
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-weight: 300;
+  letter-spacing: -0.012em;
+  line-height: 1.5;
+}
+[data-theme="midnight"] .hs-prose { font-weight: 400; line-height: 1.5; }
+/* The one place color leaks in — hyperlinks */
+[data-theme="midnight"] .hs-prose a {
+  color: #0099ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+[data-theme="midnight"][data-mode="dark"] .hs-prose a {
+  color: #60a5fa;
 }

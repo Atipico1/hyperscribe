@@ -3,7 +3,7 @@ name: hyperscribe
 description: Generate self-contained HTML pages (diagrams, slide decks, comparison tables, architecture overviews, dashboards, diff reviews) by emitting semantic component JSON. Use whenever a visual artifact communicates better than terminal prose — proactively trigger on 4+ row tables, ASCII flowcharts, multi-stage pipelines, or explicit "make a diagram / slides / recap" requests.
 license: MIT
 metadata:
-  version: "0.4.2-alpha"
+  version: "0.5.0-alpha"
   compatibility: "Requires Node.js 20+ and a browser to view output"
 ---
 
@@ -48,10 +48,10 @@ if [ -z "$PREF" ]; then
   cat <<'PROMPT'
 Hyperscribe first-run setup. Pick a theme and mode.
 
-Themes:  1) studio    (warm, paper-feel)
-         2) midnight  (cool, developer-dark)
-         3) void      (pure black, electric blue accent)
-         4) gallery   (cinematic alternating surfaces)
+Themes:  1) studio    (Airtable — clean enterprise canvas + Airtable Blue)
+         2) midnight  (Cal.com — grayscale monochrome + Cal Sans display)
+         3) void      (Bugatti — architectural black + 3-color discipline)
+         4) gallery   (Apple — cinematic binary surfaces + SF Pro)
 
 Modes:   light / dark / auto
 

@@ -6,7 +6,7 @@ argument-hint: [git range | PR URL | (paste in followup)]
 
 ## Step 0 — theme preference (run first, every invocation)
 
-**When `PREF` is empty below, you MUST prompt the user for theme + mode via `AskUserQuestion` BEFORE writing the preference file — theme options: `studio` (warm paper), `midnight` (cool developer-dark), `void` (pure black / electric blue), `gallery` (cinematic alternating surfaces); mode options: `light` / `dark` / `auto`. Use the answer to set `THEME` and `MODE`. If the user skips or the tool is unavailable, fall back silently to `studio` + `light`.**
+**When `PREF` is empty below, you MUST prompt the user for theme + mode via `AskUserQuestion` BEFORE writing the preference file — theme options: `studio` (Airtable — clean enterprise canvas, Airtable Blue accent), `midnight` (Cal.com — grayscale monochrome, Cal Sans display), `void` (Bugatti — architectural black canvas, 288px display scale, 3-color palette), `gallery` (Apple — cinematic binary surfaces, SF Pro, Apple Blue); mode options: `light` / `dark` / `auto`. Use the answer to set `THEME` and `MODE`. If the user skips or the tool is unavailable, fall back silently to `studio` + `light`.**
 
 ```bash
 PREF=""

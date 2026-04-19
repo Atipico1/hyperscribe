@@ -1,17 +1,19 @@
-/* ===== Gallery theme — Apple-inspired, cinematic binary surfaces ===== */
+/* ===== Gallery theme — Apple-inspired: cinematic binary surfaces + SF Pro ===== */
 
 [data-theme="gallery"] {
-  --hs-color-fg: #1d1d1f;
+  /* Apple's iconic binary — black vs light gray, never white/surface swap */
+  --hs-color-fg: #1d1d1f;                            /* Near Black — warmer than pure */
   --hs-color-bg: #ffffff;
   --hs-color-surface: #ffffff;
-  --hs-color-surface-alt: #f5f5f7;
+  --hs-color-surface-alt: #f5f5f7;                   /* Apple Light Gray — slight blue tint */
   --hs-color-surface-dark: #1d1d1f;
 
   --hs-color-fg-muted: rgba(0, 0, 0, 0.8);
   --hs-color-fg-placeholder: rgba(0, 0, 0, 0.48);
 
+  /* Apple Blue — the ONLY chromatic color in the interface */
   --hs-color-accent: #0071e3;
-  --hs-color-accent-active: #0058b0;
+  --hs-color-accent-active: #0066cc;
   --hs-color-navy: #001e4a;
   --hs-color-purple: #5856d6;
   --hs-color-pink: #ff2d92;
@@ -23,16 +25,18 @@
   --hs-color-success: #30a14c;
   --hs-color-warn: #ca5010;
 
-  /* Apple almost never uses visible borders */
+  /* Apple's single soft diffused shadow — no multi-layer, no ring borders */
   --hs-border-whisper: 1px solid transparent;
-  /* Signature Apple soft diffused shadow */
-  --hs-shadow-card: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
-  --hs-shadow-deep: rgba(0, 0, 0, 0.12) 0 10px 40px,
-                    rgba(0, 0, 0, 0.08) 0 4px 16px;
+  --hs-shadow-card: rgba(0, 0, 0, 0.22) 3px 5px 30px 0;
+  --hs-shadow-deep: rgba(0, 0, 0, 0.22) 0 10px 40px,
+                    rgba(0, 0, 0, 0.12) 0 4px 16px;
 
+  /* SF Pro system stack — optical sizing native on Apple hardware */
   --hs-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text",
                   "SF Pro Display", "Helvetica Neue", Helvetica, Arial,
-                  "Inter Variable", Inter, system-ui, sans-serif;
+                  system-ui, sans-serif;
+  --hs-font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+                     "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
   --hs-font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo,
                   "Cascadia Mono", Consolas, "Courier New", monospace;
 
@@ -54,29 +58,22 @@
   --hs-color-fg: #f5f5f7;
   --hs-color-bg: #000000;
   --hs-color-surface: #1d1d1f;
-  --hs-color-surface-alt: #272729;
+  --hs-color-surface-alt: #272729;                   /* Dark Surface 1 */
   --hs-color-surface-dark: #000000;
 
-  --hs-color-fg-muted: rgba(255, 255, 255, 0.7);
-  --hs-color-fg-placeholder: rgba(255, 255, 255, 0.4);
+  --hs-color-fg-muted: rgba(255, 255, 255, 0.8);
+  --hs-color-fg-placeholder: rgba(255, 255, 255, 0.48);
 
-  --hs-color-accent: #2997ff;
+  --hs-color-accent: #2997ff;                        /* Bright Blue — contrast for dark */
   --hs-color-accent-active: #5eb0ff;
-  --hs-color-navy: #8e9fcd;
-  --hs-color-purple: #a3a3ff;
-  --hs-color-pink: #ff6bb0;
-  --hs-color-teal: #5eead4;
-  --hs-color-brown: #c4a47c;
   --hs-color-focus: #2997ff;
   --hs-color-badge-bg: rgba(41, 151, 255, 0.12);
   --hs-color-badge-text: #5eb0ff;
-  --hs-color-success: #4ade80;
-  --hs-color-warn: #fb923c;
 
   --hs-border-whisper: 1px solid transparent;
-  --hs-shadow-card: rgba(0, 0, 0, 0.50) 3px 5px 30px 0px;
-  --hs-shadow-deep: rgba(0, 0, 0, 0.35) 0 10px 40px,
-                    rgba(0, 0, 0, 0.25) 0 4px 16px;
+  --hs-shadow-card: rgba(0, 0, 0, 0.5) 3px 5px 30px 0;
+  --hs-shadow-deep: rgba(0, 0, 0, 0.5) 0 10px 40px,
+                    rgba(0, 0, 0, 0.3) 0 4px 16px;
 
   --hs-tone-info-bg:    rgba(41, 151, 255, 0.12);
   --hs-tone-info-fg:    #5eb0ff;
@@ -90,4 +87,61 @@
   --hs-note-bg:     rgba(234, 179, 8, 0.15);
   --hs-note-border: #eab308;
   --hs-note-text:   #fde68a;
+}
+
+/* === Gallery character: SF Pro tight tracking, cinematic alternating surfaces === */
+[data-theme="gallery"] body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+[data-theme="gallery"] .hs-page-title {
+  font-family: var(--hs-font-display);
+  font-weight: 600;
+  line-height: 1.07;
+  letter-spacing: -0.005em;      /* ~-0.28px at 56px — Apple hero tracking */
+}
+[data-theme="gallery"] .hs-section-title {
+  font-family: var(--hs-font-display);
+  font-weight: 600;
+  line-height: 1.10;
+  letter-spacing: -0.003em;
+}
+[data-theme="gallery"] .hs-heading-h2 {
+  font-family: var(--hs-font-display);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: 0.007em;        /* ~0.196px at 28px — Apple tile heading */
+}
+[data-theme="gallery"] .hs-heading-h3 {
+  font-family: var(--hs-font-display);
+  font-weight: 700;
+  line-height: 1.19;
+  letter-spacing: 0.011em;        /* ~0.231px at 21px — Apple card title */
+}
+[data-theme="gallery"] .hs-heading-h4 {
+  font-weight: 600;
+  line-height: 1.24;
+  letter-spacing: -0.022em;
+}
+[data-theme="gallery"] .hs-page-subtitle,
+[data-theme="gallery"] .hs-section-lead {
+  font-weight: 400;
+  letter-spacing: -0.022em;       /* ~-0.374px at 17px — Apple body tracking */
+  line-height: 1.47;
+}
+[data-theme="gallery"] .hs-prose {
+  letter-spacing: -0.022em;
+  line-height: 1.47;
+}
+/* Cinematic alternation — Apple's black↔light-gray section rhythm */
+[data-theme="gallery"] .hs-section {
+  padding: var(--hs-space-8) var(--hs-space-5);
+  margin-inline: calc(-1 * var(--hs-space-5));
+  border-radius: var(--hs-radius-large);
+}
+[data-theme="gallery"] .hs-section:nth-of-type(even) {
+  background: var(--hs-color-surface-alt);
+}
+[data-theme="gallery"][data-mode="dark"] .hs-section:nth-of-type(even) {
+  background: var(--hs-color-surface);
 }

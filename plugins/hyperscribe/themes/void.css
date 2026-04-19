@@ -1,95 +1,143 @@
-/* ===== Void theme — dark-native, pure black, Framer-inspired ===== */
+/* ===== Void theme — Bugatti-inspired: architectural black + 3-color monochrome ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap');
 
 [data-theme="void"] {
-  /* Surfaces (light variant of a dark-first theme) */
-  --hs-color-fg: #0a0a0a;
-  --hs-color-bg: #fafafa;
+  /* Light variant of a dark-native theme — black ink on white */
+  --hs-color-fg: #000000;
+  --hs-color-bg: #ffffff;
   --hs-color-surface: #ffffff;
-  --hs-color-surface-alt: #f0f0f0;
-  --hs-color-surface-dark: #0a0a0a;
+  --hs-color-surface-alt: #fafafa;
+  --hs-color-surface-dark: #000000;
 
-  --hs-color-fg-muted: #4d4d4d;
-  --hs-color-fg-placeholder: #8a8a8a;
+  --hs-color-fg-muted: #999999;                      /* Silver Mist — only gray in system */
+  --hs-color-fg-placeholder: #cccccc;
 
-  --hs-color-accent: #0066cc;
-  --hs-color-accent-active: #0055b3;
-  --hs-color-navy: #0a2b66;
-  --hs-color-purple: #3b1780;
-  --hs-color-pink: #d946ef;
-  --hs-color-teal: #0e7490;
-  --hs-color-brown: #5c3317;
-  --hs-color-focus: #0099ff;
-  --hs-color-badge-bg: rgba(0, 153, 255, 0.08);
-  --hs-color-badge-text: #0066cc;
-  --hs-color-success: #15803d;
-  --hs-color-warn: #c2410c;
+  /* No chromatic accent — the chrome is silent */
+  --hs-color-accent: #000000;
+  --hs-color-accent-active: #333333;
+  --hs-color-navy: #000000;
+  --hs-color-purple: #555555;
+  --hs-color-pink: #999999;
+  --hs-color-teal: #555555;
+  --hs-color-brown: #999999;
+  --hs-color-focus: #000000;
+  --hs-color-badge-bg: transparent;
+  --hs-color-badge-text: #000000;
+  --hs-color-success: #000000;
+  --hs-color-warn: #000000;
 
-  --hs-border-whisper: 1px solid rgba(0, 0, 0, 0.08);
-  --hs-shadow-card: rgba(0,0,0,0.06) 0 4px 18px,
-                    rgba(0,0,0,0.04) 0 2px 8px;
-  --hs-shadow-deep: rgba(0,0,0,0.04) 0 1px 3px,
-                    rgba(0,0,0,0.06) 0 10px 30px;
+  /* Hairlines only — Bugatti has zero box-shadows */
+  --hs-border-whisper: 1px solid #999999;
+  --hs-shadow-card: none;
+  --hs-shadow-deep: none;
 
-  --hs-font-sans: "Inter Variable", Inter, -apple-system, system-ui,
-                  "Segoe UI", Helvetica, Arial, sans-serif;
-  --hs-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular,
-                  Menlo, Consolas, monospace;
+  /* Unbounded substitutes for proprietary Bugatti Display */
+  --hs-font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --hs-font-display: "Unbounded", "Bugatti Display", ui-sans-serif, system-ui, sans-serif;
+  --hs-font-mono: "JetBrains Mono", "Space Mono", "Bugatti Monospace",
+                  ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --hs-tone-info-bg:    rgba(0, 102, 204, 0.08);
-  --hs-tone-info-fg:    #0066cc;
-  --hs-tone-warn-bg:    rgba(194, 65, 12, 0.08);
-  --hs-tone-warn-fg:    #c2410c;
-  --hs-tone-success-bg: rgba(21, 128, 61, 0.08);
-  --hs-tone-success-fg: #15803d;
-  --hs-tone-danger-bg:  rgba(153, 27, 27, 0.08);
-  --hs-tone-danger-fg:  #991b1b;
+  /* Semantic — all monochrome, borders carry the signal */
+  --hs-tone-info-bg:    transparent;
+  --hs-tone-info-fg:    #000000;
+  --hs-tone-warn-bg:    transparent;
+  --hs-tone-warn-fg:    #000000;
+  --hs-tone-success-bg: transparent;
+  --hs-tone-success-fg: #000000;
+  --hs-tone-danger-bg:  transparent;
+  --hs-tone-danger-fg:  #000000;
 
-  --hs-note-bg:     rgba(234, 179, 8, 0.10);
-  --hs-note-border: #ca8a04;
-  --hs-note-text:   #713f12;
+  --hs-note-bg:     transparent;
+  --hs-note-border: #999999;
+  --hs-note-text:   #000000;
 }
 
 [data-theme="void"][data-mode="dark"] {
-  /* The signature Framer-inspired variant — pure black */
+  /* The signature Bugatti canvas — pure #000, no off-black */
   --hs-color-fg: #ffffff;
   --hs-color-bg: #000000;
   --hs-color-surface: #000000;
-  --hs-color-surface-alt: #090909;
+  --hs-color-surface-alt: #000000;
   --hs-color-surface-dark: #000000;
 
-  --hs-color-fg-muted: #a6a6a6;
-  --hs-color-fg-placeholder: rgba(255, 255, 255, 0.4);
+  --hs-color-fg-muted: #999999;
+  --hs-color-fg-placeholder: #555555;
 
-  --hs-color-accent: #0099ff;
-  --hs-color-accent-active: #33aeff;
-  --hs-color-navy: #6d8ad0;
-  --hs-color-purple: #c084fc;
-  --hs-color-pink: #f472b6;
-  --hs-color-teal: #5eead4;
-  --hs-color-brown: #a8784d;
-  --hs-color-focus: #0099ff;
-  --hs-color-badge-bg: rgba(0, 153, 255, 0.12);
-  --hs-color-badge-text: #33aeff;
-  --hs-color-success: #4ade80;
-  --hs-color-warn: #fb923c;
+  --hs-color-accent: #ffffff;
+  --hs-color-accent-active: #cccccc;
+  --hs-color-focus: #ffffff;
+  --hs-color-badge-bg: transparent;
+  --hs-color-badge-text: #ffffff;
 
-  /* Signature blue ring shadow for containment */
-  --hs-border-whisper: 1px solid rgba(0, 153, 255, 0.15);
-  --hs-shadow-card: rgba(255, 255, 255, 0.10) 0 0.5px 0 0.5px,
-                    rgba(0, 0, 0, 0.25) 0 10px 30px;
-  --hs-shadow-deep: rgba(255, 255, 255, 0.10) 0 0.5px 0 0.5px,
-                    rgba(0, 0, 0, 0.45) 0 20px 60px;
+  --hs-border-whisper: 1px solid #999999;
+  --hs-shadow-card: none;
+  --hs-shadow-deep: none;
 
-  --hs-tone-info-bg:    rgba(0, 153, 255, 0.12);
-  --hs-tone-info-fg:    #33aeff;
-  --hs-tone-warn-bg:    rgba(251, 146, 60, 0.14);
-  --hs-tone-warn-fg:    #fdba74;
-  --hs-tone-success-bg: rgba(74, 222, 128, 0.12);
-  --hs-tone-success-fg: #86efac;
-  --hs-tone-danger-bg:  rgba(248, 113, 113, 0.15);
-  --hs-tone-danger-fg:  #fca5a5;
+  --hs-tone-info-bg:    transparent;
+  --hs-tone-info-fg:    #ffffff;
+  --hs-tone-warn-bg:    transparent;
+  --hs-tone-warn-fg:    #ffffff;
+  --hs-tone-success-bg: transparent;
+  --hs-tone-success-fg: #ffffff;
+  --hs-tone-danger-bg:  transparent;
+  --hs-tone-danger-fg:  #ffffff;
 
-  --hs-note-bg:     rgba(234, 179, 8, 0.15);
-  --hs-note-border: #eab308;
-  --hs-note-text:   #fde68a;
+  --hs-note-bg:     transparent;
+  --hs-note-border: #999999;
+  --hs-note-text:   #ffffff;
+}
+
+/* === Void character: architectural display scale + UPPERCASE mono labels === */
+[data-theme="void"] .hs-page-title {
+  font-family: var(--hs-font-display);
+  font-size: 96px;
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+[data-theme="void"] .hs-section-title {
+  font-family: var(--hs-font-display);
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+[data-theme="void"] .hs-heading-h2 {
+  font-family: var(--hs-font-display);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+[data-theme="void"] .hs-heading-h3 {
+  font-family: var(--hs-font-display);
+  font-weight: 400;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+[data-theme="void"] .hs-heading-h4 {
+  font-family: var(--hs-font-mono);
+  font-weight: 400;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;          /* ~1.4px at 14px — Bugatti mono tracking */
+}
+[data-theme="void"] .hs-page-subtitle,
+[data-theme="void"] .hs-section-lead {
+  font-family: var(--hs-font-mono);
+  font-weight: 400;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.43;
+}
+[data-theme="void"] .hs-prose {
+  font-family: var(--hs-font-sans);
+  font-weight: 400;
+  line-height: 1.5;
 }
