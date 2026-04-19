@@ -3,7 +3,7 @@ name: hyperscribe-slides
 description: Generate a self-contained HTML slide deck (SlideDeck + Slides with keyboard nav) from a topic or outline. Use whenever the user asks for "slides", "a deck", "a presentation", a "walkthrough", or a 5+ step recap. Requires the `hyperscribe` skill to be installed (provides the renderer engine).
 license: MIT
 metadata:
-  version: "0.3.1-alpha"
+  version: "0.4.0-alpha"
   requires: "hyperscribe"
 ---
 
