@@ -1,0 +1,21 @@
+{
+  "name": "hyperscribe",
+  "private": true,
+  "version": "0.1.0-alpha",
+  "description": "A2UI-style visual explainer — LLM emits component JSON, zero-dep Node renders self-contained HTML",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node --test tests/**/*.test.mjs tests/*.test.mjs",
+    "test:update-golden": "UPDATE_GOLDEN=1 node --test tests/render.test.mjs",
+    "build:catalog": "node tools/build-catalog-md.mjs"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Atipico1/hyperscribe.git"
+  },
+  "keywords": ["a2ui", "visual-explainer", "claude-code", "generative-ui", "llm"]
+}

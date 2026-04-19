@@ -1,0 +1,11 @@
+{
+  "name": "hyperscribe",
+  "displayName": "Hyperscribe",
+  "description": "Generate self-contained HTML pages for diagrams, slides, tables, architecture overviews, and visual explanations. LLM emits semantic JSON; renderer produces HTML.",
+  "version": "0.1.0-alpha",
+  "license": "MIT",
+  "author": "Atipico1",
+  "metadata": {
+    "compatibility": "Requires Node.js 20+ and a browser to view output"
+  }
+}

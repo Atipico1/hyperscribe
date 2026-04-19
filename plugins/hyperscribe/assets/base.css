@@ -1,0 +1,159 @@
+:root {
+  /* === Colors === */
+  --hs-color-fg: rgba(0, 0, 0, 0.95);
+  --hs-color-bg: #ffffff;
+  --hs-color-accent: #0075de;
+  --hs-color-accent-active: #005bab;
+  --hs-color-navy: #213183;
+  --hs-color-surface-alt: #f6f5f4;
+  --hs-color-surface-dark: #31302e;
+  --hs-color-fg-muted: #615d59;
+  --hs-color-fg-placeholder: #a39e98;
+  --hs-color-success: #1aae39;
+  --hs-color-teal: #2a9d99;
+  --hs-color-warn: #dd5b00;
+  --hs-color-pink: #ff64c8;
+  --hs-color-purple: #391c57;
+  --hs-color-brown: #523410;
+  --hs-color-focus: #097fe8;
+  --hs-color-badge-bg: #f2f9ff;
+  --hs-color-badge-text: #097fe8;
+
+  /* === Border & shadow === */
+  --hs-border-whisper: 1px solid rgba(0, 0, 0, 0.1);
+  --hs-shadow-card: rgba(0,0,0,0.04) 0 4px 18px,
+                    rgba(0,0,0,0.027) 0 2.025px 7.84688px,
+                    rgba(0,0,0,0.02) 0 0.8px 2.925px,
+                    rgba(0,0,0,0.01) 0 0.175px 1.04062px;
+  --hs-shadow-deep: rgba(0,0,0,0.01) 0 1px 3px,
+                    rgba(0,0,0,0.02) 0 3px 7px,
+                    rgba(0,0,0,0.02) 0 7px 15px,
+                    rgba(0,0,0,0.04) 0 14px 28px,
+                    rgba(0,0,0,0.05) 0 23px 52px;
+
+  /* === Typography === */
+  --hs-font-sans: "NotionInter", Inter, -apple-system, system-ui,
+                  "Segoe UI", Helvetica, "Apple Color Emoji", Arial,
+                  "Segoe UI Emoji", "Segoe UI Symbol";
+  --hs-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular,
+                  Menlo, Consolas, monospace;
+
+  /* === Spacing === */
+  --hs-space-1: 4px;
+  --hs-space-2: 8px;
+  --hs-space-3: 12px;
+  --hs-space-4: 16px;
+  --hs-space-5: 24px;
+  --hs-space-6: 32px;
+  --hs-space-8: 64px;
+  --hs-space-10: 120px;
+
+  /* === Radius === */
+  --hs-radius-micro: 4px;
+  --hs-radius-subtle: 5px;
+  --hs-radius-std: 8px;
+  --hs-radius-comfort: 12px;
+  --hs-radius-large: 16px;
+  --hs-radius-pill: 9999px;
+
+  --hs-container-max: 1200px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--hs-font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--hs-color-fg);
+  background: var(--hs-color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === Page === */
+.hs-page {
+  max-width: var(--hs-container-max);
+  margin: 0 auto;
+  padding: var(--hs-space-8) var(--hs-space-5);
+}
+.hs-page-header { margin-bottom: var(--hs-space-6); }
+.hs-page-title {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -2.125px;
+  margin: 0 0 var(--hs-space-3);
+  font-feature-settings: "lnum", "locl";
+}
+.hs-page-subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.125px;
+  color: var(--hs-color-fg-muted);
+  margin: 0;
+}
+
+/* === Section === */
+.hs-section { margin-top: var(--hs-space-8); }
+.hs-section-title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  margin: 0 0 var(--hs-space-4);
+  font-feature-settings: "lnum", "locl";
+}
+.hs-section-lead {
+  color: var(--hs-color-fg-muted);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 var(--hs-space-5);
+}
+.hs-section-lead p { margin: 0; }
+.hs-section-body > * + * { margin-top: var(--hs-space-4); }
+
+/* === Headings === */
+.hs-heading { margin: var(--hs-space-5) 0 var(--hs-space-3); font-weight: 700; }
+.hs-heading-h2 {
+  font-size: 40px;
+  line-height: 1.5;
+  font-feature-settings: "lnum", "locl";
+}
+.hs-heading-h3 {
+  font-size: 26px;
+  line-height: 1.23;
+  letter-spacing: -0.625px;
+}
+.hs-heading-h4 {
+  font-size: 22px;
+  line-height: 1.27;
+  letter-spacing: -0.25px;
+}
+
+/* === Prose === */
+.hs-prose { line-height: 1.5; }
+.hs-prose p { margin: 0 0 var(--hs-space-3); }
+.hs-prose p:last-child { margin-bottom: 0; }
+.hs-prose strong { font-weight: 600; }
+.hs-prose em { font-style: italic; }
+.hs-prose code {
+  font-family: var(--hs-font-mono);
+  font-size: 0.9em;
+  background: var(--hs-color-surface-alt);
+  padding: 2px 5px;
+  border-radius: var(--hs-radius-micro);
+}
+.hs-prose a {
+  color: var(--hs-color-accent);
+  text-decoration: none;
+}
+.hs-prose a:hover { text-decoration: underline; }
+.hs-prose ul, .hs-prose ol {
+  margin: 0 0 var(--hs-space-3);
+  padding-left: var(--hs-space-5);
+}
+.hs-prose li { margin-bottom: var(--hs-space-1); }

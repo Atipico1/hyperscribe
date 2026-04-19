@@ -1,0 +1,17 @@
+.hs-chart-wrap {
+  margin: var(--hs-space-5) 0;
+  padding: var(--hs-space-4);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-comfort);
+  background: #fff;
+}
+.hs-chart {
+  max-width: 100%;
+  max-height: 420px;
+}
+.hs-chart-cap {
+  text-align: center;
+  color: var(--hs-color-fg-muted);
+  font-size: 13px;
+  margin-top: var(--hs-space-2);
+}

@@ -1,0 +1,14 @@
+.hs-mermaid-wrap {
+  margin: var(--hs-space-5) 0;
+  padding: var(--hs-space-4);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-comfort);
+  background: #fff;
+  overflow-x: auto;
+  text-align: center;
+}
+.hs-mermaid-wrap pre.mermaid {
+  margin: 0;
+  background: transparent;
+  font-family: var(--hs-font-sans);
+}

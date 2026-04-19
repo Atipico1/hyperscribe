@@ -1,0 +1,306 @@
+{
+  "version": "hyperscribe/v1",
+  "envelope": {
+    "a2ui_version": "0.9",
+    "required": ["a2ui_version", "catalog", "parts"],
+    "root_component": "hyperscribe/Page"
+  },
+  "components": {
+    "hyperscribe/Page": {
+      "description": "Root container. Exactly one Page per envelope.",
+      "children": "required",
+      "props": {
+        "title": { "type": "string", "required": true },
+        "subtitle": { "type": "string" },
+        "toc": { "type": "boolean", "default": false }
+      }
+    },
+    "hyperscribe/Section": {
+      "description": "First-class section. Auto TOC anchor.",
+      "children": "allowed",
+      "props": {
+        "id": { "type": "string", "required": true, "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "title": { "type": "string", "required": true },
+        "lead": { "type": "string", "description": "Markdown lead paragraph" }
+      }
+    },
+    "hyperscribe/Heading": {
+      "description": "In-section heading (h2-h4).",
+      "children": "forbidden",
+      "props": {
+        "level": { "type": "number", "enum": [2, 3, 4], "required": true },
+        "text": { "type": "string", "required": true },
+        "anchor": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" }
+      }
+    },
+    "hyperscribe/Prose": {
+      "description": "Markdown paragraph block (inline formatting + lists).",
+      "children": "forbidden",
+      "props": {
+        "markdown": { "type": "string", "required": true }
+      }
+    },
+    "hyperscribe/Callout": {
+      "description": "Boxed highlight.",
+      "children": "forbidden",
+      "props": {
+        "severity": { "type": "string", "enum": ["info", "note", "warn", "success", "danger"], "required": true },
+        "title": { "type": "string" },
+        "body": { "type": "string", "required": true }
+      }
+    },
+    "hyperscribe/KPICard": {
+      "description": "Metric card with optional delta.",
+      "children": "forbidden",
+      "props": {
+        "label": { "type": "string", "required": true },
+        "value": { "type": "string", "required": true },
+        "delta": {
+          "type": "object",
+          "props": {
+            "value": { "type": "string", "required": true },
+            "direction": { "type": "string", "enum": ["up", "down", "flat"], "required": true }
+          }
+        },
+        "hint": { "type": "string" }
+      }
+    },
+    "hyperscribe/CodeBlock": {
+      "description": "Single code snippet.",
+      "children": "forbidden",
+      "props": {
+        "lang": { "type": "string", "required": true },
+        "code": { "type": "string", "required": true },
+        "filename": { "type": "string" },
+        "highlight": { "type": "array", "items": { "type": "number" } }
+      }
+    },
+    "hyperscribe/CodeDiff": {
+      "description": "Before/after unified diff.",
+      "children": "forbidden",
+      "props": {
+        "filename": { "type": "string", "required": true },
+        "lang": { "type": "string", "required": true },
+        "hunks": {
+          "type": "array",
+          "required": true,
+          "items": {
+            "type": "object",
+            "props": {
+              "before": { "type": "string", "required": true },
+              "after": { "type": "string", "required": true },
+              "atLine": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "hyperscribe/Mermaid": {
+      "description": "Mermaid.js diagram wrapper with zoom/pan.",
+      "children": "forbidden",
+      "props": {
+        "kind": { "type": "string", "enum": ["flowchart", "sequence", "er", "state", "mindmap", "class"], "required": true },
+        "source": { "type": "string", "required": true },
+        "direction": { "type": "string", "enum": ["TD", "LR"] }
+      }
+    },
+    "hyperscribe/ArchitectureGrid": {
+      "description": "Card-based architecture with SVG connectors.",
+      "children": "forbidden",
+      "props": {
+        "nodes": {
+          "type": "array",
+          "required": true,
+          "items": {
+            "type": "object",
+            "props": {
+              "id": { "type": "string", "required": true },
+              "title": { "type": "string", "required": true },
+              "description": { "type": "string" },
+              "icon": { "type": "string" },
+              "tag": { "type": "string" }
+            }
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "props": {
+              "from": { "type": "string", "required": true },
+              "to": { "type": "string", "required": true },
+              "label": { "type": "string" },
+              "style": { "type": "string", "enum": ["data", "control", "dep"] }
+            }
+          }
+        },
+        "layout": { "type": "string", "enum": ["grid", "columns", "layers"], "required": true },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "props": {
+              "id": { "type": "string", "required": true },
+              "title": { "type": "string", "required": true },
+              "nodeIds": { "type": "array", "items": { "type": "string" }, "required": true }
+            }
+          }
+        }
+      }
+    },
+    "hyperscribe/DataTable": {
+      "description": "Semantic HTML table.",
+      "children": "forbidden",
+      "props": {
+        "columns": {
+          "type": "array",
+          "required": true,
+          "items": {
+            "type": "object",
+            "props": {
+              "key": { "type": "string", "required": true },
+              "label": { "type": "string", "required": true },
+              "align": { "type": "string", "enum": ["left", "center", "right"] },
+              "wrap": { "type": "boolean" }
+            }
+          }
+        },
+        "rows": { "type": "array", "required": true, "items": { "type": "object" } },
+        "caption": { "type": "string" },
+        "footer": { "type": "object" },
+        "density": { "type": "string", "enum": ["compact", "standard"] }
+      }
+    },
+    "hyperscribe/Chart": {
+      "description": "Chart.js wrapper.",
+      "children": "forbidden",
+      "props": {
+        "kind": { "type": "string", "enum": ["line", "bar", "pie", "area", "scatter"], "required": true },
+        "data": {
+          "type": "object",
+          "required": true,
+          "props": {
+            "labels": { "type": "array", "items": { "type": "string" }, "required": true },
+            "series": {
+              "type": "array",
+              "required": true,
+              "items": {
+                "type": "object",
+                "props": {
+                  "name": { "type": "string", "required": true },
+                  "values": { "type": "array", "items": { "type": "number" }, "required": true }
+                }
+              }
+            }
+          }
+        },
+        "xLabel": { "type": "string" },
+        "yLabel": { "type": "string" },
+        "unit": { "type": "string" }
+      }
+    },
+    "hyperscribe/Comparison": {
+      "description": "N-way comparison layout.",
+      "children": "forbidden",
+      "props": {
+        "items": {
+          "type": "array",
+          "required": true,
+          "items": {
+            "type": "object",
+            "props": {
+              "title": { "type": "string", "required": true },
+              "subtitle": { "type": "string" },
+              "bullets": { "type": "array", "items": { "type": "string" }, "required": true },
+              "verdict": {
+                "type": "object",
+                "props": {
+                  "label": { "type": "string", "required": true },
+                  "tone": { "type": "string", "required": true }
+                }
+              }
+            }
+          }
+        },
+        "mode": { "type": "string", "enum": ["vs", "grid"], "required": true }
+      }
+    },
+    "hyperscribe/Timeline": {
+      "description": "Time-ordered events.",
+      "children": "forbidden",
+      "props": {
+        "items": {
+          "type": "array",
+          "required": true,
+          "items": {
+            "type": "object",
+            "props": {
+              "when": { "type": "string", "required": true },
+              "title": { "type": "string", "required": true },
+              "body": { "type": "string" },
+              "tag": { "type": "string" }
+            }
+          }
+        },
+        "orientation": { "type": "string", "enum": ["vertical", "horizontal"], "required": true }
+      }
+    },
+    "hyperscribe/StepList": {
+      "description": "Ordered steps / checklist.",
+      "children": "forbidden",
+      "props": {
+        "steps": {
+          "type": "array",
+          "required": true,
+          "items": {
+            "type": "object",
+            "props": {
+              "title": { "type": "string", "required": true },
+              "body": { "type": "string", "required": true },
+              "state": { "type": "string", "enum": ["done", "doing", "todo", "skipped"] }
+            }
+          }
+        },
+        "numbered": { "type": "boolean", "default": true }
+      }
+    },
+    "hyperscribe/Dashboard": {
+      "description": "12-col grid of panels.",
+      "children": "forbidden",
+      "props": {
+        "panels": {
+          "type": "array",
+          "required": true,
+          "items": {
+            "type": "object",
+            "props": {
+              "span": { "type": "number", "enum": [1, 2, 3, 4], "required": true },
+              "child": { "type": "object", "required": true, "description": "Nested component, limited to KPICard/Chart/DataTable/Callout" }
+            }
+          }
+        }
+      }
+    },
+    "hyperscribe/SlideDeck": {
+      "description": "Slide container.",
+      "children": "required",
+      "props": {
+        "aspect": { "type": "string", "enum": ["16:9", "4:3"], "required": true },
+        "transition": { "type": "string", "enum": ["none", "fade", "slide"] },
+        "footer": { "type": "string" }
+      }
+    },
+    "hyperscribe/Slide": {
+      "description": "Single slide.",
+      "children": "forbidden",
+      "props": {
+        "layout": { "type": "string", "enum": ["title", "content", "two-col", "quote", "image", "section"], "required": true },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "bullets": { "type": "array", "items": { "type": "string" } },
+        "image": { "type": "string" },
+        "quote": { "type": "string" }
+      }
+    }
+  }
+}

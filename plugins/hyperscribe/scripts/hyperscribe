@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Hyperscribe CLI bash wrapper.
+# Delegates to render.mjs. Node 20+ required.
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+RENDER="$SCRIPT_DIR/render.mjs"
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "hyperscribe: node not found on PATH. Requires Node 20+." >&2
+  exit 127
+fi
+
+exec node "$RENDER" "$@"

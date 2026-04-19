@@ -1,0 +1,15 @@
+{
+  "a2ui_version": "0.9",
+  "catalog": "hyperscribe/v1",
+  "parts": [
+    {
+      "component": "hyperscribe/Page",
+      "props": { "title": "Headings" },
+      "children": [
+        { "component": "hyperscribe/Heading", "props": { "level": 2, "text": "H2 Title" } },
+        { "component": "hyperscribe/Heading", "props": { "level": 3, "text": "H3 Title", "anchor": "h3" } },
+        { "component": "hyperscribe/Heading", "props": { "level": 4, "text": "H4 Title" } }
+      ]
+    }
+  ]
+}

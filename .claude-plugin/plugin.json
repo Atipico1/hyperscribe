@@ -1,0 +1,9 @@
+{
+  "name": "hyperscribe-marketplace",
+  "displayName": "Hyperscribe",
+  "description": "A2UI-style visual explainer skill + zero-dep HTML renderer",
+  "version": "0.1.0-alpha",
+  "author": "Atipico1",
+  "license": "MIT",
+  "homepage": "https://github.com/Atipico1/hyperscribe"
+}

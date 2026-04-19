@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/marketplace.json",
+  "name": "hyperscribe-marketplace",
+  "plugins": [
+    {
+      "id": "hyperscribe",
+      "source": "./plugins/hyperscribe"
+    }
+  ]
+}
