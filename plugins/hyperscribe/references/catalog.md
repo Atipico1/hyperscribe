@@ -19,7 +19,7 @@ Required envelope fields: `a2ui_version`, `catalog`, `parts`.
 
 Root component must be `hyperscribe/Page`.
 
-## Components (22 total)
+## Components (27 total)
 
 ## Structure
 
@@ -309,6 +309,75 @@ Single slide.
 | `bullets` | `array<string>` | optional |  |
 | `image` | `string` | optional |  |
 | `quote` | `string` | optional |  |
+
+## Other
+
+### `hyperscribe/FileTree`
+
+Directory/file structure visualization. Recursive nodes with optional highlights.
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `nodes` | `array<any>` | **required** |  |
+| `showIcons` | `boolean` | optional | default: `true` |
+| `caption` | `string` | optional |  |
+
+### `hyperscribe/DependencyGraph`
+
+Module/import dependency visualization (ranked layout).
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `nodes` | `array<any>` | **required** |  |
+| `edges` | `array<any>` | **required** |  |
+| `layout` | `"ranks"` | **required** |  |
+| `ranks` | `array<any>` | **required** |  |
+
+### `hyperscribe/FileCard`
+
+Per-file summary card — name, path, LOC, responsibility, exports, change state.
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `name` | `string` | **required** |  |
+| `path` | `string` | optional |  |
+| `loc` | `number` | optional |  |
+| `responsibility` | `string` | **required** |  |
+| `exports` | `array<any>` | optional |  |
+| `state` | `"modified" | "added" | "removed" | "stable"` | optional | default: `"stable"` |
+| `icon` | `string` | optional |  |
+
+### `hyperscribe/AnnotatedCode`
+
+Code block with numbered pins linking to side annotations.
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `lang` | `string` | **required** |  |
+| `code` | `string` | **required** |  |
+| `filename` | `string` | optional |  |
+| `annotations` | `array<any>` | **required** |  |
+| `pinStyle` | `"numbered" | "lettered"` | optional | default: `"numbered"` |
+
+### `hyperscribe/ERDDiagram`
+
+Entity-relationship diagram — DB/type schemas with pk/fk/nullable markers and cardinality links.
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `entities` | `array<any>` | **required** |  |
+| `relationships` | `array<any>` | **required** |  |
+| `layout` | `"grid" | "columns"` | optional | default: `"grid"` |
 
 ## Rules
 
