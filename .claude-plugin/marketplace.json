@@ -1,10 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/marketplace.json",
   "name": "hyperscribe-marketplace",
+  "owner": {
+    "name": "Atipico1"
+  },
   "plugins": [
     {
-      "id": "hyperscribe",
-      "source": "./plugins/hyperscribe"
+      "name": "hyperscribe",
+      "source": "./plugins/hyperscribe",
+      "description": "A2UI-style visual explainer — LLM emits component JSON, zero-dep Node renders self-contained HTML"
     }
   ]
 }
