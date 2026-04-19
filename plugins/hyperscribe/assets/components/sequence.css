@@ -58,13 +58,13 @@
   fill: var(--hs-color-fg);
 }
 .hs-seq-note-box {
-  fill: #fef9c3;
-  stroke: #eab308;
+  fill: var(--hs-note-bg);
+  stroke: var(--hs-note-border);
   stroke-width: 1;
 }
 .hs-seq-note-text {
   font-family: var(--hs-font-sans);
   font-size: 12px;
   font-weight: 500;
-  fill: #713f12;
+  fill: var(--hs-note-text);
 }

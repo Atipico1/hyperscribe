@@ -1,0 +1,40 @@
+[data-theme="notion-dark"] {
+  --hs-color-fg: rgba(255, 255, 255, 0.94);
+  --hs-color-bg: #191918;
+  --hs-color-accent: #4dabff;
+  --hs-color-accent-active: #2d8de0;
+  --hs-color-navy: #8891d0;
+  --hs-color-surface-alt: #242423;
+  --hs-color-surface-dark: #0f0f0e;
+  --hs-color-fg-muted: #a39e98;
+  --hs-color-fg-placeholder: #6e6b67;
+  --hs-color-success: #4ade80;
+  --hs-color-teal: #5eead4;
+  --hs-color-warn: #fb923c;
+  --hs-color-pink: #ff89d9;
+  --hs-color-purple: #c084fc;
+  --hs-color-brown: #a8784d;
+  --hs-color-focus: #60a5fa;
+  --hs-color-badge-bg: rgba(77, 171, 255, 0.12);
+  --hs-color-badge-text: #7cc0ff;
+
+  --hs-border-whisper: 1px solid rgba(255, 255, 255, 0.08);
+  --hs-shadow-card: rgba(0,0,0,0.35) 0 4px 18px,
+                    rgba(0,0,0,0.25) 0 2.025px 7.84688px,
+                    rgba(0,0,0,0.18) 0 0.8px 2.925px,
+                    rgba(0,0,0,0.12) 0 0.175px 1.04062px;
+  --hs-shadow-deep: rgba(0,0,0,0.15) 0 1px 3px,
+                    rgba(0,0,0,0.25) 0 3px 7px,
+                    rgba(0,0,0,0.3) 0 7px 15px,
+                    rgba(0,0,0,0.4) 0 14px 28px,
+                    rgba(0,0,0,0.5) 0 23px 52px;
+
+  --hs-font-sans: "NotionInter", Inter, -apple-system, system-ui,
+                  "Segoe UI", Helvetica, Arial;
+  --hs-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular,
+                  Menlo, Consolas, monospace;
+
+  --hs-note-bg: rgba(234, 179, 8, 0.15);
+  --hs-note-border: #eab308;
+  --hs-note-text: #fde68a;
+}

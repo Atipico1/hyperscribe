@@ -37,4 +37,8 @@
                   "Segoe UI Emoji", "Segoe UI Symbol";
   --hs-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular,
                   Menlo, Consolas, monospace;
+
+  --hs-note-bg: #fef9c3;
+  --hs-note-border: #eab308;
+  --hs-note-text: #713f12;
 }

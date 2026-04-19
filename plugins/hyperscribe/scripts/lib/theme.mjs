@@ -29,7 +29,12 @@ export function themeSwitcherHtml(themes, defaultTheme) {
   var KEY='hyperscribe.theme';
   var saved=null;try{saved=localStorage.getItem(KEY);}catch(e){}
   var fallback='${defaultTheme}';
-  var initial = saved || fallback;
+  var initial = saved;
+  if (!initial) {
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark && ${JSON.stringify(themes)}.indexOf(fallback + '-dark') !== -1) initial = fallback + '-dark';
+  }
+  if (!initial) initial = fallback;
   document.documentElement.setAttribute('data-theme', initial);
   var sel=document.getElementById('hs-theme-select');
   if(sel){sel.value=initial;sel.addEventListener('change',function(){

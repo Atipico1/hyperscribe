@@ -6,32 +6,26 @@ if (!window.__hsMermaidLoaded) {
   var s = document.createElement('script');
   s.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
   s.onload = function() {
+    var cs = getComputedStyle(document.documentElement);
+    function v(name, fallback) { return (cs.getPropertyValue(name) || '').trim() || fallback; }
     window.mermaid.initialize({
       startOnLoad: false,
       theme: 'base',
-      fontFamily: 'Inter, system-ui, sans-serif',
+      fontFamily: v('--hs-font-sans', 'Inter, system-ui, sans-serif'),
       themeVariables: {
-        primaryColor: '#f6f5f4',
-        primaryTextColor: 'rgba(0,0,0,0.95)',
+        primaryColor: v('--hs-color-surface-alt', '#f6f5f4'),
+        primaryTextColor: v('--hs-color-fg', 'rgba(0,0,0,0.95)'),
         primaryBorderColor: 'rgba(0,0,0,0.12)',
-        lineColor: '#615d59',
-        secondaryColor: '#f2f9ff',
-        tertiaryColor: '#ffffff',
-        actorBkg: '#f6f5f4',
-        actorBorder: 'rgba(0,0,0,0.12)',
-        actorTextColor: 'rgba(0,0,0,0.95)',
-        actorLineColor: 'rgba(0,0,0,0.14)',
-        signalColor: 'rgba(0,0,0,0.85)',
-        signalTextColor: 'rgba(0,0,0,0.95)',
-        labelBoxBkgColor: '#f6f5f4',
-        labelBoxBorderColor: 'rgba(0,0,0,0.12)',
-        labelTextColor: 'rgba(0,0,0,0.95)',
-        loopTextColor: 'rgba(0,0,0,0.95)',
-        noteBkgColor: '#fef9c3',
-        noteBorderColor: '#eab308',
-        noteTextColor: '#713f12',
-        activationBkgColor: '#eef2ff',
-        activationBorderColor: '#6366f1'
+        lineColor: v('--hs-color-fg-muted', '#615d59'),
+        actorBkg: v('--hs-color-surface-alt', '#f6f5f4'),
+        actorTextColor: v('--hs-color-fg', 'rgba(0,0,0,0.95)'),
+        signalColor: v('--hs-color-fg', 'rgba(0,0,0,0.85)'),
+        signalTextColor: v('--hs-color-fg', 'rgba(0,0,0,0.95)'),
+        labelBoxBkgColor: v('--hs-color-surface-alt', '#f6f5f4'),
+        labelTextColor: v('--hs-color-fg', 'rgba(0,0,0,0.95)'),
+        noteBkgColor: v('--hs-note-bg', '#fef9c3'),
+        noteBorderColor: v('--hs-note-border', '#eab308'),
+        noteTextColor: v('--hs-note-text', '#713f12')
       }
     });
     window.mermaid.run();
