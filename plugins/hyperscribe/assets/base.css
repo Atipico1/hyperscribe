@@ -1,43 +1,4 @@
 :root {
-  /* === Colors === */
-  --hs-color-fg: rgba(0, 0, 0, 0.95);
-  --hs-color-bg: #ffffff;
-  --hs-color-accent: #0075de;
-  --hs-color-accent-active: #005bab;
-  --hs-color-navy: #213183;
-  --hs-color-surface-alt: #f6f5f4;
-  --hs-color-surface-dark: #31302e;
-  --hs-color-fg-muted: #615d59;
-  --hs-color-fg-placeholder: #a39e98;
-  --hs-color-success: #1aae39;
-  --hs-color-teal: #2a9d99;
-  --hs-color-warn: #dd5b00;
-  --hs-color-pink: #ff64c8;
-  --hs-color-purple: #391c57;
-  --hs-color-brown: #523410;
-  --hs-color-focus: #097fe8;
-  --hs-color-badge-bg: #f2f9ff;
-  --hs-color-badge-text: #097fe8;
-
-  /* === Border & shadow === */
-  --hs-border-whisper: 1px solid rgba(0, 0, 0, 0.1);
-  --hs-shadow-card: rgba(0,0,0,0.04) 0 4px 18px,
-                    rgba(0,0,0,0.027) 0 2.025px 7.84688px,
-                    rgba(0,0,0,0.02) 0 0.8px 2.925px,
-                    rgba(0,0,0,0.01) 0 0.175px 1.04062px;
-  --hs-shadow-deep: rgba(0,0,0,0.01) 0 1px 3px,
-                    rgba(0,0,0,0.02) 0 3px 7px,
-                    rgba(0,0,0,0.02) 0 7px 15px,
-                    rgba(0,0,0,0.04) 0 14px 28px,
-                    rgba(0,0,0,0.05) 0 23px 52px;
-
-  /* === Typography === */
-  --hs-font-sans: "NotionInter", Inter, -apple-system, system-ui,
-                  "Segoe UI", Helvetica, "Apple Color Emoji", Arial,
-                  "Segoe UI Emoji", "Segoe UI Symbol";
-  --hs-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular,
-                  Menlo, Consolas, monospace;
-
   /* === Spacing === */
   --hs-space-1: 4px;
   --hs-space-2: 8px;
@@ -157,3 +118,26 @@ html, body {
   padding-left: var(--hs-space-5);
 }
 .hs-prose li { margin-bottom: var(--hs-space-1); }
+
+/* === Theme switcher === */
+.hs-theme-switcher {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  background: var(--hs-color-bg);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-comfort);
+  padding: 4px 8px;
+  box-shadow: var(--hs-shadow-card);
+}
+.hs-theme-switcher select {
+  background: transparent;
+  border: 0;
+  color: var(--hs-color-fg);
+  font-family: var(--hs-font-sans);
+  font-size: 12px;
+  padding: 2px 4px;
+  cursor: pointer;
+  outline: none;
+}

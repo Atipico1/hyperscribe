@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="notion">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Headings</title>
-  <style>:root {
+  <style>[data-theme="notion"], :root:not([data-theme]) {
   /* === Colors === */
   --hs-color-fg: rgba(0, 0, 0, 0.95);
   --hs-color-bg: #ffffff;
@@ -43,7 +43,9 @@
                   "Segoe UI Emoji", "Segoe UI Symbol";
   --hs-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular,
                   Menlo, Consolas, monospace;
+}
 
+:root {
   /* === Spacing === */
   --hs-space-1: 4px;
   --hs-space-2: 8px;
@@ -163,9 +165,33 @@ html, body {
   padding-left: var(--hs-space-5);
 }
 .hs-prose li { margin-bottom: var(--hs-space-1); }
+
+/* === Theme switcher === */
+.hs-theme-switcher {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  background: var(--hs-color-bg);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-comfort);
+  padding: 4px 8px;
+  box-shadow: var(--hs-shadow-card);
+}
+.hs-theme-switcher select {
+  background: transparent;
+  border: 0;
+  color: var(--hs-color-fg);
+  font-family: var(--hs-font-sans);
+  font-size: 12px;
+  padding: 2px 4px;
+  cursor: pointer;
+  outline: none;
+}
 </style>
 </head>
 <body>
 <article class="hs-page"><header class="hs-page-header"><h1 class="hs-page-title">Headings</h1></header><main class="hs-page-main"><h2 class="hs-heading hs-heading-h2">H2 Title</h2><h3 class="hs-heading hs-heading-h3" id="h3">H3 Title</h3><h4 class="hs-heading hs-heading-h4">H4 Title</h4></main></article>
+
 </body>
 </html>

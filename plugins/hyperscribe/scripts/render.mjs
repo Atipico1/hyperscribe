@@ -5,6 +5,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validate } from "./lib/schema.mjs";
 import { renderTree } from "./lib/tree.mjs";
+import { loadTheme, listThemes, themeSwitcherHtml } from "./lib/theme.mjs";
 import { Page } from "./components/page.mjs";
 import { Section } from "./components/section.mjs";
 import { Heading } from "./components/heading.mjs";
@@ -69,14 +70,20 @@ export async function render(doc, options = {}) {
     throw err;
   }
 
+  const themeName = options.theme || "notion";
+  const themeCss = loadTheme(themeName); // throws if unknown
+  const themes = listThemes();
+  const switcher = themeSwitcherHtml(themes, themeName);
+
   const rootNode = doc.parts[0];
   const ctx = {};
   ctx.renderNode = (node) => renderTree(node, REGISTRY, ctx);
   const bodyHtml = renderTree(rootNode, REGISTRY, ctx);
   const title = options.title || rootNode.props.title || "Hyperscribe";
-  const css = options.css !== undefined ? options.css : buildCss(rootNode);
+  const componentCss = options.css !== undefined ? options.css : buildCss(rootNode);
+  const css = `${themeCss}\n${componentCss}`;
 
-  return buildDocument({ title, bodyHtml, css });
+  return buildDocument({ title, bodyHtml, css, theme: themeName, switcher });
 }
 
 function componentFileBase(componentName) {
@@ -116,9 +123,9 @@ function buildCss(rootNode) {
   return base + extras;
 }
 
-function buildDocument({ title, bodyHtml, css }) {
+function buildDocument({ title, bodyHtml, css, theme, switcher }) {
   return `<!doctype html>
-<html lang="en">
+<html lang="en" data-theme="${escapeHtml(theme)}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -127,6 +134,7 @@ function buildDocument({ title, bodyHtml, css }) {
 </head>
 <body>
 ${bodyHtml}
+${switcher}
 </body>
 </html>
 `;
@@ -169,7 +177,7 @@ function printHelp() {
 Options:
   --in <path>          JSON input file (or pipe via stdin)
   --out <path>         Output HTML file (required unless --validate-only)
-  --theme <path>       theme.json override
+  --theme <name>       Theme name (e.g. "notion"); defaults to "notion"
   --title <string>     Override Page.title
   --quiet              Suppress progress logs
   --validate-only      Validate JSON, do not render
@@ -209,7 +217,7 @@ async function main() {
 
   let html;
   try {
-    html = await render(doc, { title: args.title });
+    html = await render(doc, { title: args.title, theme: args.theme || undefined });
   } catch (e) {
     if (e.code === "SCHEMA") {
       console.error("Schema validation failed:");
