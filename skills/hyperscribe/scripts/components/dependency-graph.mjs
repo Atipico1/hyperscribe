@@ -72,7 +72,8 @@ export function DependencyGraph(props) {
   }
 
   const viewMinY = hasSelfLoop ? -selfLoopExtraTop : 0;
-  return `<svg class="hs-dep-graph" viewBox="0 ${viewMinY} ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dependency graph">
+  return `<div class="hs-dep-graph-wrap hs-zoomable">
+<svg class="hs-dep-graph" width="${width}" height="${height - viewMinY}" viewBox="0 ${viewMinY} ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dependency graph">
 <defs>
   <marker id="hs-dep-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
     <path d="M0,0 L10,5 L0,10 z" class="hs-dep-graph-arrow-head"/>
@@ -80,5 +81,6 @@ export function DependencyGraph(props) {
 </defs>
 ${edgeSvg.join("\n")}
 ${nodeSvg.join("\n")}
-</svg>`;
+</svg>
+</div>`;
 }

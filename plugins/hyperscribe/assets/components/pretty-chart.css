@@ -6,10 +6,15 @@
   background: var(--hs-color-bg);
   box-shadow: var(--hs-shadow-card);
 }
-.hs-pchart svg {
+.hs-pchart:not(.hs-zoomable) svg {
   display: block;
   width: 100%;
   height: auto;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.hs-pchart.hs-zoomable .hs-zoom-stage > svg {
+  display: block;
   max-width: 640px;
   margin: 0 auto;
 }

@@ -15,7 +15,7 @@ const simple = {
 
 test("FlowChart: renders wrapper + svg", () => {
   const html = FlowChart(simple);
-  assert.match(html, /<div class="hs-flow hs-flow-lr"/);
+  assert.match(html, /<div class="hs-flow hs-flow-lr[^"]*"/);
   assert.match(html, /<svg/);
 });
 

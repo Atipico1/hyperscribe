@@ -1,8 +1,13 @@
+.hs-dep-graph-wrap {
+  margin: 1.5rem 0;
+  padding: var(--hs-space-5);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-comfort);
+  background: var(--hs-color-bg);
+}
+.hs-dep-graph-wrap:not(.hs-zoomable) { overflow-x: auto; }
 .hs-dep-graph {
   display: block;
-  max-width: 100%;
-  height: auto;
-  margin: 1.5rem auto;
   font-family: var(--hs-font-sans);
   font-size: 13px;
 }

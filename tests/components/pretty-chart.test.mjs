@@ -6,7 +6,7 @@ const data1 = { labels: ["A","B","C"], series: [{ name: "s1", values: [10,20,15]
 
 test("PrettyChart: renders bar wrapper + svg", () => {
   const html = PrettyChart({ kind: "bar", data: data1 });
-  assert.match(html, /<div class="hs-pchart hs-pchart-bar"/);
+  assert.match(html, /<div class="hs-pchart hs-pchart-bar[^"]*"/);
   assert.match(html, /<svg[^>]+viewBox/);
 });
 

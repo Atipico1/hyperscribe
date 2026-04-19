@@ -150,3 +150,55 @@ html[data-mode="dark"] .hs-mode-icon-moon { display: none; }
 html[data-mode="dark"] .hs-mode-icon-sun  { display: block; }
 html:not([data-mode="dark"]) .hs-mode-icon-moon { display: block; }
 html:not([data-mode="dark"]) .hs-mode-icon-sun  { display: none; }
+
+/* === Pan/zoom layer for SVG diagrams === */
+.hs-zoomable {
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.hs-zoomable .hs-zoom-stage {
+  transform-origin: 0 0;
+  cursor: grab;
+  width: fit-content;
+  min-width: 100%;
+}
+.hs-zoomable .hs-zoom-stage:active { cursor: grabbing; }
+.hs-zoomable .hs-zoom-stage > svg { display: block; max-width: none; }
+
+.hs-zoom-controls {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  z-index: 10;
+  pointer-events: auto;
+}
+.hs-zoom-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hs-color-surface);
+  color: var(--hs-color-fg);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-micro);
+  cursor: pointer;
+  font-size: 14px;
+  font-family: var(--hs-font-sans);
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: var(--hs-shadow-card);
+  transition: background 120ms ease, transform 80ms ease;
+}
+.hs-zoom-btn:hover { background: var(--hs-color-surface-alt); }
+.hs-zoom-btn:active { transform: scale(0.94); }
+.hs-zoom-btn:focus-visible {
+  outline: 2px solid var(--hs-color-focus);
+  outline-offset: 2px;
+}

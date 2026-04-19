@@ -39,6 +39,7 @@ const PLUGIN_ROOT = resolve(__dirname, "..");
 const CATALOG_PATH = resolve(PLUGIN_ROOT, "spec", "catalog.json");
 const BASE_CSS_PATH = resolve(PLUGIN_ROOT, "assets", "base.css");
 const COMPONENTS_CSS_DIR = resolve(PLUGIN_ROOT, "assets", "components");
+const INTERACTIVE_JS_PATH = resolve(PLUGIN_ROOT, "assets", "interactive.js");
 
 const REGISTRY = {
   "hyperscribe/Page": Page,
@@ -141,6 +142,7 @@ function buildCss(rootNode) {
 
 function buildDocument({ title, bodyHtml, css, theme, mode, toggler }) {
   const modeAttr = (mode === "light" || mode === "dark") ? ` data-mode="${escapeHtml(mode)}"` : "";
+  const interactive = readFileSync(INTERACTIVE_JS_PATH, "utf8");
   return `<!doctype html>
 <html lang="en" data-theme="${escapeHtml(theme)}"${modeAttr}>
 <head>
@@ -152,6 +154,7 @@ function buildDocument({ title, bodyHtml, css, theme, mode, toggler }) {
 <body>
 ${bodyHtml}
 ${toggler}
+<script>${interactive}</script>
 </body>
 </html>
 `;
@@ -179,7 +182,7 @@ function parseArgs(argv) {
       case "--validate-only": args.validateOnly = true; break;
       case "--no-save-envelope": args.saveEnvelope = false; break;
       case "--version":
-        console.log("hyperscribe 0.5.0-alpha");
+        console.log("hyperscribe 0.5.1-alpha");
         process.exit(0);
       case "--help":
         printHelp();

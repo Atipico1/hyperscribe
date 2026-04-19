@@ -107,8 +107,8 @@ export function PrettyChart(props) {
   const data = props.data;
   const { max, body } = kind === "line" ? renderLine(data) : renderBar(data);
   const titleEl = props.title ? `<text x="${PAD_L}" y="28" class="hs-pchart-title">${escape(props.title)}</text>` : "";
-  return `<div class="hs-pchart hs-pchart-${escape(kind)}">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+  return `<div class="hs-pchart hs-pchart-${escape(kind)} hs-zoomable">
+<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
 ${gradientDefs(data.series.length)}
 ${titleEl}
 ${gridAndYTicks(max)}

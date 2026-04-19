@@ -4,9 +4,9 @@
   border: var(--hs-border-whisper);
   border-radius: var(--hs-radius-comfort);
   background: var(--hs-color-bg);
-  overflow-x: auto;
 }
-.hs-flow svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.hs-flow:not(.hs-zoomable) { overflow-x: auto; }
+.hs-flow svg { display: block; }
 .hs-flow-shape-box,
 .hs-flow-shape-pill {
   fill: var(--hs-color-surface-alt);
