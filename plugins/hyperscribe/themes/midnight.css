@@ -1,8 +1,8 @@
-/* ===== Linear theme — light is default, [data-mode="dark"] overrides ===== */
+/* ===== Midnight theme — light is default, [data-mode="dark"] overrides ===== */
 
 @import url('https://rsms.me/inter/inter.css');
 
-[data-theme="linear"] {
+[data-theme="midnight"] {
   /* Surfaces (Linear light neutrals) */
   --hs-color-fg: #08090a;
   --hs-color-bg: #f7f8f8;
@@ -50,8 +50,8 @@
   --hs-note-text:   #4e58b3;
 }
 
-[data-theme="linear"][data-mode="dark"] {
-  /* Linear's native dark canvas */
+[data-theme="midnight"][data-mode="dark"] {
+  /* Midnight's native dark canvas */
   --hs-color-fg: #f7f8f8;
   --hs-color-bg: #08090a;
   --hs-color-surface: #0f1011;
@@ -94,20 +94,20 @@
   --hs-note-text:   #d0d6e0;
 }
 
-[data-theme="linear"] body {
+[data-theme="midnight"] body {
   font-feature-settings: "cv01", "ss03";
   font-weight: 400;
 }
-[data-theme="linear"] .hs-page-title,
-[data-theme="linear"] .hs-section-title {
+[data-theme="midnight"] .hs-page-title,
+[data-theme="midnight"] .hs-section-title {
   font-weight: 510;
   letter-spacing: -0.022em;
 }
-[data-theme="linear"] .hs-heading-h2 { letter-spacing: -0.022em; font-weight: 510; }
-[data-theme="linear"] .hs-heading-h3 { letter-spacing: -0.012em; font-weight: 590; }
-[data-theme="linear"] .hs-heading-h4 { font-weight: 590; }
-[data-theme="linear"] .hs-page-subtitle,
-[data-theme="linear"] .hs-section-lead {
+[data-theme="midnight"] .hs-heading-h2 { letter-spacing: -0.022em; font-weight: 510; }
+[data-theme="midnight"] .hs-heading-h3 { letter-spacing: -0.012em; font-weight: 590; }
+[data-theme="midnight"] .hs-heading-h4 { font-weight: 590; }
+[data-theme="midnight"] .hs-page-subtitle,
+[data-theme="midnight"] .hs-section-lead {
   color: var(--hs-color-fg-muted);
   font-weight: 400;
   letter-spacing: -0.01em;
