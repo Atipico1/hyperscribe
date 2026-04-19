@@ -39,3 +39,29 @@ test("render: old theme name notion throws with clear error", async () => {
 test("render: old theme name linear throws with clear error", async () => {
   await assert.rejects(() => render(envelope, { theme: "linear" }), /Unknown theme/);
 });
+
+test("render: mode=dark injects data-mode on <html>", async () => {
+  const html = await render(envelope, { theme: "void", mode: "dark" });
+  assert.match(html, /<html[^>]*data-mode="dark"/);
+});
+
+test("render: mode=light injects data-mode on <html>", async () => {
+  const html = await render(envelope, { theme: "gallery", mode: "light" });
+  assert.match(html, /<html[^>]*data-mode="light"/);
+});
+
+test("render: mode=auto omits data-mode attribute", async () => {
+  const html = await render(envelope, { theme: "studio", mode: "auto" });
+  assert.doesNotMatch(html, /data-mode="auto"/);
+  // toggler script still controls data-mode at runtime
+  assert.match(html, /id="hs-mode-toggler"/);
+});
+
+test("render: no mode option omits data-mode attribute", async () => {
+  const html = await render(envelope, { theme: "studio" });
+  assert.doesNotMatch(html, /<html[^>]*data-mode=/);
+});
+
+test("render: invalid mode value throws", async () => {
+  await assert.rejects(() => render(envelope, { theme: "studio", mode: "twilight" }), /mode/i);
+});

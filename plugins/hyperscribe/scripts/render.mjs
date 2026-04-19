@@ -72,6 +72,13 @@ export async function render(doc, options = {}) {
 
   const themeName = options.theme || "studio";
   const themeCss = loadTheme(themeName); // throws if unknown
+
+  const MODES = new Set(["light", "dark", "auto"]);
+  const mode = options.mode;
+  if (mode !== undefined && !MODES.has(mode)) {
+    throw new Error(`Invalid mode "${mode}". Allowed: light|dark|auto`);
+  }
+
   const toggler = modeTogglerHtml();
 
   const rootNode = doc.parts[0];
@@ -82,7 +89,7 @@ export async function render(doc, options = {}) {
   const componentCss = options.css !== undefined ? options.css : buildCss(rootNode);
   const css = `${themeCss}\n${componentCss}`;
 
-  return buildDocument({ title, bodyHtml, css, theme: themeName, toggler });
+  return buildDocument({ title, bodyHtml, css, theme: themeName, mode, toggler });
 }
 
 function componentFileBase(componentName) {
@@ -122,9 +129,10 @@ function buildCss(rootNode) {
   return base + extras;
 }
 
-function buildDocument({ title, bodyHtml, css, theme, toggler }) {
+function buildDocument({ title, bodyHtml, css, theme, mode, toggler }) {
+  const modeAttr = (mode === "light" || mode === "dark") ? ` data-mode="${escapeHtml(mode)}"` : "";
   return `<!doctype html>
-<html lang="en" data-theme="${escapeHtml(theme)}">
+<html lang="en" data-theme="${escapeHtml(theme)}"${modeAttr}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -148,13 +156,14 @@ function loadCatalog() {
 }
 
 function parseArgs(argv) {
-  const args = { in: null, out: null, theme: null, title: null, quiet: false, validateOnly: false, saveEnvelope: true };
+  const args = { in: null, out: null, theme: null, mode: null, title: null, quiet: false, validateOnly: false, saveEnvelope: true };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     switch (a) {
       case "--in": args.in = argv[++i]; break;
       case "--out": args.out = argv[++i]; break;
       case "--theme": args.theme = argv[++i]; break;
+      case "--mode": args.mode = argv[++i]; break;
       case "--title": args.title = argv[++i]; break;
       case "--quiet": args.quiet = true; break;
       case "--validate-only": args.validateOnly = true; break;
@@ -177,6 +186,7 @@ Options:
   --in <path>          JSON input file (or pipe via stdin)
   --out <path>         Output HTML file (required unless --validate-only)
   --theme <name>       Theme name (studio|midnight|void|gallery); defaults to "studio"
+  --mode <light|dark|auto>  Initial color mode. Omitted = follow user preference / prefers-color-scheme.
   --title <string>     Override Page.title
   --quiet              Suppress progress logs
   --validate-only      Validate JSON, do not render
@@ -216,7 +226,7 @@ async function main() {
 
   let html;
   try {
-    html = await render(doc, { title: args.title, theme: args.theme || undefined });
+    html = await render(doc, { theme: args.theme, mode: args.mode, title: args.title });
   } catch (e) {
     if (e.code === "SCHEMA") {
       console.error("Schema validation failed:");
