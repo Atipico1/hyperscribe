@@ -6,7 +6,7 @@
   background: var(--hs-color-bg);
   overflow-x: auto;
 }
-.hs-flow svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.hs-flow svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 .hs-flow-shape-box,
 .hs-flow-shape-pill {
   fill: var(--hs-color-surface-alt);

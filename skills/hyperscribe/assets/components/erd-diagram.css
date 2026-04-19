@@ -46,7 +46,12 @@
 .hs-erd-fields tr:first-child td { border-top: 0; }
 
 .hs-erd-field-name { display: flex; align-items: center; gap: 0.4rem; }
-.hs-erd-field-type { color: var(--hs-color-fg-muted); }
+.hs-erd-field-type {
+  color: var(--hs-color-fg-muted);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
 
 .hs-erd-field-key-tag {
   font-family: var(--hs-font-sans);

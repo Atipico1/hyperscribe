@@ -3,7 +3,7 @@ name: hyperscribe-diff
 description: Generate a visual diff review page (ArchitectureGrid for impacted modules + CodeDiff for hunks + Callouts for risks) from a git range, PR URL, or pasted diff. Use whenever the user asks for a PR review, diff summary, change impact analysis, or pastes `git diff` output. Requires the `hyperscribe` skill (renderer engine).
 license: MIT
 metadata:
-  version: "0.4.1-alpha"
+  version: "0.4.2-alpha"
   requires: "hyperscribe"
 ---
 

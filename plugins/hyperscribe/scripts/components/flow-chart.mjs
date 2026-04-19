@@ -83,7 +83,7 @@ export function FlowChart(props) {
   const nodeSvg = nodes.map(n => coords[n.id] ? renderNode(n, coords[n.id]) : "").join("");
 
   return `<div class="hs-flow hs-flow-${layout.toLowerCase()}">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalW} ${totalH}" preserveAspectRatio="xMidYMid meet">
+<svg xmlns="http://www.w3.org/2000/svg" width="${totalW}" height="${totalH}" viewBox="0 0 ${totalW} ${totalH}" preserveAspectRatio="xMidYMid meet">
 ${defs}
 ${edgeSvg}
 ${nodeSvg}
