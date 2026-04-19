@@ -3,7 +3,7 @@
   padding: var(--hs-space-5);
   border: var(--hs-border-whisper);
   border-radius: var(--hs-radius-comfort);
-  background: #fff;
+  background: var(--hs-color-surface);
   overflow-x: auto;
   text-align: center;
 }

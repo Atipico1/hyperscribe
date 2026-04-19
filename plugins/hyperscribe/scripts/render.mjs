@@ -5,7 +5,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validate } from "./lib/schema.mjs";
 import { renderTree } from "./lib/tree.mjs";
-import { loadTheme, listThemes, themeSwitcherHtml } from "./lib/theme.mjs";
+import { loadTheme, modeTogglerHtml } from "./lib/theme.mjs";
 import { Page } from "./components/page.mjs";
 import { Section } from "./components/section.mjs";
 import { Heading } from "./components/heading.mjs";
@@ -72,8 +72,7 @@ export async function render(doc, options = {}) {
 
   const themeName = options.theme || "notion";
   const themeCss = loadTheme(themeName); // throws if unknown
-  const themes = listThemes();
-  const switcher = themeSwitcherHtml(themes, themeName);
+  const toggler = modeTogglerHtml();
 
   const rootNode = doc.parts[0];
   const ctx = {};
@@ -83,7 +82,7 @@ export async function render(doc, options = {}) {
   const componentCss = options.css !== undefined ? options.css : buildCss(rootNode);
   const css = `${themeCss}\n${componentCss}`;
 
-  return buildDocument({ title, bodyHtml, css, theme: themeName, switcher });
+  return buildDocument({ title, bodyHtml, css, theme: themeName, toggler });
 }
 
 function componentFileBase(componentName) {
@@ -123,7 +122,7 @@ function buildCss(rootNode) {
   return base + extras;
 }
 
-function buildDocument({ title, bodyHtml, css, theme, switcher }) {
+function buildDocument({ title, bodyHtml, css, theme, toggler }) {
   return `<!doctype html>
 <html lang="en" data-theme="${escapeHtml(theme)}">
 <head>
@@ -134,7 +133,7 @@ function buildDocument({ title, bodyHtml, css, theme, switcher }) {
 </head>
 <body>
 ${bodyHtml}
-${switcher}
+${toggler}
 </body>
 </html>
 `;
@@ -161,7 +160,7 @@ function parseArgs(argv) {
       case "--validate-only": args.validateOnly = true; break;
       case "--no-save-envelope": args.saveEnvelope = false; break;
       case "--version":
-        console.log("hyperscribe 0.3.0-alpha");
+        console.log("hyperscribe 0.3.1-alpha");
         process.exit(0);
       case "--help":
         printHelp();

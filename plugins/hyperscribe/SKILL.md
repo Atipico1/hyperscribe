@@ -3,7 +3,7 @@ name: hyperscribe
 description: Generate self-contained HTML pages (diagrams, slide decks, comparison tables, architecture overviews, dashboards, diff reviews) by emitting semantic component JSON. Use whenever a visual artifact communicates better than terminal prose — proactively trigger on 4+ row tables, ASCII flowcharts, multi-stage pipelines, or explicit "make a diagram / slides / recap" requests.
 license: MIT
 metadata:
-  version: "0.3.0-alpha"
+  version: "0.3.1-alpha"
   compatibility: "Requires Node.js 20+ and a browser to view output"
 ---
 

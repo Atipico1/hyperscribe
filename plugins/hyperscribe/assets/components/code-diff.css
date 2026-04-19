@@ -3,7 +3,7 @@
   border: var(--hs-border-whisper);
   border-radius: var(--hs-radius-std);
   overflow: hidden;
-  background: #fff;
+  background: var(--hs-color-surface);
 }
 .hs-diff-filename {
   font-family: var(--hs-font-mono);
@@ -43,8 +43,8 @@
   color: var(--hs-color-fg-muted);
   user-select: none;
 }
-.hs-diff-add { background: #f0fdf4; color: #166534; }
-.hs-diff-add .hs-diff-marker { color: #16a34a; }
-.hs-diff-remove { background: #fef2f2; color: #991b1b; }
-.hs-diff-remove .hs-diff-marker { color: #dc2626; }
+.hs-diff-add { background: var(--hs-tone-success-bg); color: var(--hs-tone-success-fg); }
+.hs-diff-add .hs-diff-marker { color: var(--hs-tone-success-fg); }
+.hs-diff-remove { background: var(--hs-tone-danger-bg); color: var(--hs-tone-danger-fg); }
+.hs-diff-remove .hs-diff-marker { color: var(--hs-tone-danger-fg); }
 .hs-diff-context { color: var(--hs-color-fg); }

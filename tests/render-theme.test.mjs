@@ -20,6 +20,19 @@ test("render: --theme name picked up via options.theme", async () => {
   assert.match(html, /data-theme="notion"/);
 });
 
+test("render: linear theme applied", async () => {
+  const html = await render(envelope, { theme: "linear" });
+  assert.match(html, /data-theme="linear"/);
+  assert.match(html, /\[data-theme="linear"\]/);
+});
+
+test("render: mode toggler always injected regardless of theme", async () => {
+  const notionHtml = await render(envelope, { theme: "notion" });
+  const linearHtml = await render(envelope, { theme: "linear" });
+  assert.match(notionHtml, /id="hs-mode-toggler"/);
+  assert.match(linearHtml, /id="hs-mode-toggler"/);
+});
+
 test("render: unknown theme throws", async () => {
   await assert.rejects(() => render(envelope, { theme: "nope" }), /theme/i);
 });

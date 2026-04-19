@@ -143,9 +143,9 @@ The design system is Notion-inspired — warm neutrals, whisper borders, Inter f
 
 ## Themes
 
-Three bundled themes as of v0.3: `notion` (default, warm light), `notion-dark` (the same palette inverted), `linear` (dark-native, Linear-inspired with Inter Variable + OpenType features). Pass `--theme <name>` to `render.mjs` to fix the render-time default. Rendered pages also include a small switcher in the top-right corner; the user's choice is persisted in `localStorage`, and `prefers-color-scheme: dark` is honored on first load when a matching `*-dark` theme exists.
+Two bundled themes as of v0.3.1: `notion` (default, warm Notion-inspired) and `linear` (Linear-inspired, Inter Variable + OpenType features). Each theme ships with both **light and dark modes** in the same CSS file. Theme is **fixed at render time** (pass `--theme <name>` to `render.mjs`); **light/dark mode** is toggled by the user via the circular button in the top-right of every rendered page. The choice is persisted in `localStorage` as `hyperscribe.mode`, and `prefers-color-scheme: dark` is honored on first load.
 
-Themes are pure CSS variable overrides — `plugins/hyperscribe/themes/*.css`. Add a new theme by dropping a file there that defines the `--hs-*` tokens under a `[data-theme="<name>"]` selector; it appears in the switcher automatically.
+Themes are pure CSS variable overrides — `plugins/hyperscribe/themes/*.css`. Each file defines tokens under `[data-theme="<name>"]` (light) and `[data-theme="<name>"][data-mode="dark"]` (dark). Semantic tones (`--hs-tone-{info|warn|success|danger}-{bg|fg}`) and the surface palette (`--hs-color-surface`, `--hs-color-surface-alt`) keep components legible in both modes without hardcoded colors.
 
 ## How it works
 

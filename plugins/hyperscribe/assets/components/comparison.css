@@ -7,7 +7,7 @@
 .hs-compare-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 
 .hs-compare-item {
-  background: #fff;
+  background: var(--hs-color-surface);
   border: var(--hs-border-whisper);
   border-radius: var(--hs-radius-comfort);
   padding: var(--hs-space-4);
@@ -44,6 +44,6 @@
   text-align: center;
   margin-top: auto;
 }
-.hs-compare-verdict-winner { background: #f1fbf3; color: #166534; }
-.hs-compare-verdict-loser { background: #fff5f5; color: #991b1b; }
+.hs-compare-verdict-winner { background: var(--hs-tone-success-bg); color: var(--hs-tone-success-fg); }
+.hs-compare-verdict-loser { background: var(--hs-tone-danger-bg); color: var(--hs-tone-danger-fg); }
 .hs-compare-verdict-neutral { background: var(--hs-color-surface-alt); color: var(--hs-color-fg-muted); }

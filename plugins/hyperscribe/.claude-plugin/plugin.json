@@ -1,6 +1,6 @@
 {
   "name": "hyperscribe",
-  "version": "0.3.0-alpha",
+  "version": "0.3.1-alpha",
   "description": "Generate self-contained HTML pages for diagrams, slides, tables, architecture overviews, and visual explanations. LLM emits semantic JSON; renderer produces HTML.",
   "author": {
     "name": "Atipico1",

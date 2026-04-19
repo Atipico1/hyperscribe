@@ -4,28 +4,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>X</title>
-  <style>[data-theme="notion"], :root:not([data-theme]) {
-  /* === Colors === */
+  <style>/* ===== Notion theme — light is default, [data-mode="dark"] overrides ===== */
+
+[data-theme="notion"], :root:not([data-theme]) {
+  /* Surfaces */
   --hs-color-fg: rgba(0, 0, 0, 0.95);
   --hs-color-bg: #ffffff;
+  --hs-color-surface: #ffffff;
+  --hs-color-surface-alt: #f6f5f4;
+  --hs-color-surface-dark: #31302e;
+
+  /* Foreground */
+  --hs-color-fg-muted: #615d59;
+  --hs-color-fg-placeholder: #a39e98;
+
+  /* Chrome accents */
   --hs-color-accent: #0075de;
   --hs-color-accent-active: #005bab;
   --hs-color-navy: #213183;
-  --hs-color-surface-alt: #f6f5f4;
-  --hs-color-surface-dark: #31302e;
-  --hs-color-fg-muted: #615d59;
-  --hs-color-fg-placeholder: #a39e98;
-  --hs-color-success: #1aae39;
-  --hs-color-teal: #2a9d99;
-  --hs-color-warn: #dd5b00;
-  --hs-color-pink: #ff64c8;
   --hs-color-purple: #391c57;
+  --hs-color-pink: #ff64c8;
+  --hs-color-teal: #2a9d99;
   --hs-color-brown: #523410;
   --hs-color-focus: #097fe8;
   --hs-color-badge-bg: #f2f9ff;
   --hs-color-badge-text: #097fe8;
+  --hs-color-success: #1aae39;
+  --hs-color-warn: #dd5b00;
 
-  /* === Border & shadow === */
+  /* Borders & shadows */
   --hs-border-whisper: 1px solid rgba(0, 0, 0, 0.1);
   --hs-shadow-card: rgba(0,0,0,0.04) 0 4px 18px,
                     rgba(0,0,0,0.027) 0 2.025px 7.84688px,
@@ -37,16 +44,75 @@
                     rgba(0,0,0,0.04) 0 14px 28px,
                     rgba(0,0,0,0.05) 0 23px 52px;
 
-  /* === Typography === */
+  /* Typography */
   --hs-font-sans: "NotionInter", Inter, -apple-system, system-ui,
                   "Segoe UI", Helvetica, "Apple Color Emoji", Arial,
                   "Segoe UI Emoji", "Segoe UI Symbol";
   --hs-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular,
                   Menlo, Consolas, monospace;
 
-  --hs-note-bg: #fef9c3;
+  /* Semantic tones (Callout, Comparison verdict, CodeDiff, KPI delta) */
+  --hs-tone-info-bg:    #f2f9ff;
+  --hs-tone-info-fg:    #097fe8;
+  --hs-tone-warn-bg:    #fff8f0;
+  --hs-tone-warn-fg:    #c2410c;
+  --hs-tone-success-bg: #f1fbf3;
+  --hs-tone-success-fg: #166534;
+  --hs-tone-danger-bg:  #fff5f5;
+  --hs-tone-danger-fg:  #991b1b;
+
+  /* Note tint (Sequence, Mermaid note) */
+  --hs-note-bg:     #fef9c3;
   --hs-note-border: #eab308;
-  --hs-note-text: #713f12;
+  --hs-note-text:   #713f12;
+}
+
+[data-theme="notion"][data-mode="dark"] {
+  --hs-color-fg: rgba(255, 255, 255, 0.94);
+  --hs-color-bg: #191918;
+  --hs-color-surface: #232322;
+  --hs-color-surface-alt: #2a2a28;
+  --hs-color-surface-dark: #0f0f0e;
+
+  --hs-color-fg-muted: #a39e98;
+  --hs-color-fg-placeholder: #6e6b67;
+
+  --hs-color-accent: #4dabff;
+  --hs-color-accent-active: #2d8de0;
+  --hs-color-navy: #8891d0;
+  --hs-color-purple: #c084fc;
+  --hs-color-pink: #ff89d9;
+  --hs-color-teal: #5eead4;
+  --hs-color-brown: #a8784d;
+  --hs-color-focus: #60a5fa;
+  --hs-color-badge-bg: rgba(77, 171, 255, 0.12);
+  --hs-color-badge-text: #7cc0ff;
+  --hs-color-success: #4ade80;
+  --hs-color-warn: #fb923c;
+
+  --hs-border-whisper: 1px solid rgba(255, 255, 255, 0.08);
+  --hs-shadow-card: rgba(0,0,0,0.35) 0 4px 18px,
+                    rgba(0,0,0,0.25) 0 2.025px 7.84688px,
+                    rgba(0,0,0,0.18) 0 0.8px 2.925px,
+                    rgba(0,0,0,0.12) 0 0.175px 1.04062px;
+  --hs-shadow-deep: rgba(0,0,0,0.15) 0 1px 3px,
+                    rgba(0,0,0,0.25) 0 3px 7px,
+                    rgba(0,0,0,0.3) 0 7px 15px,
+                    rgba(0,0,0,0.4) 0 14px 28px,
+                    rgba(0,0,0,0.5) 0 23px 52px;
+
+  --hs-tone-info-bg:    rgba(77, 171, 255, 0.12);
+  --hs-tone-info-fg:    #7cc0ff;
+  --hs-tone-warn-bg:    rgba(251, 146, 60, 0.14);
+  --hs-tone-warn-fg:    #fdba74;
+  --hs-tone-success-bg: rgba(74, 222, 128, 0.12);
+  --hs-tone-success-fg: #86efac;
+  --hs-tone-danger-bg:  rgba(248, 113, 113, 0.15);
+  --hs-tone-danger-fg:  #fca5a5;
+
+  --hs-note-bg:     rgba(234, 179, 8, 0.15);
+  --hs-note-border: #eab308;
+  --hs-note-text:   #fde68a;
 }
 
 :root {
@@ -170,48 +236,62 @@ html, body {
 }
 .hs-prose li { margin-bottom: var(--hs-space-1); }
 
-/* === Theme switcher === */
-.hs-theme-switcher {
+/* === Light/Dark mode toggler (always present, fixed to top-right) === */
+.hs-mode-toggler {
   position: fixed;
-  top: 12px;
-  right: 12px;
+  top: 16px;
+  right: 16px;
   z-index: 9999;
-  background: var(--hs-color-bg);
-  border: var(--hs-border-whisper);
-  border-radius: var(--hs-radius-comfort);
-  padding: 4px 8px;
-  box-shadow: var(--hs-shadow-card);
-}
-.hs-theme-switcher select {
-  background: transparent;
-  border: 0;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hs-color-surface);
   color: var(--hs-color-fg);
-  font-family: var(--hs-font-sans);
-  font-size: 12px;
-  padding: 2px 4px;
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-pill);
+  padding: 0;
   cursor: pointer;
-  outline: none;
+  box-shadow: var(--hs-shadow-card);
+  transition: transform 120ms ease, background 120ms ease;
 }
+.hs-mode-toggler:hover { transform: translateY(-1px); }
+.hs-mode-toggler:active { transform: translateY(0); }
+.hs-mode-toggler:focus-visible {
+  outline: 2px solid var(--hs-color-focus);
+  outline-offset: 2px;
+}
+/* Show moon in light mode (click → dark), sun in dark mode (click → light) */
+html[data-mode="dark"] .hs-mode-icon-moon { display: none; }
+html[data-mode="dark"] .hs-mode-icon-sun  { display: block; }
+html:not([data-mode="dark"]) .hs-mode-icon-moon { display: block; }
+html:not([data-mode="dark"]) .hs-mode-icon-sun  { display: none; }
 </style>
 </head>
 <body>
 <article class="hs-page"><header class="hs-page-header"><h1 class="hs-page-title">X</h1></header><main class="hs-page-main"><section class="hs-section" id="a"><h2 class="hs-section-title">Section A</h2><div class="hs-section-lead"><p>This section has a <strong>lead</strong> paragraph with a <a href="https://example.com">link</a>.</p></div><div class="hs-section-body"></div></section></main></article>
-<div class="hs-theme-switcher" aria-label="Theme"><select id="hs-theme-select"><option value="linear">linear</option><option value="notion" selected>notion</option><option value="notion-dark">notion-dark</option></select></div>
+<button type="button" class="hs-mode-toggler" id="hs-mode-toggler" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+  <svg class="hs-mode-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  <svg class="hs-mode-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
 <script>(function(){
-  var KEY='hyperscribe.theme';
+  var KEY='hyperscribe.mode';
   var saved=null;try{saved=localStorage.getItem(KEY);}catch(e){}
-  var fallback='notion';
-  var initial = saved;
-  if (!initial) {
+  var mode = saved;
+  if (!mode) {
     var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefersDark && ["linear","notion","notion-dark"].indexOf(fallback + '-dark') !== -1) initial = fallback + '-dark';
+    mode = prefersDark ? 'dark' : 'light';
   }
-  if (!initial) initial = fallback;
-  document.documentElement.setAttribute('data-theme', initial);
-  var sel=document.getElementById('hs-theme-select');
-  if(sel){sel.value=initial;sel.addEventListener('change',function(){
-    document.documentElement.setAttribute('data-theme', sel.value);
-    try{localStorage.setItem(KEY, sel.value);}catch(e){}
+  function apply(m){
+    document.documentElement.setAttribute('data-mode', m);
+    try{localStorage.setItem(KEY, m);}catch(e){}
+  }
+  apply(mode);
+  var btn=document.getElementById('hs-mode-toggler');
+  if(btn){btn.addEventListener('click',function(){
+    var next = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    apply(next);
   });}
 })();</script>
 </body>

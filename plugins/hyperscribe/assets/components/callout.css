@@ -11,8 +11,8 @@
 }
 .hs-callout-body > p:first-child { margin-top: 0; }
 .hs-callout-body > p:last-child { margin-bottom: 0; }
-.hs-callout-info { border-left-color: var(--hs-color-accent); background: var(--hs-color-badge-bg); }
+.hs-callout-info { border-left-color: var(--hs-color-accent); background: var(--hs-tone-info-bg); }
 .hs-callout-note { border-left-color: var(--hs-color-fg-muted); }
-.hs-callout-warn { border-left-color: var(--hs-color-warn); background: #fff8f0; }
-.hs-callout-success { border-left-color: var(--hs-color-success); background: #f1fbf3; }
-.hs-callout-danger { border-left-color: #dc2626; background: #fff5f5; }
+.hs-callout-warn { border-left-color: var(--hs-color-warn); background: var(--hs-tone-warn-bg); }
+.hs-callout-success { border-left-color: var(--hs-color-success); background: var(--hs-tone-success-bg); }
+.hs-callout-danger { border-left-color: var(--hs-tone-danger-fg); background: var(--hs-tone-danger-bg); }

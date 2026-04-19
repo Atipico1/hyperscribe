@@ -1,10 +1,11 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { loadTheme, listThemes, themeSwitcherHtml } from "../../plugins/hyperscribe/scripts/lib/theme.mjs";
+import { loadTheme, listThemes, modeTogglerHtml } from "../../plugins/hyperscribe/scripts/lib/theme.mjs";
 
 test("listThemes: finds bundled themes", () => {
   const names = listThemes();
   assert.ok(names.includes("notion"));
+  assert.ok(names.includes("linear"));
 });
 
 test("loadTheme: returns CSS string for known theme", () => {
@@ -13,17 +14,39 @@ test("loadTheme: returns CSS string for known theme", () => {
   assert.match(css, /--hs-color-fg/);
 });
 
+test("loadTheme: notion theme exposes tone + surface variables", () => {
+  const css = loadTheme("notion");
+  assert.match(css, /--hs-color-surface:/);
+  assert.match(css, /--hs-tone-success-bg:/);
+  assert.match(css, /--hs-tone-danger-fg:/);
+});
+
+test("loadTheme: notion theme defines a [data-mode=\"dark\"] override block", () => {
+  const css = loadTheme("notion");
+  assert.match(css, /\[data-theme="notion"\]\[data-mode="dark"\]/);
+});
+
+test("loadTheme: linear theme defines both light (default) and dark", () => {
+  const css = loadTheme("linear");
+  assert.match(css, /\[data-theme="linear"\]\s*\{/);
+  assert.match(css, /\[data-theme="linear"\]\[data-mode="dark"\]/);
+});
+
 test("loadTheme: throws on unknown theme", () => {
   assert.throws(() => loadTheme("does-not-exist"), /theme/i);
 });
 
-test("themeSwitcherHtml: returns empty when <2 themes", () => {
-  assert.equal(themeSwitcherHtml(["notion"], "notion"), "");
+test("modeTogglerHtml: emits a single toggle button + init script", () => {
+  const html = modeTogglerHtml();
+  assert.match(html, /<button[^>]+class="hs-mode-toggler"/);
+  assert.match(html, /id="hs-mode-toggler"/);
+  assert.match(html, /aria-label="Toggle light\/dark mode"/);
+  assert.match(html, /hs-mode-icon-sun/);
+  assert.match(html, /hs-mode-icon-moon/);
+  assert.match(html, /hyperscribe\.mode/);
 });
 
-test("themeSwitcherHtml: renders select with all themes", () => {
-  const html = themeSwitcherHtml(["notion", "notion-dark"], "notion");
-  assert.match(html, /<select id="hs-theme-select">/);
-  assert.match(html, /<option value="notion-dark">notion-dark<\/option>/);
-  assert.match(html, /<option value="notion" selected>notion<\/option>/);
+test("modeTogglerHtml: respects prefers-color-scheme on first load", () => {
+  const html = modeTogglerHtml();
+  assert.match(html, /prefers-color-scheme: dark/);
 });

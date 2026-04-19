@@ -119,25 +119,34 @@ html, body {
 }
 .hs-prose li { margin-bottom: var(--hs-space-1); }
 
-/* === Theme switcher === */
-.hs-theme-switcher {
+/* === Light/Dark mode toggler (always present, fixed to top-right) === */
+.hs-mode-toggler {
   position: fixed;
-  top: 12px;
-  right: 12px;
+  top: 16px;
+  right: 16px;
   z-index: 9999;
-  background: var(--hs-color-bg);
-  border: var(--hs-border-whisper);
-  border-radius: var(--hs-radius-comfort);
-  padding: 4px 8px;
-  box-shadow: var(--hs-shadow-card);
-}
-.hs-theme-switcher select {
-  background: transparent;
-  border: 0;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hs-color-surface);
   color: var(--hs-color-fg);
-  font-family: var(--hs-font-sans);
-  font-size: 12px;
-  padding: 2px 4px;
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-pill);
+  padding: 0;
   cursor: pointer;
-  outline: none;
+  box-shadow: var(--hs-shadow-card);
+  transition: transform 120ms ease, background 120ms ease;
 }
+.hs-mode-toggler:hover { transform: translateY(-1px); }
+.hs-mode-toggler:active { transform: translateY(0); }
+.hs-mode-toggler:focus-visible {
+  outline: 2px solid var(--hs-color-focus);
+  outline-offset: 2px;
+}
+/* Show moon in light mode (click → dark), sun in dark mode (click → light) */
+html[data-mode="dark"] .hs-mode-icon-moon { display: none; }
+html[data-mode="dark"] .hs-mode-icon-sun  { display: block; }
+html:not([data-mode="dark"]) .hs-mode-icon-moon { display: block; }
+html:not([data-mode="dark"]) .hs-mode-icon-sun  { display: none; }
