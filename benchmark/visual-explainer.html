@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hyperscribe Codebase Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f1e8;
+      --bg-2: #f1e8da;
+      --surface: #fffaf3;
+      --surface-2: #f9f1e6;
+      --border: rgba(64, 41, 21, 0.14);
+      --border-strong: rgba(64, 41, 21, 0.22);
+      --text: #20150f;
+      --text-dim: #645246;
+      --text-soft: #7f6b5d;
+      --accent: #b4532a;
+      --accent-2: #5f7a4f;
+      --accent-3: #9a6b17;
+      --accent-4: #2f6370;
+      --accent-bg: rgba(180, 83, 42, 0.09);
+      --accent-bg-2: rgba(95, 122, 79, 0.1);
+      --shadow: 0 16px 40px rgba(46, 31, 20, 0.08);
+      --shadow-soft: 0 8px 24px rgba(46, 31, 20, 0.05);
+      --radius: 8px;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --body: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --display: "Instrument Serif", Georgia, serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #17120e;
+        --bg-2: #1d1712;
+        --surface: #221b16;
+        --surface-2: #281f18;
+        --border: rgba(239, 221, 206, 0.11);
+        --border-strong: rgba(239, 221, 206, 0.18);
+        --text: #f4e7db;
+        --text-dim: #c7b4a2;
+        --text-soft: #ae9a88;
+        --accent: #e07a45;
+        --accent-2: #89a679;
+        --accent-3: #d1a04c;
+        --accent-4: #79a8b3;
+        --accent-bg: rgba(224, 122, 69, 0.16);
+        --accent-bg-2: rgba(137, 166, 121, 0.14);
+        --shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        --shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.22);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: var(--body);
+      line-height: 1.5;
+      background:
+        radial-gradient(1200px 900px at 10% 10%, rgba(180, 83, 42, 0.08), transparent 55%),
+        radial-gradient(1000px 800px at 85% 20%, rgba(95, 122, 79, 0.08), transparent 50%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(120, 90, 60, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(120, 90, 60, 0.04) 1px, transparent 1px);
+      background-size: 42px 42px, 42px 42px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.12));
+      opacity: 0.24;
+    }
+
+    .page {
+      width: min(1220px, calc(100vw - 32px));
+      margin: 0 auto;
+      position: relative;
+      padding: 28px 0 48px;
+    }
+
+    .hero {
+      padding: 18px 0 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 22px;
+    }
+
+    .hero-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+      gap: 24px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-bg);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 5vw, 5.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      max-width: 11ch;
+    }
+
+    .lede {
+      margin: 14px 0 0;
+      max-width: 60ch;
+      font-size: 1.08rem;
+      color: var(--text-dim);
+    }
+
+    .hero-aside {
+      display: grid;
+      gap: 10px;
+      justify-items: end;
+    }
+
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-start;
+      margin-top: 20px;
+    }
+
+    .stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      min-width: 0;
+    }
+
+    .stat strong {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
+    }
+
+    .stat span {
+      color: var(--text-dim);
+      font-size: 0.92rem;
+    }
+
+    .tag-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .section {
+      padding: 22px 0 30px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section:last-child { border-bottom: 0; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-2);
+      box-shadow: 0 0 0 4px var(--accent-bg-2);
+    }
+
+    h2 {
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 3vw, 2.65rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+
+    .section-note {
+      max-width: 48ch;
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.98rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      min-width: 0;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 16px 15px;
+    }
+
+    .card--emphasis {
+      background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 86%, var(--accent-bg) 14%), var(--surface));
+      border-color: var(--border-strong);
+    }
+
+    .card--recessed {
+      background: var(--surface-2);
+      box-shadow: none;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.96rem;
+    }
+
+    .mono {
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
+
+    .pipeline {
+      display: grid;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .pipeline-step {
+      position: relative;
+      padding: 16px 16px 16px 68px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      min-width: 0;
+    }
+
+    .pipeline-step::before {
+      content: attr(data-n);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--surface);
+      background: var(--accent);
+    }
+
+    .pipeline-step::after {
+      content: "";
+      position: absolute;
+      left: 32px;
+      bottom: -12px;
+      width: 1px;
+      height: 12px;
+      background: linear-gradient(180deg, var(--border-strong), transparent);
+    }
+
+    .pipeline-step:last-child::after { display: none; }
+
+    .pipeline-step h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .pipeline-step .mono {
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .pipeline-step ul,
+    .notes-list,
+    .file-list {
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .pipeline-step li,
+    .notes-list li,
+    .file-list li {
+      position: relative;
+      padding-left: 16px;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      margin-top: 6px;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .pipeline-step li::before,
+    .notes-list li::before,
+    .file-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent-2);
+    }
+
+    .layer-stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .layer {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      min-width: 0;
+    }
+
+    .layer:nth-child(2) {
+      margin-left: 18px;
+      background: color-mix(in srgb, var(--surface) 88%, var(--accent-bg-2) 12%);
+    }
+
+    .layer:nth-child(3) {
+      margin-left: 36px;
+      background: color-mix(in srgb, var(--surface) 90%, var(--accent-bg) 10%);
+    }
+
+    .layer .kicker {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .layer .kicker span {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent-3);
+    }
+
+    .layer h3 {
+      margin: 0 0 8px;
+      font-size: 1.03rem;
+    }
+
+    .layer p {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.96rem;
+    }
+
+    .file-card {
+      display: grid;
+      gap: 6px;
+      padding: 15px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      min-width: 0;
+    }
+
+    .file-card code {
+      font-family: var(--mono);
+      font-size: 0.83rem;
+      color: var(--text);
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .file-card strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+
+    .callout {
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-strong);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 82%, var(--accent-bg) 18%), var(--surface));
+      box-shadow: var(--shadow-soft);
+      min-width: 0;
+    }
+
+    .callout h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--text-dim);
+    }
+
+    .reading-order {
+      counter-reset: step;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .reading-order .step {
+      counter-increment: step;
+      position: relative;
+      padding: 16px 16px 16px 60px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      min-width: 0;
+    }
+
+    .reading-order .step::before {
+      content: counter(step);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      color: var(--surface);
+      background: var(--accent-4);
+    }
+
+    .reading-order h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .reading-order p {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+
+    .footer-band {
+      padding: 18px 0 0;
+      color: var(--text-soft);
+      font-family: var(--mono);
+      font-size: 0.86rem;
+    }
+
+    code {
+      font-family: var(--mono);
+      font-size: 0.92em;
+      background: color-mix(in srgb, var(--surface) 82%, var(--accent-bg) 18%);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.12em 0.35em;
+      color: var(--text);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 1060px) {
+      .hero-top,
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .reading-order {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-aside {
+        justify-items: start;
+      }
+
+      .layer:nth-child(2),
+      .layer:nth-child(3) {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page { width: min(100vw - 20px, 1220px); padding-top: 18px; }
+      .hero { padding-top: 6px; }
+      h1 { font-size: clamp(2.2rem, 13vw, 3.4rem); }
+      .lede { font-size: 1rem; }
+      .pipeline-step { padding-left: 62px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">Hyperscribe codebase map</div>
+          <h1>Prompt in. Structured HTML out.</h1>
+          <p class="lede">
+            This repo is a catalog-driven renderer. The prompt layer shapes a semantic JSON envelope.
+            The Node renderer validates it, walks the tree, and emits a single self-contained HTML file
+            with a sibling JSON artifact.
+          </p>
+          <div class="tag-strip" aria-label="Key facts">
+            <span class="tag">Core source: <code>plugins/hyperscribe</code></span>
+            <span class="tag">Mirror copies live in <code>skills/hyperscribe*</code></span>
+            <span class="tag">Runtime: Node 20 + <code>node --test</code></span>
+            <span class="tag">Outputs: <code>.html</code> + sibling <code>.json</code></span>
+          </div>
+        </div>
+        <div class="hero-aside" aria-label="Summary">
+          <div class="callout">
+            <h3>The short read</h3>
+            <p>
+              The intelligence sits in the skills and prompts.
+              The execution is deterministic and intentionally small.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="stat-row" aria-label="At a glance">
+        <div class="stat"><strong>1</strong><span>primary source tree</span></div>
+        <div class="stat"><strong>27</strong><span>component renderers</span></div>
+        <div class="stat"><strong>4</strong><span>user modes: general, slides, diff, share</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-label">System flow</div>
+          <h2>How a prompt becomes a page</h2>
+        </div>
+        <p class="section-note">
+          The pipeline is small on purpose. Validation happens before rendering, and rendering
+          happens before any browser sees broken structure.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="pipeline" aria-label="Render pipeline">
+          <div class="pipeline-step" data-n="1">
+            <div class="mono">Intent layer</div>
+            <h3>User prompt -> command or skill -> envelope JSON</h3>
+            <p>
+              The model does not write HTML directly. It emits a semantic envelope with a root component,
+              catalog, and parts.
+            </p>
+            <ul>
+              <li>General mode targets <code>hyperscribe/Page</code>.</li>
+              <li>Slide mode targets <code>hyperscribe/SlideDeck</code>.</li>
+            </ul>
+          </div>
+          <div class="pipeline-step" data-n="2">
+            <div class="mono">Validation layer</div>
+            <h3><code>scripts/lib/schema.mjs</code> checks the contract</h3>
+            <p>
+              Missing fields, type mismatches, bad enums, unknown components, and root errors are
+              caught before the browser ever loads the result.
+            </p>
+          </div>
+          <div class="pipeline-step" data-n="3">
+            <div class="mono">Tree layer</div>
+            <h3><code>scripts/lib/tree.mjs</code> walks the component graph</h3>
+            <p>
+              Registry-backed renderers turn nodes into HTML strings. Container components recurse.
+              Leaf components return their markup directly.
+            </p>
+            <ul>
+              <li><code>Dashboard</code> rerenders its panel children explicitly.</li>
+              <li>The renderer stays close to pure string generation.</li>
+            </ul>
+          </div>
+          <div class="pipeline-step" data-n="4">
+            <div class="mono">Delivery layer</div>
+            <h3>Theme, CSS, and interactive JS are stitched together</h3>
+            <p>
+              The final artifact is assembled from theme CSS, base CSS, component CSS, body HTML,
+              toggle markup, and <code>assets/interactive.js</code>.
+            </p>
+            <ul>
+              <li>Used component CSS only is inlined.</li>
+              <li><code>share.sh</code> can publish the finished HTML.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="layer-stack" aria-label="Three layers">
+          <div class="layer">
+            <div class="kicker"><span></span>1. Prompt and skill layer</div>
+            <h3>Agents decide the shape.</h3>
+            <p>
+              Command docs and skill prompts guide the LLM toward the right envelope and root mode.
+              This is where layout intent and content structure are negotiated.
+            </p>
+          </div>
+          <div class="layer">
+            <div class="kicker"><span></span>2. Renderer layer</div>
+            <h3>Node turns contracts into markup.</h3>
+            <p>
+              <code>render.mjs</code>, <code>schema.mjs</code>, <code>tree.mjs</code>, and the component
+              files do the deterministic work. The codebase acts more like a UI DSL compiler than a web app.
+            </p>
+          </div>
+          <div class="layer">
+            <div class="kicker"><span></span>3. Output and sharing layer</div>
+            <h3>HTML lands in the browser, JSON stays beside it.</h3>
+            <p>
+              The repository preserves both the rendered result and the input envelope, which makes
+              debugging and review much easier.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Repository map</div>
+          <h2>Where the important pieces live</h2>
+        </div>
+        <p class="section-note">
+          The same idea repeats in three forms: product source, mirrored skills, and tests that lock the contract down.
+        </p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card card--emphasis">
+          <h3>Product source</h3>
+          <p class="mono">plugins/hyperscribe</p>
+          <p>
+            The actual plugin package. It holds renderer code, assets, catalog, commands, and share tooling.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Skill mirrors</h3>
+          <p class="mono">skills/hyperscribe*</p>
+          <p>
+            Deployment-facing copies for general, slides, diff, and share modes. They wrap the same renderer.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Tests</h3>
+          <p class="mono">tests/components, tests/lib, tests/*.test.mjs</p>
+          <p>
+            Component snapshots, schema validation, tree walking, preference parsing, and HTML helper coverage.
+          </p>
+        </article>
+        <article class="card card--recessed">
+          <h3>Docs and tools</h3>
+          <p class="mono">README.md, docs/plans, tools/build-catalog-md.mjs</p>
+          <p>
+            Reference material and regeneration scripts. The catalog is treated as the source of truth.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Key files</div>
+          <h2>The files that explain the codebase fastest</h2>
+        </div>
+        <p class="section-note">
+          These are the shortest routes to the system's behavior, its contract, and its seams.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="grid-3">
+          <div class="file-card">
+            <strong><code>plugins/hyperscribe/scripts/render.mjs</code></strong>
+            <span class="mono">Main entry</span>
+            <p>Builds the registry, validates input, loads theme CSS, and assembles the final document.</p>
+          </div>
+          <div class="file-card">
+            <strong><code>plugins/hyperscribe/spec/catalog.json</code></strong>
+            <span class="mono">API contract</span>
+            <p>Defines the envelope and component prop schemas. Everything else orbits this file.</p>
+          </div>
+          <div class="file-card">
+            <strong><code>plugins/hyperscribe/scripts/lib/schema.mjs</code></strong>
+            <span class="mono">Guardrail</span>
+            <p>Validates shape, enums, patterns, and root component choice before render time.</p>
+          </div>
+          <div class="file-card">
+            <strong><code>plugins/hyperscribe/scripts/lib/tree.mjs</code></strong>
+            <span class="mono">Walker</span>
+            <p>Recursively invokes registered renderers and handles the component tree traversal.</p>
+          </div>
+          <div class="file-card">
+            <strong><code>plugins/hyperscribe/scripts/components/*.mjs</code></strong>
+            <span class="mono">SSR leaflets</span>
+            <p>Thin component renderers. Most are direct prop-to-HTML string functions.</p>
+          </div>
+          <div class="file-card">
+            <strong><code>plugins/hyperscribe/assets/base.css</code> and <code>assets/components/*.css</code></strong>
+            <span class="mono">Style assembly</span>
+            <p>Base design system plus per-component styles, with only used component CSS inlined.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h3>One line that matters</h3>
+          <p>
+            <code>spec/catalog.json</code> is the contract. The component renderers are just one
+            implementation of that contract, and the tests prove they still agree.
+          </p>
+          <ul class="notes-list">
+            <li>Read the catalog first when adding or changing a component.</li>
+            <li>Then update the renderer, CSS, and tests in that order.</li>
+            <li>Rebuild the catalog docs from the JSON, not the other way around.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Tradeoffs</div>
+          <h2>What the repo optimizes for</h2>
+        </div>
+        <p class="section-note">
+          The design is deliberately lean. It favors clarity, repeatability, and easy debugging over
+          heavyweight runtime machinery.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Deliberately simple</h3>
+          <ul class="notes-list">
+            <li>No build step. Node 20 and <code>node --test</code> are enough.</li>
+            <li>No state-heavy client app. Most renderers are pure string functions.</li>
+            <li>Validation happens before browser rendering, which keeps failures crisp.</li>
+            <li>The system keeps both HTML output and the envelope that created it.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Not fully offline everywhere</h3>
+          <ul class="notes-list">
+            <li><code>Mermaid</code> and <code>Chart</code> can still load from jsDelivr.</li>
+            <li><code>Image</code> is closer to true self-contained behavior when assets are local.</li>
+            <li>The HTML is portable, but some visual features still depend on runtime network access.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Reading order</div>
+          <h2>The fastest path into the code</h2>
+        </div>
+        <p class="section-note">
+          This sequence matches how the system is shaped: contract first, renderer second, tests third.
+        </p>
+      </div>
+
+      <div class="reading-order">
+        <div class="step">
+          <h3><code>README.md</code></h3>
+          <p>Gives the external story and the intended user flow.</p>
+        </div>
+        <div class="step">
+          <h3><code>plugins/hyperscribe/scripts/render.mjs</code></h3>
+          <p>Shows the main orchestration path from envelope to final HTML.</p>
+        </div>
+        <div class="step">
+          <h3><code>plugins/hyperscribe/spec/catalog.json</code></h3>
+          <p>Defines the component contract that the rest of the system follows.</p>
+        </div>
+        <div class="step">
+          <h3><code>plugins/hyperscribe/scripts/lib/schema.mjs</code></h3>
+          <p>Explains how invalid envelopes are rejected before rendering.</p>
+        </div>
+        <div class="step">
+          <h3><code>plugins/hyperscribe/scripts/lib/tree.mjs</code></h3>
+          <p>Reveals the recursion pattern that turns the tree into strings.</p>
+        </div>
+        <div class="step">
+          <h3><code>tests/schema.test.mjs</code> and <code>tests/render.test.mjs</code></h3>
+          <p>Show the expected behavior in the most compressed form.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-band">
+      Hyperscribe reads best as three layers: a semantic UI DSL, a deterministic renderer, and the skill/prompt
+      surface that tells the model what structure to produce.
+    </div>
+  </main>
+</body>
+</html>

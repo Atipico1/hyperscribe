@@ -1,0 +1,388 @@
+{
+  "a2ui_version": "0.9",
+  "catalog": "hyperscribe/v1",
+  "is_task_complete": true,
+  "parts": [
+    {
+      "component": "hyperscribe/Page",
+      "props": {
+        "title": "Hyperscribe Codebase Map",
+        "subtitle": "How a semantic envelope becomes one self-contained HTML page",
+        "toc": true
+      },
+      "children": [
+        {
+          "component": "hyperscribe/Section",
+          "props": {
+            "id": "overview",
+            "title": "Overview",
+            "lead": "The model writes structure. The renderer turns that structure into a browser-ready artifact."
+          },
+          "children": [
+            {
+              "component": "hyperscribe/Prose",
+              "props": {
+                "markdown": "Hyperscribe is a **catalog-driven renderer**. The important split is simple:\n\n- `plugins/hyperscribe/spec/catalog.json` defines the contract.\n- `plugins/hyperscribe/scripts/render.mjs` validates and renders.\n- `plugins/hyperscribe/scripts/components/*.mjs` turns semantic nodes into HTML.\n- `plugins/hyperscribe/assets/*` and `plugins/hyperscribe/themes/*` supply the shared look and behavior."
+              }
+            },
+            {
+              "component": "hyperscribe/Callout",
+              "props": {
+                "severity": "info",
+                "title": "Key idea",
+                "body": "The envelope carries meaning, not presentation. That keeps the output predictable and makes the HTML easy to regenerate from the same source JSON."
+              }
+            }
+          ]
+        },
+        {
+          "component": "hyperscribe/Section",
+          "props": {
+            "id": "render-pipeline",
+            "title": "Render Pipeline",
+            "lead": "A single pass moves from prompt to validated envelope to static HTML."
+          },
+          "children": [
+            {
+              "component": "hyperscribe/Mermaid",
+              "props": {
+                "kind": "flowchart",
+                "direction": "TD",
+                "source": "A[\"User prompt\"] --> B[\"Command or skill prompt\"] --> C[\"Semantic JSON envelope\"] --> D[\"Schema validation<br/>spec/catalog.json\"] --> E[\"Tree walk<br/>scripts/lib/tree.mjs\"] --> F[\"Component SSR<br/>scripts/components/*.mjs\"] --> G[\"Theme + asset bundle<br/>base.css + themes/*.css\"] --> H[\"Self-contained HTML<br/>+ sibling JSON\"]"
+              }
+            }
+          ]
+        },
+        {
+          "component": "hyperscribe/Section",
+          "props": {
+            "id": "core-modules",
+            "title": "Core Modules",
+            "lead": "The runtime is small, but each layer has a clear job."
+          },
+          "children": [
+            {
+              "component": "hyperscribe/ArchitectureGrid",
+              "props": {
+                "layout": "layers",
+                "groups": [
+                  {
+                    "id": "ingress",
+                    "title": "Ingress and contract",
+                    "nodeIds": [
+                      "prompt",
+                      "catalog"
+                    ]
+                  },
+                  {
+                    "id": "engine",
+                    "title": "Validation and dispatch",
+                    "nodeIds": [
+                      "schema",
+                      "tree",
+                      "components"
+                    ]
+                  },
+                  {
+                    "id": "surface",
+                    "title": "Presentation and output",
+                    "nodeIds": [
+                      "theme",
+                      "output"
+                    ]
+                  }
+                ],
+                "nodes": [
+                  {
+                    "id": "prompt",
+                    "title": "Prompt + command",
+                    "description": "Natural language is shaped into a catalog-sized request.",
+                    "icon": "✍️",
+                    "tag": "entry"
+                  },
+                  {
+                    "id": "catalog",
+                    "title": "spec/catalog.json",
+                    "description": "Root components, props, and enums live here.",
+                    "icon": "📘",
+                    "tag": "contract"
+                  },
+                  {
+                    "id": "schema",
+                    "title": "scripts/lib/schema.mjs",
+                    "description": "Validates the envelope and reports path-aware errors.",
+                    "icon": "🧪",
+                    "tag": "gate"
+                  },
+                  {
+                    "id": "tree",
+                    "title": "scripts/lib/tree.mjs",
+                    "description": "Walks the component tree and dispatches renderers.",
+                    "icon": "🌳",
+                    "tag": "walk"
+                  },
+                  {
+                    "id": "components",
+                    "title": "scripts/components/*.mjs",
+                    "description": "Pure SSR functions for each visual block.",
+                    "icon": "🧩",
+                    "tag": "render"
+                  },
+                  {
+                    "id": "theme",
+                    "title": "assets + themes",
+                    "description": "Base CSS, per-component CSS, and interactive JS.",
+                    "icon": "🎨",
+                    "tag": "skin"
+                  },
+                  {
+                    "id": "output",
+                    "title": "HTML + JSON",
+                    "description": "One file to open, one JSON source to keep beside it.",
+                    "icon": "📄",
+                    "tag": "artifact"
+                  }
+                ],
+                "edges": [
+                  {
+                    "from": "prompt",
+                    "to": "catalog",
+                    "label": "shaped by",
+                    "style": "dep"
+                  },
+                  {
+                    "from": "catalog",
+                    "to": "schema",
+                    "label": "checked against",
+                    "style": "control"
+                  },
+                  {
+                    "from": "schema",
+                    "to": "tree",
+                    "label": "on success",
+                    "style": "control"
+                  },
+                  {
+                    "from": "tree",
+                    "to": "components",
+                    "label": "renders through",
+                    "style": "data"
+                  },
+                  {
+                    "from": "components",
+                    "to": "theme",
+                    "label": "styled by",
+                    "style": "dep"
+                  },
+                  {
+                    "from": "theme",
+                    "to": "output",
+                    "label": "bundled into",
+                    "style": "data"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "component": "hyperscribe/Section",
+          "props": {
+            "id": "repo-shape",
+            "title": "Repository Shape",
+            "lead": "The product source lives under `plugins/hyperscribe`. The skill and docs folders are mirrors and helpers around it."
+          },
+          "children": [
+            {
+              "component": "hyperscribe/Comparison",
+              "props": {
+                "mode": "grid",
+                "items": [
+                  {
+                    "title": "plugins/hyperscribe",
+                    "subtitle": "Canonical runtime",
+                    "bullets": [
+                      "Renderer, schema, tree walker, themes, assets, and commands live here.",
+                      "This is the source of truth for the envelope contract and HTML output.",
+                      "Most component behavior is in `scripts/components/*.mjs`."
+                    ],
+                    "verdict": {
+                      "label": "source of truth",
+                      "tone": "winner"
+                    }
+                  },
+                  {
+                    "title": "skills / docs / tests",
+                    "subtitle": "Surrounding mirrors and checks",
+                    "bullets": [
+                      "Skill bundles expose the same renderer to agents and command entry points.",
+                      "Tests pin the contract with fixtures, validation, and golden output.",
+                      "Docs explain the protocol; they do not define it."
+                    ],
+                    "verdict": {
+                      "label": "surrounding support",
+                      "tone": "neutral"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "component": "hyperscribe/FileTree",
+              "props": {
+                "showIcons": true,
+                "caption": "A compact map of the paths that matter most.",
+                "nodes": [
+                  {
+                    "name": "plugins",
+                    "type": "dir",
+                    "children": [
+                      {
+                        "name": "hyperscribe",
+                        "type": "dir",
+                        "highlight": "primary",
+                        "children": [
+                          {
+                            "name": "scripts",
+                            "type": "dir",
+                            "children": [
+                              {
+                                "name": "render.mjs",
+                                "type": "file"
+                              },
+                              {
+                                "name": "lib/schema.mjs",
+                                "type": "file"
+                              },
+                              {
+                                "name": "lib/tree.mjs",
+                                "type": "file"
+                              },
+                              {
+                                "name": "components/*.mjs",
+                                "type": "file"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "spec/catalog.json",
+                            "type": "file"
+                          },
+                          {
+                            "name": "assets",
+                            "type": "dir",
+                            "children": [
+                              {
+                                "name": "base.css",
+                                "type": "file"
+                              },
+                              {
+                                "name": "components/*.css",
+                                "type": "file"
+                              },
+                              {
+                                "name": "interactive.js",
+                                "type": "file"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "themes",
+                            "type": "dir",
+                            "children": [
+                              {
+                                "name": "studio.css",
+                                "type": "file"
+                              },
+                              {
+                                "name": "midnight.css",
+                                "type": "file"
+                              },
+                              {
+                                "name": "void.css",
+                                "type": "file"
+                              },
+                              {
+                                "name": "gallery.css",
+                                "type": "file"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "skills",
+                    "type": "dir",
+                    "highlight": "secondary",
+                    "children": [
+                      {
+                        "name": "hyperscribe",
+                        "type": "dir"
+                      },
+                      {
+                        "name": "hyperscribe-slides",
+                        "type": "dir"
+                      },
+                      {
+                        "name": "hyperscribe-diff",
+                        "type": "dir"
+                      },
+                      {
+                        "name": "hyperscribe-share",
+                        "type": "dir"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "tests",
+                    "type": "dir",
+                    "highlight": "secondary",
+                    "children": [
+                      {
+                        "name": "components",
+                        "type": "dir"
+                      },
+                      {
+                        "name": "schema.test.mjs",
+                        "type": "file"
+                      },
+                      {
+                        "name": "render.test.mjs",
+                        "type": "file"
+                      },
+                      {
+                        "name": "fixtures",
+                        "type": "dir"
+                      },
+                      {
+                        "name": "golden",
+                        "type": "dir"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "docs",
+                    "type": "dir",
+                    "highlight": "muted",
+                    "children": [
+                      {
+                        "name": "plans",
+                        "type": "dir"
+                      },
+                      {
+                        "name": "superpowers",
+                        "type": "dir"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

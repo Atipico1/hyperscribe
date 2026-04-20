@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Sample dashboard illustration</title>
+  <desc id="desc">A simple layered composition used for the image component preview.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5f8ff" />
+      <stop offset="100%" stop-color="#d6e4ff" />
+    </linearGradient>
+    <linearGradient id="card" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#eef4ff" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="32" fill="url(#bg)" />
+  <rect x="56" y="56" width="848" height="428" rx="28" fill="#0f172a" opacity="0.08" />
+  <rect x="72" y="72" width="816" height="396" rx="24" fill="url(#card)" stroke="#b7c8ef" />
+  <rect x="112" y="120" width="280" height="52" rx="14" fill="#1d4ed8" opacity="0.12" />
+  <rect x="112" y="204" width="336" height="176" rx="22" fill="#ffffff" stroke="#c7d4f4" />
+  <rect x="488" y="204" width="288" height="84" rx="22" fill="#ffffff" stroke="#c7d4f4" />
+  <rect x="488" y="316" width="288" height="64" rx="22" fill="#dbeafe" />
+  <rect x="804" y="204" width="44" height="176" rx="16" fill="#1d4ed8" opacity="0.12" />
+  <path d="M156 334 C210 250 272 364 332 266 C352 236 374 244 404 214" fill="none" stroke="#2563eb" stroke-width="14" stroke-linecap="round" />
+  <circle cx="156" cy="334" r="14" fill="#2563eb" />
+  <circle cx="332" cy="266" r="14" fill="#2563eb" />
+  <circle cx="404" cy="214" r="14" fill="#2563eb" />
+  <rect x="524" y="228" width="116" height="20" rx="10" fill="#0f172a" opacity="0.12" />
+  <rect x="524" y="260" width="196" height="14" rx="7" fill="#0f172a" opacity="0.08" />
+  <rect x="524" y="336" width="92" height="18" rx="9" fill="#2563eb" opacity="0.16" />
+  <rect x="632" y="336" width="104" height="18" rx="9" fill="#2563eb" opacity="0.28" />
+</svg>

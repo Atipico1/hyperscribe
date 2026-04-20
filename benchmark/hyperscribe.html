@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="en" data-theme="studio" data-mode="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hyperscribe Codebase Map</title>
+  <style>/* ===== Studio theme — Airtable-inspired: clean enterprise canvas + Airtable Blue ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+[data-theme="studio"] {
+  /* Surfaces — white canvas with deep navy ink */
+  --hs-color-fg: #181d26;                            /* Deep Navy */
+  --hs-color-bg: #ffffff;
+  --hs-color-surface: #ffffff;
+  --hs-color-surface-alt: #f8fafc;                   /* Light Surface */
+  --hs-color-surface-dark: #181d26;
+
+  --hs-color-fg-muted: rgba(4, 14, 32, 0.69);        /* Weak Text */
+  --hs-color-fg-placeholder: #b7bbc1;
+
+  /* Chrome — Airtable Blue reserved for interactive accents */
+  --hs-color-accent: #1b61c9;                        /* Airtable Blue */
+  --hs-color-accent-active: #254fad;                 /* Mid Blue */
+  --hs-color-navy: #181d26;
+  --hs-color-purple: #5856d6;
+  --hs-color-pink: #d53992;
+  --hs-color-teal: #17a2b8;
+  --hs-color-brown: #8b5e3c;
+  --hs-color-focus: #1b61c9;
+  --hs-color-badge-bg: rgba(27, 97, 201, 0.08);
+  --hs-color-badge-text: #1b61c9;
+  --hs-color-success: #006400;
+  --hs-color-warn: #b45309;
+
+  /* Signature Airtable blue-tinted multi-layer shadow */
+  --hs-border-whisper: 1px solid #e0e2e6;
+  --hs-shadow-card: rgba(0, 0, 0, 0.32) 0 0 1px,
+                    rgba(0, 0, 0, 0.08) 0 0 2px,
+                    rgba(45, 127, 249, 0.28) 0 1px 3px,
+                    rgba(0, 0, 0, 0.06) 0 0 0 0.5px inset;
+  --hs-shadow-deep: rgba(15, 48, 106, 0.05) 0 0 20px,
+                    rgba(45, 127, 249, 0.18) 0 10px 30px;
+
+  /* Haas → Inter Tight substitute (near-identical Swiss-precision geometry) */
+  --hs-font-sans: "Inter Tight", "Haas", -apple-system, BlinkMacSystemFont,
+                  "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --hs-font-display: "Inter Tight", "Haas Groot Disp", "Haas", -apple-system, sans-serif;
+  --hs-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --hs-tone-info-bg:    rgba(27, 97, 201, 0.08);
+  --hs-tone-info-fg:    #1b61c9;
+  --hs-tone-warn-bg:    rgba(180, 83, 9, 0.10);
+  --hs-tone-warn-fg:    #b45309;
+  --hs-tone-success-bg: rgba(0, 100, 0, 0.10);
+  --hs-tone-success-fg: #006400;
+  --hs-tone-danger-bg:  rgba(215, 58, 73, 0.10);
+  --hs-tone-danger-fg:  #d73a49;
+
+  --hs-note-bg:     #fef9c3;
+  --hs-note-border: #eab308;
+  --hs-note-text:   #713f12;
+}
+
+[data-theme="studio"][data-mode="dark"] {
+  --hs-color-fg: rgba(249, 252, 255, 0.97);
+  --hs-color-bg: #0d1117;
+  --hs-color-surface: #161b22;
+  --hs-color-surface-alt: #1f2937;
+  --hs-color-surface-dark: #010409;
+
+  --hs-color-fg-muted: rgba(249, 252, 255, 0.62);
+  --hs-color-fg-placeholder: rgba(249, 252, 255, 0.4);
+
+  --hs-color-accent: #4c8df5;
+  --hs-color-accent-active: #7db0ff;
+  --hs-color-focus: #4c8df5;
+  --hs-color-badge-bg: rgba(76, 141, 245, 0.14);
+  --hs-color-badge-text: #7db0ff;
+  --hs-color-success: #4ade80;
+  --hs-color-warn: #fb923c;
+
+  --hs-border-whisper: 1px solid #30363d;
+  --hs-shadow-card: rgba(0, 0, 0, 0.5) 0 0 1px,
+                    rgba(0, 0, 0, 0.3) 0 0 2px,
+                    rgba(45, 127, 249, 0.35) 0 1px 3px,
+                    rgba(255, 255, 255, 0.04) 0 0 0 0.5px inset;
+  --hs-shadow-deep: rgba(0, 0, 0, 0.55) 0 0 20px,
+                    rgba(45, 127, 249, 0.25) 0 10px 30px;
+
+  --hs-tone-info-bg:    rgba(76, 141, 245, 0.14);
+  --hs-tone-info-fg:    #7db0ff;
+  --hs-tone-warn-bg:    rgba(251, 146, 60, 0.14);
+  --hs-tone-warn-fg:    #fdba74;
+  --hs-tone-success-bg: rgba(74, 222, 128, 0.14);
+  --hs-tone-success-fg: #86efac;
+  --hs-tone-danger-bg:  rgba(248, 113, 113, 0.14);
+  --hs-tone-danger-fg:  #fca5a5;
+
+  --hs-note-bg:     rgba(234, 179, 8, 0.15);
+  --hs-note-border: #eab308;
+  --hs-note-text:   #fde68a;
+}
+
+/* === Studio character: Swiss-precision typography with positive body tracking === */
+[data-theme="studio"] body {
+  font-feature-settings: "ss01", "cv11";
+}
+[data-theme="studio"] .hs-page-title {
+  font-family: var(--hs-font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+[data-theme="studio"] .hs-section-title {
+  font-family: var(--hs-font-display);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  line-height: 1.15;
+}
+[data-theme="studio"] .hs-heading-h2,
+[data-theme="studio"] .hs-heading-h3,
+[data-theme="studio"] .hs-heading-h4 {
+  font-weight: 500;
+}
+[data-theme="studio"] .hs-page-subtitle,
+[data-theme="studio"] .hs-section-lead {
+  font-weight: 400;
+  letter-spacing: 0.006em;    /* ~0.1px at 16px — Airtable body tracking */
+}
+[data-theme="studio"] .hs-prose {
+  letter-spacing: 0.011em;    /* ~0.18px at 16px */
+  line-height: 1.55;
+}
+
+:root {
+  /* === Spacing === */
+  --hs-space-1: 4px;
+  --hs-space-2: 8px;
+  --hs-space-3: 12px;
+  --hs-space-4: 16px;
+  --hs-space-5: 24px;
+  --hs-space-6: 32px;
+  --hs-space-8: 64px;
+  --hs-space-10: 120px;
+
+  /* === Radius === */
+  --hs-radius-micro: 4px;
+  --hs-radius-subtle: 5px;
+  --hs-radius-std: 8px;
+  --hs-radius-comfort: 12px;
+  --hs-radius-large: 16px;
+  --hs-radius-pill: 9999px;
+
+  --hs-container-max: 1200px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--hs-font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--hs-color-fg);
+  background: var(--hs-color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === Page === */
+.hs-page {
+  max-width: var(--hs-container-max);
+  margin: 0 auto;
+  padding: var(--hs-space-8) var(--hs-space-5);
+}
+.hs-page-header { margin-bottom: var(--hs-space-6); }
+.hs-page-title {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -2.125px;
+  margin: 0 0 var(--hs-space-3);
+  font-feature-settings: "lnum", "locl";
+}
+.hs-page-subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.125px;
+  color: var(--hs-color-fg-muted);
+  margin: 0;
+}
+
+/* === Section === */
+.hs-section { margin-top: var(--hs-space-8); }
+.hs-section-title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  margin: 0 0 var(--hs-space-4);
+  font-feature-settings: "lnum", "locl";
+}
+.hs-section-lead {
+  color: var(--hs-color-fg-muted);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 var(--hs-space-5);
+}
+.hs-section-lead p { margin: 0; }
+.hs-section-body > * + * { margin-top: var(--hs-space-4); }
+
+/* === Headings === */
+.hs-heading { margin: var(--hs-space-5) 0 var(--hs-space-3); font-weight: 700; }
+.hs-heading-h2 {
+  font-size: 40px;
+  line-height: 1.5;
+  font-feature-settings: "lnum", "locl";
+}
+.hs-heading-h3 {
+  font-size: 26px;
+  line-height: 1.23;
+  letter-spacing: -0.625px;
+}
+.hs-heading-h4 {
+  font-size: 22px;
+  line-height: 1.27;
+  letter-spacing: -0.25px;
+}
+
+/* === Prose === */
+.hs-prose { line-height: 1.5; }
+.hs-prose p { margin: 0 0 var(--hs-space-3); }
+.hs-prose p:last-child { margin-bottom: 0; }
+.hs-prose strong { font-weight: 600; }
+.hs-prose em { font-style: italic; }
+.hs-prose code {
+  font-family: var(--hs-font-mono);
+  font-size: 0.9em;
+  background: var(--hs-color-surface-alt);
+  padding: 2px 5px;
+  border-radius: var(--hs-radius-micro);
+}
+.hs-prose a {
+  color: var(--hs-color-accent);
+  text-decoration: none;
+}
+.hs-prose a:hover { text-decoration: underline; }
+.hs-prose ul, .hs-prose ol {
+  margin: 0 0 var(--hs-space-3);
+  padding-left: var(--hs-space-5);
+}
+.hs-prose li { margin-bottom: var(--hs-space-1); }
+
+/* === Light/Dark mode toggler (always present, fixed to top-right) === */
+.hs-mode-toggler {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9999;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hs-color-surface);
+  color: var(--hs-color-fg);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-pill);
+  padding: 0;
+  cursor: pointer;
+  box-shadow: var(--hs-shadow-card);
+  transition: transform 120ms ease, background 120ms ease;
+}
+.hs-mode-toggler:hover { transform: translateY(-1px); }
+.hs-mode-toggler:active { transform: translateY(0); }
+.hs-mode-toggler:focus-visible {
+  outline: 2px solid var(--hs-color-focus);
+  outline-offset: 2px;
+}
+/* Show moon in light mode (click → dark), sun in dark mode (click → light) */
+html[data-mode="dark"] .hs-mode-icon-moon { display: none; }
+html[data-mode="dark"] .hs-mode-icon-sun  { display: block; }
+html:not([data-mode="dark"]) .hs-mode-icon-moon { display: block; }
+html:not([data-mode="dark"]) .hs-mode-icon-sun  { display: none; }
+
+/* === Pan/zoom layer for SVG diagrams === */
+.hs-zoomable {
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.hs-zoomable .hs-zoom-stage {
+  transform-origin: 0 0;
+  cursor: grab;
+  width: fit-content;
+  min-width: 100%;
+}
+.hs-zoomable .hs-zoom-stage:active { cursor: grabbing; }
+.hs-zoomable .hs-zoom-stage > svg { display: block; max-width: none; }
+
+.hs-zoom-controls {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  z-index: 10;
+  pointer-events: auto;
+}
+.hs-zoom-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hs-color-surface);
+  color: var(--hs-color-fg);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-micro);
+  cursor: pointer;
+  font-size: 14px;
+  font-family: var(--hs-font-sans);
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: var(--hs-shadow-card);
+  transition: background 120ms ease, transform 80ms ease;
+}
+.hs-zoom-btn:hover { background: var(--hs-color-surface-alt); }
+.hs-zoom-btn:active { transform: scale(0.94); }
+.hs-zoom-btn:focus-visible {
+  outline: 2px solid var(--hs-color-focus);
+  outline-offset: 2px;
+}
+
+/* hyperscribe/Callout */
+.hs-callout {
+  border-left: 4px solid var(--hs-color-accent);
+  background: var(--hs-color-surface-alt);
+  border-radius: var(--hs-radius-std);
+  padding: var(--hs-space-4) var(--hs-space-5);
+  margin: var(--hs-space-4) 0;
+}
+.hs-callout-title {
+  font-weight: 700;
+  margin-bottom: var(--hs-space-2);
+}
+.hs-callout-body > p:first-child { margin-top: 0; }
+.hs-callout-body > p:last-child { margin-bottom: 0; }
+.hs-callout-info { border-left-color: var(--hs-color-accent); background: var(--hs-tone-info-bg); }
+.hs-callout-note { border-left-color: var(--hs-color-fg-muted); }
+.hs-callout-warn { border-left-color: var(--hs-color-warn); background: var(--hs-tone-warn-bg); }
+.hs-callout-success { border-left-color: var(--hs-color-success); background: var(--hs-tone-success-bg); }
+.hs-callout-danger { border-left-color: var(--hs-tone-danger-fg); background: var(--hs-tone-danger-bg); }
+
+/* hyperscribe/Mermaid */
+.hs-mermaid-wrap {
+  margin: var(--hs-space-5) 0;
+  padding: var(--hs-space-5);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-comfort);
+  background: var(--hs-color-surface);
+  overflow-x: auto;
+  text-align: center;
+}
+.hs-mermaid-wrap pre.mermaid {
+  margin: 0;
+  background: transparent;
+  font-family: var(--hs-font-sans);
+}
+.hs-mermaid-wrap .mermaid svg {
+  max-width: 100%;
+  height: auto;
+  font-family: var(--hs-font-sans) !important;
+}
+.hs-mermaid-wrap .mermaid .actor {
+  stroke: color-mix(in srgb, var(--hs-color-fg-muted) 28%, transparent) !important;
+  stroke-width: 1 !important;
+}
+.hs-mermaid-wrap .mermaid text,
+.hs-mermaid-wrap .mermaid tspan,
+.hs-mermaid-wrap .mermaid .messageText,
+.hs-mermaid-wrap .mermaid .labelText,
+.hs-mermaid-wrap .mermaid .loopText {
+  fill: var(--hs-color-fg) !important;
+}
+.hs-mermaid-wrap .mermaid text.actor,
+.hs-mermaid-wrap .mermaid .actor-man text {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+.hs-mermaid-wrap .mermaid .messageLine0,
+.hs-mermaid-wrap .mermaid .messageLine1 {
+  stroke: var(--hs-color-fg-muted) !important;
+  stroke-width: 1.25 !important;
+}
+.hs-mermaid-wrap .mermaid .messageText {
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+}
+.hs-mermaid-wrap .mermaid .note {
+  stroke: var(--hs-note-border) !important;
+  stroke-width: 1 !important;
+}
+.hs-mermaid-wrap .mermaid .labelText,
+.hs-mermaid-wrap .mermaid .loopText {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+.hs-mermaid-wrap .mermaid .node rect,
+.hs-mermaid-wrap .mermaid .node polygon,
+.hs-mermaid-wrap .mermaid .node circle,
+.hs-mermaid-wrap .mermaid .node ellipse {
+  stroke: color-mix(in srgb, var(--hs-color-fg-muted) 28%, transparent) !important;
+  stroke-width: 1 !important;
+}
+.hs-mermaid-wrap .mermaid .edgePath .path,
+.hs-mermaid-wrap .mermaid .flowchart-link,
+.hs-mermaid-wrap .mermaid marker path {
+  stroke: var(--hs-color-fg-muted) !important;
+  fill: var(--hs-color-fg-muted) !important;
+  stroke-width: 1.25 !important;
+}
+
+/* hyperscribe/ArchitectureGrid */
+.hs-arch {
+  margin: var(--hs-space-5) 0;
+  display: grid;
+  gap: var(--hs-space-4);
+}
+.hs-arch-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.hs-arch-columns { grid-auto-flow: column; grid-auto-columns: minmax(220px, 1fr); overflow-x: auto; }
+.hs-arch-layers { grid-template-columns: 1fr; }
+
+.hs-arch-node {
+  background: var(--hs-color-surface);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-comfort);
+  padding: var(--hs-space-3) var(--hs-space-4);
+  box-shadow: var(--hs-shadow-card);
+}
+.hs-arch-node-head {
+  display: flex;
+  align-items: center;
+  gap: var(--hs-space-2);
+}
+.hs-arch-node-title { font-weight: 700; flex: 1; }
+.hs-arch-node-tag {
+  font-size: 11px;
+  padding: 2px 6px;
+  background: var(--hs-color-badge-bg);
+  color: var(--hs-color-badge-text);
+  border-radius: var(--hs-radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.hs-arch-node-desc {
+  color: var(--hs-color-fg-muted);
+  font-size: 14px;
+  margin-top: var(--hs-space-2);
+}
+
+.hs-arch-group {
+  grid-column: 1 / -1;
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-large);
+  padding: var(--hs-space-4);
+  background: var(--hs-color-surface-alt);
+}
+.hs-arch-group-title { font-weight: 700; margin-bottom: var(--hs-space-3); }
+.hs-arch-group-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--hs-space-3);
+}
+
+.hs-arch-edges {
+  grid-column: 1 / -1;
+  list-style: none;
+  padding: 0;
+  margin: var(--hs-space-4) 0 0;
+  font-size: 14px;
+  color: var(--hs-color-fg-muted);
+}
+.hs-arch-edges li { padding: var(--hs-space-1) 0; }
+.hs-arch-edges em { font-style: normal; }
+.hs-arch-edge-data { color: var(--hs-color-accent); }
+.hs-arch-edge-control { color: var(--hs-color-warn); }
+.hs-arch-edge-dep { color: var(--hs-color-fg-muted); }
+
+/* hyperscribe/Comparison */
+.hs-compare {
+  display: grid;
+  gap: var(--hs-space-4);
+  margin: var(--hs-space-5) 0;
+}
+.hs-compare-vs { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.hs-compare-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+.hs-compare-item {
+  background: var(--hs-color-surface);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-comfort);
+  padding: var(--hs-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hs-space-3);
+  box-shadow: var(--hs-shadow-card);
+}
+.hs-compare-head { border-bottom: var(--hs-border-whisper); padding-bottom: var(--hs-space-3); }
+.hs-compare-title { font-weight: 700; font-size: 18px; }
+.hs-compare-subtitle { color: var(--hs-color-fg-muted); font-size: 14px; margin-top: var(--hs-space-1); }
+.hs-compare-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.hs-compare-bullets li {
+  padding: var(--hs-space-1) 0;
+  padding-left: var(--hs-space-4);
+  position: relative;
+  font-size: 15px;
+}
+.hs-compare-bullets li::before {
+  content: '•';
+  position: absolute;
+  left: 4px;
+  color: var(--hs-color-accent);
+}
+.hs-compare-verdict {
+  padding: var(--hs-space-2) var(--hs-space-3);
+  border-radius: var(--hs-radius-std);
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  margin-top: auto;
+}
+.hs-compare-verdict-winner { background: var(--hs-tone-success-bg); color: var(--hs-tone-success-fg); }
+.hs-compare-verdict-loser { background: var(--hs-tone-danger-bg); color: var(--hs-tone-danger-fg); }
+.hs-compare-verdict-neutral { background: var(--hs-color-surface-alt); color: var(--hs-color-fg-muted); }
+
+/* hyperscribe/FileTree */
+.hs-file-tree {
+  margin: 1.5rem 0;
+  font-family: var(--hs-font-mono);
+  font-size: 14px;
+  background: var(--hs-color-surface-alt);
+  border: var(--hs-border-whisper);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  box-shadow: var(--hs-shadow-card);
+}
+
+.hs-file-tree-root,
+.hs-file-tree-children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hs-file-tree-children {
+  padding-left: 1.25rem;
+  border-left: 1px dashed rgba(127,127,127,0.2);
+  margin-left: 0.5rem;
+}
+
+.hs-file-tree-node {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+  color: var(--hs-color-fg);
+}
+
+.hs-file-tree-icon {
+  width: 1rem;
+  text-align: center;
+  color: var(--hs-color-fg-muted);
+  flex: 0 0 auto;
+}
+
+.hs-file-tree-dir .hs-file-tree-label {
+  font-weight: 600;
+}
+
+.hs-file-tree-file .hs-file-tree-label {
+  color: var(--hs-color-fg-muted);
+}
+
+.hs-file-tree-node-highlight-primary {
+  background: var(--hs-color-badge-bg);
+  color: var(--hs-color-badge-text);
+  border-radius: 4px;
+  padding-inline: 0.4rem;
+}
+
+.hs-file-tree-node-highlight-secondary {
+  background: var(--hs-tone-info-bg);
+  color: var(--hs-tone-info-fg);
+  border-radius: 4px;
+  padding-inline: 0.4rem;
+}
+
+.hs-file-tree-node-highlight-muted {
+  opacity: 0.5;
+}
+
+.hs-file-tree-caption {
+  margin-top: 0.75rem;
+  font-family: var(--hs-font-sans);
+  font-size: 13px;
+  color: var(--hs-color-fg-muted);
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<article class="hs-page"><header class="hs-page-header"><h1 class="hs-page-title">Hyperscribe Codebase Map</h1><p class="hs-page-subtitle">How a semantic envelope becomes one self-contained HTML page</p></header><main class="hs-page-main"><section class="hs-section" id="overview"><h2 class="hs-section-title">Overview</h2><div class="hs-section-lead"><p>The model writes structure. The renderer turns that structure into a browser-ready artifact.</p></div><div class="hs-section-body"><div class="hs-prose"><p>Hyperscribe is a <strong>catalog-driven renderer</strong>. The important split is simple:</p>
+<ul><li><code>plugins/hyperscribe/spec/catalog.json</code> defines the contract.</li><li><code>plugins/hyperscribe/scripts/render.mjs</code> validates and renders.</li><li><code>plugins/hyperscribe/scripts/components/*.mjs</code> turns semantic nodes into HTML.</li><li><code>plugins/hyperscribe/assets/*</code> and <code>plugins/hyperscribe/themes/*</code> supply the shared look and behavior.</li></ul></div><aside class="hs-callout hs-callout-info"><div class="hs-callout-title">Key idea</div><div class="hs-callout-body"><p>The envelope carries meaning, not presentation. That keeps the output predictable and makes the HTML easy to regenerate from the same source JSON.</p></div></aside></div></section><section class="hs-section" id="render-pipeline"><h2 class="hs-section-title">Render Pipeline</h2><div class="hs-section-lead"><p>A single pass moves from prompt to validated envelope to static HTML.</p></div><div class="hs-section-body"><div class="hs-mermaid-wrap" data-kind="flowchart"><pre class="mermaid">flowchart TD
+A[&quot;User prompt&quot;] --&gt; B[&quot;Command or skill prompt&quot;] --&gt; C[&quot;Semantic JSON envelope&quot;] --&gt; D[&quot;Schema validation&lt;br/&gt;spec/catalog.json&quot;] --&gt; E[&quot;Tree walk&lt;br/&gt;scripts/lib/tree.mjs&quot;] --&gt; F[&quot;Component SSR&lt;br/&gt;scripts/components/*.mjs&quot;] --&gt; G[&quot;Theme + asset bundle&lt;br/&gt;base.css + themes/*.css&quot;] --&gt; H[&quot;Self-contained HTML&lt;br/&gt;+ sibling JSON&quot;]</pre><script>if (!window.__hsMermaidLoaded) {
+  window.__hsMermaidLoaded = true;
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+  s.onload = function() {
+    var cs = getComputedStyle(document.documentElement);
+    function v(name, fallback) { return (cs.getPropertyValue(name) || '').trim() || fallback; }
+    window.mermaid.initialize({
+      startOnLoad: false,
+      theme: 'base',
+      fontFamily: v('--hs-font-sans', 'Inter, system-ui, sans-serif'),
+      themeVariables: {
+        primaryColor: v('--hs-color-surface-alt', '#f6f5f4'),
+        primaryTextColor: v('--hs-color-fg', 'rgba(0,0,0,0.95)'),
+        primaryBorderColor: v('--hs-color-fg-muted', '#615d59'),
+        lineColor: v('--hs-color-fg-muted', '#615d59'),
+        actorBkg: v('--hs-color-surface-alt', '#f6f5f4'),
+        actorTextColor: v('--hs-color-fg', 'rgba(0,0,0,0.95)'),
+        signalColor: v('--hs-color-fg', 'rgba(0,0,0,0.85)'),
+        signalTextColor: v('--hs-color-fg', 'rgba(0,0,0,0.95)'),
+        labelBoxBkgColor: v('--hs-color-surface-alt', '#f6f5f4'),
+        labelTextColor: v('--hs-color-fg', 'rgba(0,0,0,0.95)'),
+        noteBkgColor: v('--hs-note-bg', '#fef9c3'),
+        noteBorderColor: v('--hs-note-border', '#eab308'),
+        noteTextColor: v('--hs-note-text', '#713f12')
+      }
+    });
+    window.mermaid.run();
+  };
+  document.head.appendChild(s);
+}</script></div></div></section><section class="hs-section" id="core-modules"><h2 class="hs-section-title">Core Modules</h2><div class="hs-section-lead"><p>The runtime is small, but each layer has a clear job.</p></div><div class="hs-section-body"><div class="hs-arch hs-arch-layers"><section class="hs-arch-group" data-group-id="ingress"><div class="hs-arch-group-title">Ingress and contract</div><div class="hs-arch-group-body"><article class="hs-arch-node" data-node-id="prompt"><div class="hs-arch-node-head"><span class="hs-arch-node-icon">✍️</span><div class="hs-arch-node-title">Prompt + command</div><span class="hs-arch-node-tag">entry</span></div><div class="hs-arch-node-desc">Natural language is shaped into a catalog-sized request.</div></article><article class="hs-arch-node" data-node-id="catalog"><div class="hs-arch-node-head"><span class="hs-arch-node-icon">📘</span><div class="hs-arch-node-title">spec/catalog.json</div><span class="hs-arch-node-tag">contract</span></div><div class="hs-arch-node-desc">Root components, props, and enums live here.</div></article></div></section><section class="hs-arch-group" data-group-id="engine"><div class="hs-arch-group-title">Validation and dispatch</div><div class="hs-arch-group-body"><article class="hs-arch-node" data-node-id="schema"><div class="hs-arch-node-head"><span class="hs-arch-node-icon">🧪</span><div class="hs-arch-node-title">scripts/lib/schema.mjs</div><span class="hs-arch-node-tag">gate</span></div><div class="hs-arch-node-desc">Validates the envelope and reports path-aware errors.</div></article><article class="hs-arch-node" data-node-id="tree"><div class="hs-arch-node-head"><span class="hs-arch-node-icon">🌳</span><div class="hs-arch-node-title">scripts/lib/tree.mjs</div><span class="hs-arch-node-tag">walk</span></div><div class="hs-arch-node-desc">Walks the component tree and dispatches renderers.</div></article><article class="hs-arch-node" data-node-id="components"><div class="hs-arch-node-head"><span class="hs-arch-node-icon">🧩</span><div class="hs-arch-node-title">scripts/components/*.mjs</div><span class="hs-arch-node-tag">render</span></div><div class="hs-arch-node-desc">Pure SSR functions for each visual block.</div></article></div></section><section class="hs-arch-group" data-group-id="surface"><div class="hs-arch-group-title">Presentation and output</div><div class="hs-arch-group-body"><article class="hs-arch-node" data-node-id="theme"><div class="hs-arch-node-head"><span class="hs-arch-node-icon">🎨</span><div class="hs-arch-node-title">assets + themes</div><span class="hs-arch-node-tag">skin</span></div><div class="hs-arch-node-desc">Base CSS, per-component CSS, and interactive JS.</div></article><article class="hs-arch-node" data-node-id="output"><div class="hs-arch-node-head"><span class="hs-arch-node-icon">📄</span><div class="hs-arch-node-title">HTML + JSON</div><span class="hs-arch-node-tag">artifact</span></div><div class="hs-arch-node-desc">One file to open, one JSON source to keep beside it.</div></article></div></section><ul class="hs-arch-edges"><li class="hs-arch-edge-dep">Prompt + command → spec/catalog.json<em>: shaped by</em></li><li class="hs-arch-edge-control">spec/catalog.json → scripts/lib/schema.mjs<em>: checked against</em></li><li class="hs-arch-edge-control">scripts/lib/schema.mjs → scripts/lib/tree.mjs<em>: on success</em></li><li class="hs-arch-edge-data">scripts/lib/tree.mjs → scripts/components/*.mjs<em>: renders through</em></li><li class="hs-arch-edge-dep">scripts/components/*.mjs → assets + themes<em>: styled by</em></li><li class="hs-arch-edge-data">assets + themes → HTML + JSON<em>: bundled into</em></li></ul></div></div></section><section class="hs-section" id="repo-shape"><h2 class="hs-section-title">Repository Shape</h2><div class="hs-section-lead"><p>The product source lives under <code>plugins/hyperscribe</code>. The skill and docs folders are mirrors and helpers around it.</p></div><div class="hs-section-body"><div class="hs-compare hs-compare-grid"><article class="hs-compare-item"><div class="hs-compare-head"><div class="hs-compare-title">plugins/hyperscribe</div><div class="hs-compare-subtitle">Canonical runtime</div></div><ul class="hs-compare-bullets"><li>Renderer, schema, tree walker, themes, assets, and commands live here.</li><li>This is the source of truth for the envelope contract and HTML output.</li><li>Most component behavior is in `scripts/components/*.mjs`.</li></ul><div class="hs-compare-verdict hs-compare-verdict-winner">source of truth</div></article><article class="hs-compare-item"><div class="hs-compare-head"><div class="hs-compare-title">skills / docs / tests</div><div class="hs-compare-subtitle">Surrounding mirrors and checks</div></div><ul class="hs-compare-bullets"><li>Skill bundles expose the same renderer to agents and command entry points.</li><li>Tests pin the contract with fixtures, validation, and golden output.</li><li>Docs explain the protocol; they do not define it.</li></ul><div class="hs-compare-verdict hs-compare-verdict-neutral">surrounding support</div></article></div><figure class="hs-file-tree"><ul class="hs-file-tree-root"><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">plugins</span></div><ul class="hs-file-tree-children"><li><div class="hs-file-tree-node hs-file-tree-dir hs-file-tree-node-highlight-primary"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">hyperscribe</span></div><ul class="hs-file-tree-children"><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">scripts</span></div><ul class="hs-file-tree-children"><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">render.mjs</span></div></li><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">lib/schema.mjs</span></div></li><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">lib/tree.mjs</span></div></li><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">components/*.mjs</span></div></li></ul></li><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">spec/catalog.json</span></div></li><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">assets</span></div><ul class="hs-file-tree-children"><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">base.css</span></div></li><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">components/*.css</span></div></li><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">interactive.js</span></div></li></ul></li><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">themes</span></div><ul class="hs-file-tree-children"><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">studio.css</span></div></li><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">midnight.css</span></div></li><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">void.css</span></div></li><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">gallery.css</span></div></li></ul></li></ul></li></ul></li><li><div class="hs-file-tree-node hs-file-tree-dir hs-file-tree-node-highlight-secondary"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">skills</span></div><ul class="hs-file-tree-children"><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">hyperscribe</span></div></li><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">hyperscribe-slides</span></div></li><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">hyperscribe-diff</span></div></li><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">hyperscribe-share</span></div></li></ul></li><li><div class="hs-file-tree-node hs-file-tree-dir hs-file-tree-node-highlight-secondary"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">tests</span></div><ul class="hs-file-tree-children"><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">components</span></div></li><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">schema.test.mjs</span></div></li><li><div class="hs-file-tree-node hs-file-tree-file"><span class="hs-file-tree-icon" aria-hidden="true">·</span><span class="hs-file-tree-label">render.test.mjs</span></div></li><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">fixtures</span></div></li><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">golden</span></div></li></ul></li><li><div class="hs-file-tree-node hs-file-tree-dir hs-file-tree-node-highlight-muted"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">docs</span></div><ul class="hs-file-tree-children"><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">plans</span></div></li><li><div class="hs-file-tree-node hs-file-tree-dir"><span class="hs-file-tree-icon" aria-hidden="true">▸</span><span class="hs-file-tree-label">superpowers</span></div></li></ul></li></ul><figcaption class="hs-file-tree-caption">A compact map of the paths that matter most.</figcaption></figure></div></section></main></article>
+<button type="button" class="hs-mode-toggler" id="hs-mode-toggler" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+  <svg class="hs-mode-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  <svg class="hs-mode-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<script>(function(){
+  var KEY='hyperscribe.mode';
+  var saved=null;try{saved=localStorage.getItem(KEY);}catch(e){}
+  var ssr = document.documentElement.getAttribute('data-mode');
+  var mode = saved || ssr;
+  if (!mode) {
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    mode = prefersDark ? 'dark' : 'light';
+  }
+  function apply(m){
+    document.documentElement.setAttribute('data-mode', m);
+    try{localStorage.setItem(KEY, m);}catch(e){}
+  }
+  apply(mode);
+  var btn=document.getElementById('hs-mode-toggler');
+  if(btn){btn.addEventListener('click',function(){
+    var next = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    apply(next);
+  });}
+})();</script>
+<script>/* Hyperscribe interactive layer — pan/zoom for SVG diagrams.
+ * Any element tagged `.hs-zoomable` gets: mouse-drag pan, Ctrl/Cmd+wheel zoom,
+ * and a small control bar (＋ / − / ⟲ reset) docked to the top-right corner. */
+(function () {
+  function initZoom(container) {
+    if (container.dataset.hsZoomInit) return;
+    container.dataset.hsZoomInit = "1";
+
+    // Move existing children into a transform stage.
+    var stage = document.createElement("div");
+    stage.className = "hs-zoom-stage";
+    while (container.firstChild) stage.appendChild(container.firstChild);
+    container.appendChild(stage);
+
+    // Controls
+    var controls = document.createElement("div");
+    controls.className = "hs-zoom-controls";
+    controls.innerHTML =
+      '<button type="button" class="hs-zoom-btn" data-zoom="in"    aria-label="Zoom in"    title="Zoom in (Ctrl/Cmd + wheel)">＋</button>' +
+      '<button type="button" class="hs-zoom-btn" data-zoom="out"   aria-label="Zoom out"   title="Zoom out">−</button>' +
+      '<button type="button" class="hs-zoom-btn" data-zoom="reset" aria-label="Reset zoom" title="Reset">⟲</button>';
+    container.appendChild(controls);
+
+    var scale = 1, tx = 0, ty = 0;
+    var MIN = 0.2, MAX = 5;
+
+    function apply() {
+      stage.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + scale + ")";
+    }
+    function clamp(s) { return Math.max(MIN, Math.min(MAX, s)); }
+    function zoomAt(newScale, cx, cy) {
+      var ns = clamp(newScale);
+      if (ns === scale) return;
+      var r = ns / scale;
+      tx = cx - (cx - tx) * r;
+      ty = cy - (cy - ty) * r;
+      scale = ns;
+      apply();
+    }
+    function reset() { scale = 1; tx = 0; ty = 0; apply(); }
+    function center() {
+      return { cx: container.clientWidth / 2, cy: container.clientHeight / 2 };
+    }
+
+    controls.addEventListener("click", function (e) {
+      var btn = e.target.closest(".hs-zoom-btn");
+      if (!btn) return;
+      var op = btn.getAttribute("data-zoom");
+      var c = center();
+      if (op === "in") zoomAt(scale * 1.25, c.cx, c.cy);
+      else if (op === "out") zoomAt(scale / 1.25, c.cx, c.cy);
+      else reset();
+    });
+
+    container.addEventListener("wheel", function (e) {
+      // Only hijack wheel when Ctrl/Cmd is held — otherwise let the page scroll.
+      if (!(e.ctrlKey || e.metaKey)) return;
+      e.preventDefault();
+      var rect = container.getBoundingClientRect();
+      var cx = e.clientX - rect.left;
+      var cy = e.clientY - rect.top;
+      var factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+      zoomAt(scale * factor, cx, cy);
+    }, { passive: false });
+
+    // Drag to pan
+    var dragging = false, lastX = 0, lastY = 0, activePointer = null;
+    stage.addEventListener("pointerdown", function (e) {
+      if (e.button !== 0) return;
+      if (e.target.closest(".hs-zoom-controls")) return;
+      dragging = true;
+      lastX = e.clientX; lastY = e.clientY; activePointer = e.pointerId;
+      try { stage.setPointerCapture(e.pointerId); } catch (_) {}
+    });
+    stage.addEventListener("pointermove", function (e) {
+      if (!dragging || e.pointerId !== activePointer) return;
+      tx += e.clientX - lastX;
+      ty += e.clientY - lastY;
+      lastX = e.clientX; lastY = e.clientY;
+      apply();
+    });
+    function endDrag(e) {
+      if (e && e.pointerId !== activePointer) return;
+      dragging = false;
+      activePointer = null;
+      try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
+    }
+    stage.addEventListener("pointerup", endDrag);
+    stage.addEventListener("pointercancel", endDrag);
+    stage.addEventListener("pointerleave", function () { dragging = false; });
+  }
+
+  function initAll(root) {
+    (root || document).querySelectorAll(".hs-zoomable").forEach(initZoom);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () { initAll(); });
+  } else {
+    initAll();
+  }
+
+  // Expose for content injected after load (e.g. Mermaid-rendered SVG).
+  window.__hsInitZoom = initAll;
+})();
+</script>
+</body>
+</html>

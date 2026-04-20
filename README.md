@@ -5,31 +5,211 @@
 [![Claude Code plugin](https://img.shields.io/badge/claude--code-plugin-6E56CF.svg)](https://docs.claude.com/en/docs/claude-code)
 [![Status: alpha](https://img.shields.io/badge/status-alpha-orange.svg)](#roadmap)
 
-A Claude Code plugin that turns terminal-bound explanations into self-contained HTML pages — the LLM emits A2UI-style component JSON, a zero-dependency Node renderer produces a single HTML file that works offline in any modern browser.
+I like visual explanations.
 
-## 30-second demo
+I do not like asking a model to dump raw HTML for them.
 
-```
-$ claude
-> /hyperscribe "walk me through the OAuth 2.0 authorization code flow"
+The result is usually ugly, expensive, and annoying to revise. You burn a pile of tokens on markup, tweak prompts to fix spacing, then re-generate the whole thing because one part looks off.
 
-  Hyperscribe  classifying intent         → page + sequence diagram + step list
-               picking components         → Page > Section x3 > Mermaid + StepList + Callout
-               emitting envelope          → 847 tokens of JSON
-               validating schema          → ok
-               rendering HTML             → 62 KB, no external assets
-               writing                    → ~/.hyperscribe/out/oauth-auth-code-flow-20260419-153021.html
-               opening                    → done.
+So I built the renderer myself.
 
-> Rendered the OAuth 2.0 authorization code flow as a 3-section page with a
-  sequence diagram and a step-by-step breakdown. Open at the path above.
-```
+Hyperscribe lets the model emit semantic component JSON instead of full HTML. The renderer handles layout, styling, validation, and offline packaging. You get a self-contained HTML page or slide deck that is cheaper to generate, easier to iterate on, and much more consistent.
 
-<!-- TODO: add GIF demo here once recorded -->
+## Benchmark
+
+Same source, same repo, same `context.md`, two spawned subagents.
+
+<table>
+<tr>
+<th align="left">Metric</th>
+<th align="left">visual-explainer</th>
+<th align="left">Hyperscribe</th>
+</tr>
+<tr>
+<td>Model output format</td>
+<td>full HTML</td>
+<td>semantic JSON envelope</td>
+</tr>
+<tr>
+<td>Generated artifact tokens</td>
+<td>7,506</td>
+<td>2,410</td>
+</tr>
+<tr>
+<td>Token reduction vs. raw HTML</td>
+<td>baseline</td>
+<td><strong>68% fewer</strong></td>
+</tr>
+</table>
+
+Hyperscribe used <strong>5,096 fewer output tokens</strong> in this run.
+
+Benchmark artifacts live in [`benchmark/`](benchmark/).
+
+<!-- components-gallery:start -->
+## Components Gallery
+
+Visual previews for 20 non-text page-mode components.
+
+<table>
+<tr>
+<td width="25%" align="center" valign="top">
+  <sub><code>Image</code></sub>
+  <br />
+  <a href="assets/component-gallery/image.webp">
+    <img src="assets/component-gallery/image.webp" alt="Image component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>Callout</code></sub>
+  <br />
+  <a href="assets/component-gallery/callout.webp">
+    <img src="assets/component-gallery/callout.webp" alt="Callout component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>KPICard</code></sub>
+  <br />
+  <a href="assets/component-gallery/kpi-card.webp">
+    <img src="assets/component-gallery/kpi-card.webp" alt="KPICard component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>CodeBlock</code></sub>
+  <br />
+  <a href="assets/component-gallery/code-block.webp">
+    <img src="assets/component-gallery/code-block.webp" alt="CodeBlock component preview" width="100%" />
+  </a>
+</td>
+</tr>
+<tr>
+<td width="25%" align="center" valign="top">
+  <sub><code>CodeDiff</code></sub>
+  <br />
+  <a href="assets/component-gallery/code-diff.webp">
+    <img src="assets/component-gallery/code-diff.webp" alt="CodeDiff component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>Mermaid</code></sub>
+  <br />
+  <a href="assets/component-gallery/mermaid.webp">
+    <img src="assets/component-gallery/mermaid.webp" alt="Mermaid component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>Sequence</code></sub>
+  <br />
+  <a href="assets/component-gallery/sequence.webp">
+    <img src="assets/component-gallery/sequence.webp" alt="Sequence component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>ArchitectureGrid</code></sub>
+  <br />
+  <a href="assets/component-gallery/architecture-grid.webp">
+    <img src="assets/component-gallery/architecture-grid.webp" alt="ArchitectureGrid component preview" width="100%" />
+  </a>
+</td>
+</tr>
+<tr>
+<td width="25%" align="center" valign="top">
+  <sub><code>FlowChart</code></sub>
+  <br />
+  <a href="assets/component-gallery/flow-chart.webp">
+    <img src="assets/component-gallery/flow-chart.webp" alt="FlowChart component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>Quadrant</code></sub>
+  <br />
+  <a href="assets/component-gallery/quadrant.webp">
+    <img src="assets/component-gallery/quadrant.webp" alt="Quadrant component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>Swimlane</code></sub>
+  <br />
+  <a href="assets/component-gallery/swimlane.webp">
+    <img src="assets/component-gallery/swimlane.webp" alt="Swimlane component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>DataTable</code></sub>
+  <br />
+  <a href="assets/component-gallery/data-table.webp">
+    <img src="assets/component-gallery/data-table.webp" alt="DataTable component preview" width="100%" />
+  </a>
+</td>
+</tr>
+<tr>
+<td width="25%" align="center" valign="top">
+  <sub><code>Chart</code></sub>
+  <br />
+  <a href="assets/component-gallery/chart.webp">
+    <img src="assets/component-gallery/chart.webp" alt="Chart component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>Comparison</code></sub>
+  <br />
+  <a href="assets/component-gallery/comparison.webp">
+    <img src="assets/component-gallery/comparison.webp" alt="Comparison component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>StepList</code></sub>
+  <br />
+  <a href="assets/component-gallery/step-list.webp">
+    <img src="assets/component-gallery/step-list.webp" alt="StepList component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>FileTree</code></sub>
+  <br />
+  <a href="assets/component-gallery/file-tree.webp">
+    <img src="assets/component-gallery/file-tree.webp" alt="FileTree component preview" width="100%" />
+  </a>
+</td>
+</tr>
+<tr>
+<td width="25%" align="center" valign="top">
+  <sub><code>DependencyGraph</code></sub>
+  <br />
+  <a href="assets/component-gallery/dependency-graph.webp">
+    <img src="assets/component-gallery/dependency-graph.webp" alt="DependencyGraph component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>FileCard</code></sub>
+  <br />
+  <a href="assets/component-gallery/file-card.webp">
+    <img src="assets/component-gallery/file-card.webp" alt="FileCard component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>AnnotatedCode</code></sub>
+  <br />
+  <a href="assets/component-gallery/annotated-code.webp">
+    <img src="assets/component-gallery/annotated-code.webp" alt="AnnotatedCode component preview" width="100%" />
+  </a>
+</td>
+<td width="25%" align="center" valign="top">
+  <sub><code>ERDDiagram</code></sub>
+  <br />
+  <a href="assets/component-gallery/erd-diagram.webp">
+    <img src="assets/component-gallery/erd-diagram.webp" alt="ERDDiagram component preview" width="100%" />
+  </a>
+</td>
+</tr>
+</table>
+<!-- components-gallery:end -->
 
 ## Why Hyperscribe
 
-Hyperscribe is directly inspired by [nicobailon/visual-explainer](https://github.com/nicobailon/visual-explainer) — the idea that agents should reach for "open this in a browser" instead of ASCII art is theirs. What Hyperscribe changes is the contract between the model and the renderer. Visual-explainer asks the LLM to emit a complete HTML document; Hyperscribe asks it to emit a JSON envelope against a fixed catalog of 24 default page components plus 2 slide-mode-only components, and ships the renderer itself.
+What I wanted was a better contract between the model and the renderer.
+
+Instead of asking the LLM to emit a complete HTML document, Hyperscribe asks it to emit a JSON envelope against a fixed catalog of 24 default page components plus 2 slide-mode-only components, and ships the renderer itself.
 
 That shift has three practical consequences:
 
@@ -37,11 +217,24 @@ That shift has three practical consequences:
 - **Schema-checked output.** The CLI validates the envelope before rendering. Missing required props, unknown component names, and out-of-range enums fail with a `path: message` error the model can read and retry against. HTML has no equivalent guardrail.
 - **Multi-agent reuse.** The envelope format is declarative JSON — anything that can emit JSON can produce a Hyperscribe page. The Claude Code plugin is the first surface; Codex, custom agents, RAG pipelines, and hand-written tooling can target the same renderer without any LLM in the loop. The renderer is 100% offline and has no network dependencies at runtime.
 
-Credit where it's due: `visual-explainer` pioneered the behavioral pattern (proactively open a browser tab instead of dumping ASCII), which Hyperscribe inherits wholesale. The shift to a catalog-based JSON protocol is an orthogonal tradeoff — slightly less expressive (you can't invent new layouts on the fly), significantly cheaper to run, and safer to iterate on.
+That shift to a catalog-based JSON protocol is an intentional tradeoff — slightly less expressive (you can't invent new layouts on the fly), significantly cheaper to run, and easier to validate and revise.
 
 ## Install
 
-### Any agent — Claude Code, Codex, Cursor, OpenCode, … (recommended)
+### Claude Code (recommended)
+
+If you use Claude Code, start here.
+
+If you want the `/hyperscribe`, `/hyperscribe:slides`, `/hyperscribe:diff`, and `/hyperscribe:share` slash commands, install via the plugin marketplace:
+
+```
+/plugin marketplace add Atipico1/hyperscribe
+/plugin install hyperscribe@hyperscribe-marketplace
+```
+
+You can also install the skills with `npx skills` if you want the `SKILL.md` flow instead of slash commands, but the Claude Code plugin path is the recommended setup.
+
+### Any agent — Codex, Cursor, OpenCode, Gemini CLI, … 
 
 ```bash
 npx skills add Atipico1/hyperscribe
@@ -64,17 +257,6 @@ npx skills add Atipico1/hyperscribe -a claude-code -a codex
 ```
 
 The `hyperscribe` skill is the only one that carries the renderer; the other three depend on it being installed.
-
-### Claude Code — native plugin marketplace
-
-If you only use Claude Code and want the `/hyperscribe`, `/hyperscribe:slides`, `/hyperscribe:diff`, `/hyperscribe:share` **slash commands**, install via the plugin marketplace instead (skills alone don't register slash commands):
-
-```
-/plugin marketplace add Atipico1/hyperscribe
-/plugin install hyperscribe@hyperscribe-marketplace
-```
-
-The two paths coexist — pick plugin marketplace for slash commands, `npx skills` for auto-activating SKILL.md across many agents.
 
 ### Manual use (any language / bespoke pipeline)
 
@@ -175,7 +357,7 @@ The renderer writes the HTML file to `~/.hyperscribe/out/` with a slugified file
 | Diagrams | [`ArchitectureGrid`](plugins/hyperscribe/references/catalog.md) | Card-based architecture with SVG connectors | forbidden |
 | Diagrams | [`FlowChart`](plugins/hyperscribe/references/catalog.md) | Native SVG directed graph (box/pill/diamond nodes, TD/LR, ranked layout) | forbidden |
 | Diagrams | [`Quadrant`](plugins/hyperscribe/references/catalog.md) | 2x2 prioritization matrix with plotted points | forbidden |
-| Diagrams | [`Swimlane`](plugins/hyperscribe/references/catalog.md) | Lane-based process diagram across roles on a shared timeline | forbidden |
+| Diagrams | [`Swimlane`](plugins/hyperscribe/references/catalog.md) | Lane-based process diagram across roles on a shared sequence | forbidden |
 | Diagrams | [`DependencyGraph`](plugins/hyperscribe/references/catalog.md) | Ranked module/import dependency graph | forbidden |
 | Diagrams | [`ERDDiagram`](plugins/hyperscribe/references/catalog.md) | Entity-relationship diagram for DB/type schemas | forbidden |
 | Data | [`DataTable`](plugins/hyperscribe/references/catalog.md) | Semantic HTML table with columns / rows / caption | forbidden |
@@ -225,13 +407,22 @@ Your per-user theme + mode preference is stored at `~/.hyperscribe/preference.md
 
 ## Roadmap
 
-- **v0.4** — locally-inlined Mermaid and Chart.js so output is truly offline-capable; streaming render for long pages; additional themes (blueprint / editorial / paper / mono).
-- **v0.5** — plugin API for user-defined components, A2UI two-way sync (renderer emits state updates back to the agent), theming via `~/.hyperscribe/theme.json` at full token scope.
-- **Native installer polish** — `npx skills add Atipico1/hyperscribe` already works across 45+ agents (shipped in v0.3.1); follow-ups: symlink-mode diagnostics, CI recipe, and richer per-agent integration tests.
+- **Rendering polish** — better framing for complex diagrams, denser layouts where cards currently waste space, and more predictable output for long pages.
+- **Catalog growth** — add a few more high-leverage components only where they reduce prompt complexity instead of expanding the surface area for its own sake.
+- **Installation polish** — tighten setup across agents, improve diagnostics, and make it easier to verify that the right commands and skills were installed.
 
 ## Contributing
 
-Fork the repo, run `npm test` from the root (Node 20+ required — `node --test` against the `tests/` suite), make your change on a branch, and open a PR. For envelope format and component schemas, see [`plugins/hyperscribe/references/catalog.md`](plugins/hyperscribe/references/catalog.md) and [`plugins/hyperscribe/spec/catalog.json`](plugins/hyperscribe/spec/catalog.json).
+PRs are welcome.
+
+Before opening one:
+
+- use Node 20+
+- run `npm test`
+- keep renderer and catalog changes in sync
+- update docs when the component surface or install flow changes
+
+If you are changing the envelope format or component schemas, start with [`plugins/hyperscribe/references/catalog.md`](plugins/hyperscribe/references/catalog.md) and [`plugins/hyperscribe/spec/catalog.json`](plugins/hyperscribe/spec/catalog.json).
 
 Issues and discussion: [github.com/Atipico1/hyperscribe/issues](https://github.com/Atipico1/hyperscribe/issues).
 
@@ -243,6 +434,4 @@ Copyright (c) 2026 Hyperscribe contributors.
 
 ## Credits
 
-- [nicobailon/visual-explainer](https://github.com/nicobailon/visual-explainer) — the original "agents should render to the browser" insight and the proactive-rendering behavior Hyperscribe carries forward.
-- [A2UI v0.9](https://developers.googleblog.com/) (Google Developers Blog) — envelope shape (`a2ui_version`, `catalog`, `parts`, `is_task_complete`) is borrowed wholesale so Hyperscribe envelopes can interoperate with other A2UI tooling.
-- [Chart.js](https://www.chartjs.org/) and [Mermaid](https://mermaid.js.org/) for the diagram / chart surfaces referenced by the `Chart` and `Mermaid` components.
+- [A2UI v0.9](https://developers.googleblog.com/) (Google Developers Blog) — the envelope shape (`a2ui_version`, `catalog`, `parts`, `is_task_complete`) is borrowed so Hyperscribe documents can follow an existing structured UI contract.
