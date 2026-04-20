@@ -153,12 +153,13 @@ Rules:
 - `a2ui_version`, `catalog`, `parts` are required. `catalog` is always `"hyperscribe/v1"`.
 - Exactly one element in `parts`. Its `component` is `hyperscribe/Page` (default) or `hyperscribe/SlideDeck` (slide mode only). Multiple pages per envelope are not supported.
 - Container components use `children: []`. Leaf components omit `children`.
-- `Dashboard` is special — child components live under `props.panels[].child`, not `children`.
 - Any unknown component name or missing required prop fails validation with exit 2.
 
 ## Component inventory
 
-27 components across 9 categories. See `references/catalog.md` for full prop schemas and examples.
+24 default components across 7 categories. See `references/catalog.md` for full prop schemas and examples.
+
+`hyperscribe/SlideDeck` and `hyperscribe/Slide` are **slide-mode-only** components owned by `/hyperscribe:slides`. They are intentionally excluded from the default page-mode inventory below.
 
 | Category | Component | Purpose |
 |---|---|---|
@@ -175,20 +176,26 @@ Rules:
 | Diagrams | `hyperscribe/Sequence` | Native SVG sequence diagram (Notion-styled, no CDN). Props: `participants[]`, `messages[]` (kind: sync/async/return/self/note). Prefer over `Mermaid` with `kind:sequence` for consistent design. |
 | Diagrams | `hyperscribe/FlowChart` | Native SVG directed graph with box/pill/diamond nodes. Caller supplies `ranks` (arrays of node ids) — no auto-layout. Props: `layout` (TD/LR), `nodes[]`, `edges[]`, `ranks[][]`. Prefer over Mermaid flowchart for simple pipelines. |
 | Diagrams | `hyperscribe/ArchitectureGrid` | Card-based architecture with SVG connectors. Props: `nodes[]`, `edges?[]`, `layout`, `groups?[]`. |
+| Diagrams | `hyperscribe/Quadrant` | 2x2 prioritization matrix with plotted points. Props: `xLabel`, `yLabel`, `quadrants[]`, `points?[]`. |
+| Diagrams | `hyperscribe/Swimlane` | Lane-based process diagram on a shared timeline. Props: `lanes[]`, `steps[]`, `edges?[]`. |
 | Data | `hyperscribe/DataTable` | Semantic HTML table. Props: `columns[]`, `rows[]`, `caption?`, `footer?`, `density?`. |
 | Data | `hyperscribe/Chart` | Chart.js wrapper. Props: `kind`, `data`, `xLabel?`, `yLabel?`, `unit?`. |
-| Data | `hyperscribe/PrettyChart` | Native SVG bar/line with gradient fills + soft drop shadow. Prefer over `Chart` when visual polish matters. Props: `kind` (bar/line), `data`, `title?`. |
 | Data | `hyperscribe/Comparison` | N-way comparison. Props: `items[]`, `mode` (`vs`\|`grid`). |
-| Narrative | `hyperscribe/Timeline` | Time-ordered events. Props: `items[]`, `orientation`. |
 | Narrative | `hyperscribe/StepList` | Ordered steps / checklist. Props: `steps[]`, `numbered?`. |
-| Dashboard | `hyperscribe/Dashboard` | 12-col grid of panels. Props: `panels[]` (each `span` 1-4, `child` = KPICard / Chart / DataTable / Callout). |
-| Slides | `hyperscribe/SlideDeck` | Slide container. Props: `aspect`, `transition?`, `footer?`. Children: Slide[]. |
-| Slides | `hyperscribe/Slide` | Single slide. Props: `layout` (`title`\|`content`\|`two-col`\|`quote`\|`image`\|`section`), `title?`, `subtitle?`, `bullets?`, `image?`, `quote?`. |
 | Structure | `hyperscribe/FileTree` | Directory/file structure. Props: `nodes` (recursive), `showIcons?`, `caption?`. |
 | Diagrams | `hyperscribe/DependencyGraph` | Module import graph (ranked). Props: `nodes`, `edges`, `layout: "ranks"`, `ranks`. |
 | Structure | `hyperscribe/FileCard` | Per-file summary card. Props: `name`, `path?`, `loc?`, `responsibility`, `exports?[]`, `state?`. |
 | Code | `hyperscribe/AnnotatedCode` | Code with pinned side annotations. Props: `lang`, `code`, `annotations[]`, `pinStyle?`. |
 | Diagrams | `hyperscribe/ERDDiagram` | DB/type ERD. Props: `entities[]`, `relationships[]`, `layout?`. |
+
+## Slide mode only
+
+Use these only through `/hyperscribe:slides`:
+
+| Category | Component | Purpose |
+|---|---|---|
+| Slides | `hyperscribe/SlideDeck` | Slide container. Props: `aspect`, `transition?`, `footer?`. Children: Slide[]. |
+| Slides | `hyperscribe/Slide` | Single slide. Props: `layout` (`title`\|`content`\|`two-col`\|`quote`\|`image`\|`section`), `title?`, `subtitle?`, `bullets?`, `image?`, `quote?`. |
 
 ## Semantic-only props — NEVER style
 
@@ -197,7 +204,7 @@ Rules:
 - Do **not** emit `color`, `backgroundColor`, `fontSize`, `fontFamily`, `padding`, `margin`, `className`, `style`, or any CSS-like prop.
 - Do **not** pass inline HTML in markdown fields beyond what CommonMark/GFM allows. Script tags are stripped.
 - Do **not** try to reorder the page with custom containers — use `Section` + `Heading` hierarchy.
-- Do **not** specify chart colors, table widths, card ordering within a Dashboard row, or slide transitions as decoration. Pick the right component; trust the renderer.
+- Do **not** specify chart colors, table widths, or slide transitions as decoration. Pick the right component; trust the renderer.
 
 If you find yourself reaching for a styling prop, the correct answer is usually a different component (e.g. use `Callout severity="warn"` instead of "red box", use `KPICard delta.direction="down"` instead of "red number").
 
@@ -241,8 +248,6 @@ On exit 2, read stderr, diagnose, retry. Common failures:
 - `...props.severity: must be one of info|note|warn|success|danger` — wrong `Callout` severity enum.
 - `...component: unknown component "hyperscribe/Flowchart"` — wrong name; did you mean `hyperscribe/Mermaid` with `kind: "flowchart"`?
 - `...props.level: must be one of 2,3,4` — `Heading.level` only accepts 2/3/4; use `Page.title` for h1.
-- `...props.panels[0].child: required` — `Dashboard` panels use `child`, not `children`.
-
 Retry policy: up to **2 automatic retries** adjusting the JSON each time. After the 3rd failure, surface the original JSON and stderr to the user so they can intervene.
 
 ## Limitations (v1)
@@ -251,7 +256,7 @@ Retry policy: up to **2 automatic retries** adjusting the JSON each time. After 
 - No custom / third-party components — catalog is fixed at 18.
 - No direct styling overrides in props. Users may place `~/.hyperscribe/theme.json` to override CSS token values at the **renderer** level.
 - Single aesthetic (Notion-inspired). Aesthetic variants (blueprint / editorial / paper / mono) are planned for v0.2.
-- No multi-page envelopes — one `Page` or one `SlideDeck` per invocation.
+- No multi-page envelopes — one `Page` per default invocation. Slide mode uses one `SlideDeck`.
 - Fonts: `NotionInter` is not bundled; fallback chain uses Inter / system-ui.
 
 ## Quick example

@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { Mermaid } from "../../plugins/hyperscribe/scripts/components/mermaid.mjs";
 
 test("Mermaid: wraps source in pre.mermaid with zoom/pan container", () => {
@@ -33,4 +34,10 @@ test("Mermaid: does not prepend direction for non-flowchart kinds", () => {
 test("Mermaid: kind attribute on outer wrap", () => {
   const html = Mermaid({ kind: "sequence", source: "x" });
   assert.match(html, /data-kind="sequence"/);
+});
+
+test("Mermaid CSS: uses theme variables for edges and actor borders", () => {
+  const css = readFileSync(new URL("../../plugins/hyperscribe/assets/components/mermaid.css", import.meta.url), "utf8");
+  assert.match(css, /var\(--hs-color-fg-muted\)/);
+  assert.match(css, /var\(--hs-color-fg\)/);
 });

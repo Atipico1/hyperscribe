@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { Sequence } from "../../plugins/hyperscribe/scripts/components/sequence.mjs";
 
 test("Sequence: renders wrapper + svg root", () => {
@@ -88,4 +89,10 @@ test("Sequence: silently skips messages with unknown participant ids", () => {
     messages: [{ from: "a", to: "ghost", text: "bad ref" }]
   });
   assert.doesNotMatch(html, /bad ref/);
+});
+
+test("Sequence CSS: uses theme variables for lifelines and arrows", () => {
+  const css = readFileSync(new URL("../../plugins/hyperscribe/assets/components/sequence.css", import.meta.url), "utf8");
+  assert.match(css, /var\(--hs-color-fg-muted\)/);
+  assert.match(css, /var\(--hs-color-fg\)/);
 });

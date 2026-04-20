@@ -2,22 +2,24 @@
   list-style: none;
   padding: 0;
   margin: var(--hs-space-4) 0;
-  counter-reset: step;
-}
-.hs-steps-numbered > .hs-step {
-  counter-increment: step;
 }
 .hs-step {
   display: grid;
-  grid-template-columns: 28px 1fr;
+  grid-template-columns: 76px 1fr;
   gap: var(--hs-space-3);
   padding: var(--hs-space-3) 0;
   border-bottom: var(--hs-border-whisper);
+  align-items: start;
 }
 .hs-step:last-child { border-bottom: none; }
-.hs-steps-numbered > .hs-step::before {
-  content: counter(step);
+.hs-step-meta {
   display: flex;
+  align-items: center;
+  gap: var(--hs-space-3);
+  min-height: 28px;
+}
+.hs-step-index {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 28px;
@@ -27,20 +29,20 @@
   font-weight: 700;
   font-size: 13px;
   color: var(--hs-color-fg-muted);
-  grid-column: 1;
-  grid-row: 1 / span 2;
+  flex: 0 0 28px;
 }
 .hs-step-indicator {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 28px;
   height: 28px;
   font-size: 16px;
   color: var(--hs-color-fg-muted);
+  flex: 0 0 28px;
 }
-.hs-step-done .hs-step-indicator, .hs-step-done::before { color: var(--hs-color-success); }
-.hs-step-doing .hs-step-indicator, .hs-step-doing::before { color: var(--hs-color-accent); }
+.hs-step-done .hs-step-indicator, .hs-step-done .hs-step-index { color: var(--hs-color-success); }
+.hs-step-doing .hs-step-indicator, .hs-step-doing .hs-step-index { color: var(--hs-color-accent); }
 .hs-step-skipped { opacity: 0.6; }
 .hs-step-title { font-weight: 700; }
 .hs-step-body {

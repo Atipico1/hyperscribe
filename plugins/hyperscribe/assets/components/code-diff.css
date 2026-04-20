@@ -25,16 +25,16 @@
 }
 .hs-diff-pre {
   margin: 0;
-  padding: var(--hs-space-2) 0;
+  padding: var(--hs-space-1) 0;
   font-family: var(--hs-font-mono);
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.3;
   overflow-x: auto;
 }
 .hs-diff-pre code { display: block; }
 .hs-diff-line {
   display: block;
-  padding: 0 var(--hs-space-3);
+  padding: 2px var(--hs-space-3);
   white-space: pre;
 }
 .hs-diff-marker {

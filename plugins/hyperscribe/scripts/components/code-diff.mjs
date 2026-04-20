@@ -38,7 +38,7 @@ function renderHunk(hunk) {
   const header = typeof hunk.atLine === "number"
     ? `<div class="hs-diff-hunk-header">@@ line ${hunk.atLine}</div>`
     : "";
-  const lines = diffLines(hunk.before, hunk.after).map(renderLine).join("\n");
+  const lines = diffLines(hunk.before, hunk.after).map(renderLine).join("");
   return `<div class="hs-diff-hunk">${header}<pre class="hs-diff-pre"><code>${lines}</code></pre></div>`;
 }
 

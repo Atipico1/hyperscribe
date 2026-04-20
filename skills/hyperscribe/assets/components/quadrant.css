@@ -1,0 +1,122 @@
+.hs-quadrant {
+  margin: var(--hs-space-5) 0;
+}
+
+.hs-quadrant-plot {
+  position: relative;
+  min-height: 420px;
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-comfort);
+  background:
+    linear-gradient(to right, transparent calc(50% - 0.5px), color-mix(in srgb, var(--hs-color-fg-muted) 18%, transparent) calc(50% - 0.5px), color-mix(in srgb, var(--hs-color-fg-muted) 18%, transparent) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(to bottom, transparent calc(50% - 0.5px), color-mix(in srgb, var(--hs-color-fg-muted) 18%, transparent) calc(50% - 0.5px), color-mix(in srgb, var(--hs-color-fg-muted) 18%, transparent) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(180deg, color-mix(in srgb, var(--hs-color-surface-alt) 68%, transparent), transparent);
+  overflow: hidden;
+}
+
+.hs-quadrant-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 420px;
+}
+
+.hs-quadrant-cell {
+  padding: var(--hs-space-4) var(--hs-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hs-space-1);
+}
+
+.hs-quadrant-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.hs-quadrant-description {
+  max-width: 28ch;
+  font-size: 13px;
+  color: var(--hs-color-fg-muted);
+}
+
+.hs-quadrant-axis {
+  position: absolute;
+  z-index: 2;
+  font-family: var(--hs-font-mono);
+  font-size: 12px;
+  color: var(--hs-color-fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hs-quadrant-axis-y {
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: left top;
+}
+
+.hs-quadrant-axis-x {
+  right: 16px;
+  bottom: 10px;
+}
+
+.hs-quadrant-points {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.hs-quadrant-point {
+  position: absolute;
+  left: var(--hs-quadrant-x);
+  top: calc(100% - var(--hs-quadrant-y));
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.hs-quadrant-point-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--hs-color-accent);
+  border: 2px solid var(--hs-color-bg);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--hs-color-accent) 14%, transparent);
+}
+
+.hs-quadrant-point-muted .hs-quadrant-point-dot {
+  background: var(--hs-color-fg-muted);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--hs-color-fg-muted) 14%, transparent);
+}
+
+.hs-quadrant-point-success .hs-quadrant-point-dot {
+  background: var(--hs-color-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--hs-color-success) 14%, transparent);
+}
+
+.hs-quadrant-point-warn .hs-quadrant-point-dot {
+  background: var(--hs-color-warn);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--hs-color-warn) 14%, transparent);
+}
+
+.hs-quadrant-point-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-pill);
+  background: color-mix(in srgb, var(--hs-color-surface) 94%, transparent);
+  box-shadow: var(--hs-shadow-card);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.hs-quadrant-point-tag {
+  font-family: var(--hs-font-mono);
+  font-size: 11px;
+  color: var(--hs-color-accent);
+}

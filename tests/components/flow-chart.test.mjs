@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { FlowChart } from "../../plugins/hyperscribe/scripts/components/flow-chart.mjs";
 
 const simple = {
@@ -53,4 +54,9 @@ test("FlowChart: escapes labels", () => {
     ranks: [["a"]]
   });
   assert.match(html, /&lt;x&gt;/);
+});
+
+test("FlowChart CSS: uses theme variables for node borders and edges", () => {
+  const css = readFileSync(new URL("../../plugins/hyperscribe/assets/components/flow-chart.css", import.meta.url), "utf8");
+  assert.match(css, /var\(--hs-color-fg-muted\)/);
 });

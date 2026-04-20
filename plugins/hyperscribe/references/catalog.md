@@ -19,7 +19,11 @@ Required envelope fields: `a2ui_version`, `catalog`, `parts`.
 
 Root component must be `hyperscribe/Page`.
 
-## Components (27 total)
+## Components (24 default + 2 slide-mode-only)
+
+The default `/hyperscribe` page mode uses the components below.
+
+`hyperscribe/SlideDeck` and `hyperscribe/Slide` are **slide-mode-only** components owned by `/hyperscribe:slides`.
 
 ## Structure
 
@@ -190,6 +194,31 @@ Native SVG directed graph. Ranked layout (TD or LR) — caller provides `ranks` 
 | `edges` | `array<{ from: string, to: string, label: string? }>` | **required** |  |
 | `ranks` | `array<array<string>>` | **required** |  |
 
+### `hyperscribe/Quadrant`
+
+2x2 prioritization matrix with plotted points.
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `xLabel` | `string` | **required** |  |
+| `yLabel` | `string` | **required** |  |
+| `quadrants` | `array<{ id: string, title: string, description: string? }>` | **required** |  |
+| `points` | `array<{ label: string, x: number, y: number, tag: string?, tone: "accent" | "muted" | "success" | "warn"? }>` | optional |  |
+
+### `hyperscribe/Swimlane`
+
+Lane-based process diagram laid out on a shared timeline.
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `lanes` | `array<{ id: string, title: string, subtitle: string? }>` | **required** |  |
+| `steps` | `array<{ id: string, lane: string, title: string, description: string?, tag: string? }>` | **required** |  |
+| `edges` | `array<{ from: string, to: string, label: string? }>` | optional |  |
+
 ## Data
 
 ### `hyperscribe/DataTable`
@@ -220,20 +249,6 @@ Chart.js wrapper.
 | `yLabel` | `string` | optional |  |
 | `unit` | `string` | optional |  |
 
-### `hyperscribe/PrettyChart`
-
-Native SVG bar or line chart with gradient fills and soft drop shadow. Prefer over hyperscribe/Chart when visual polish matters.
-
-- **Children:** forbidden
-
-| Prop | Type | Required | Notes |
-|---|---|---|---|
-| `kind` | `"bar" | "line"` | **required** |  |
-| `data` | `{ labels: array<string>, series: array<{ name: string, values: array<number> }> }` | **required** |  |
-| `title` | `string` | optional |  |
-| `yLabel` | `string` | optional |  |
-| `unit` | `string` | optional |  |
-
 ### `hyperscribe/Comparison`
 
 N-way comparison layout.
@@ -247,17 +262,6 @@ N-way comparison layout.
 
 ## Narrative
 
-### `hyperscribe/Timeline`
-
-Time-ordered events.
-
-- **Children:** forbidden
-
-| Prop | Type | Required | Notes |
-|---|---|---|---|
-| `items` | `array<{ when: string, title: string, body: string?, tag: string? }>` | **required** |  |
-| `orientation` | `"vertical" | "horizontal"` | **required** |  |
-
 ### `hyperscribe/StepList`
 
 Ordered steps / checklist.
@@ -268,47 +272,6 @@ Ordered steps / checklist.
 |---|---|---|---|
 | `steps` | `array<{ title: string, body: string, state: "done" | "doing" | "todo" | "skipped"? }>` | **required** |  |
 | `numbered` | `boolean` | optional | default: `true` |
-
-## Dashboard
-
-### `hyperscribe/Dashboard`
-
-12-col grid of panels.
-
-- **Children:** forbidden
-
-| Prop | Type | Required | Notes |
-|---|---|---|---|
-| `panels` | `array<{ span: 1 | 2 | 3 | 4, child: object }>` | **required** |  |
-
-## Slides
-
-### `hyperscribe/SlideDeck`
-
-Slide container.
-
-- **Children:** required
-
-| Prop | Type | Required | Notes |
-|---|---|---|---|
-| `aspect` | `"16:9" | "4:3"` | **required** |  |
-| `transition` | `"none" | "fade" | "slide"` | optional |  |
-| `footer` | `string` | optional |  |
-
-### `hyperscribe/Slide`
-
-Single slide.
-
-- **Children:** forbidden
-
-| Prop | Type | Required | Notes |
-|---|---|---|---|
-| `layout` | `"title" | "content" | "two-col" | "quote" | "image" | "section"` | **required** |  |
-| `title` | `string` | optional |  |
-| `subtitle` | `string` | optional |  |
-| `bullets` | `array<string>` | optional |  |
-| `image` | `string` | optional |  |
-| `quote` | `string` | optional |  |
 
 ## Other
 
@@ -379,10 +342,41 @@ Entity-relationship diagram — DB/type schemas with pk/fk/nullable markers and 
 | `relationships` | `array<any>` | **required** |  |
 | `layout` | `"grid" | "columns"` | optional | default: `"grid"` |
 
+## Slide Mode Only
+
+These components are intentionally separated from the default page-mode inventory. Use them through `/hyperscribe:slides`, not through the default `/hyperscribe` flow.
+
+### `hyperscribe/SlideDeck`
+
+Slide container.
+
+- **Children:** required
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `aspect` | `"16:9" | "4:3"` | **required** |  |
+| `transition` | `"none" | "fade" | "slide"` | optional |  |
+| `footer` | `string` | optional |  |
+
+### `hyperscribe/Slide`
+
+Single slide.
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `layout` | `"title" | "content" | "two-col" | "quote" | "image" | "section"` | **required** |  |
+| `title` | `string` | optional |  |
+| `subtitle` | `string` | optional |  |
+| `bullets` | `array<string>` | optional |  |
+| `image` | `string` | optional |  |
+| `quote` | `string` | optional |  |
+
 ## Rules
 
 - `props` must contain ONLY semantic data — never colors, fonts, sizes, or layout hints.
-- `children` is used for container components (Page, Section, SlideDeck). For Dashboard, nested content goes in `props.panels[].child` instead.
+- `children` is used for container components (Page, Section). In slide mode, `SlideDeck` owns `Slide[]`.
 - Unknown component names or props are rejected at schema validation (exit 2).
 - Enum values are case-sensitive.
 - String patterns (e.g. Section.id) are regex-matched.

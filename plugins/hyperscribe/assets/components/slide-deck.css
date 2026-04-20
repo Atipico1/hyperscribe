@@ -1,4 +1,10 @@
 .hs-deck {
+  --hs-slide-bg: #ffffff;
+  --hs-slide-fg: #111827;
+  --hs-slide-fg-muted: #475569;
+  --hs-slide-accent: #2563eb;
+  --hs-slide-surface: #f8fafc;
+  --hs-slide-border: rgba(15, 23, 42, 0.08);
   margin: var(--hs-space-5) 0;
   background: var(--hs-color-surface-dark);
   border-radius: var(--hs-radius-large);
@@ -13,7 +19,7 @@
 }
 .hs-deck-slides {
   position: relative;
-  background: #fff;
+  background: var(--hs-slide-bg);
   border-radius: var(--hs-radius-comfort);
   overflow: hidden;
 }
@@ -21,6 +27,14 @@
 .hs-deck-aspect-4-3 .hs-deck-slides { aspect-ratio: 4 / 3; }
 
 .hs-deck .hs-slide {
+  --hs-color-fg: var(--hs-slide-fg);
+  --hs-color-fg-muted: var(--hs-slide-fg-muted);
+  --hs-color-accent: var(--hs-slide-accent);
+  --hs-color-surface: var(--hs-slide-surface);
+  --hs-color-surface-alt: #eef2ff;
+  --hs-border-whisper: 1px solid var(--hs-slide-border);
+  color: var(--hs-slide-fg);
+  background: var(--hs-slide-bg);
   position: absolute;
   inset: 0;
   padding: var(--hs-space-5) var(--hs-space-6);

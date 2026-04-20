@@ -18,8 +18,15 @@
   font-family: var(--hs-font-sans) !important;
 }
 .hs-mermaid-wrap .mermaid .actor {
-  stroke: rgba(0, 0, 0, 0.12) !important;
+  stroke: color-mix(in srgb, var(--hs-color-fg-muted) 28%, transparent) !important;
   stroke-width: 1 !important;
+}
+.hs-mermaid-wrap .mermaid text,
+.hs-mermaid-wrap .mermaid tspan,
+.hs-mermaid-wrap .mermaid .messageText,
+.hs-mermaid-wrap .mermaid .labelText,
+.hs-mermaid-wrap .mermaid .loopText {
+  fill: var(--hs-color-fg) !important;
 }
 .hs-mermaid-wrap .mermaid text.actor,
 .hs-mermaid-wrap .mermaid .actor-man text {
@@ -28,6 +35,7 @@
 }
 .hs-mermaid-wrap .mermaid .messageLine0,
 .hs-mermaid-wrap .mermaid .messageLine1 {
+  stroke: var(--hs-color-fg-muted) !important;
   stroke-width: 1.25 !important;
 }
 .hs-mermaid-wrap .mermaid .messageText {
@@ -35,6 +43,7 @@
   font-weight: 500 !important;
 }
 .hs-mermaid-wrap .mermaid .note {
+  stroke: var(--hs-note-border) !important;
   stroke-width: 1 !important;
 }
 .hs-mermaid-wrap .mermaid .labelText,
@@ -46,8 +55,13 @@
 .hs-mermaid-wrap .mermaid .node polygon,
 .hs-mermaid-wrap .mermaid .node circle,
 .hs-mermaid-wrap .mermaid .node ellipse {
+  stroke: color-mix(in srgb, var(--hs-color-fg-muted) 28%, transparent) !important;
   stroke-width: 1 !important;
 }
-.hs-mermaid-wrap .mermaid .edgePath .path {
+.hs-mermaid-wrap .mermaid .edgePath .path,
+.hs-mermaid-wrap .mermaid .flowchart-link,
+.hs-mermaid-wrap .mermaid marker path {
+  stroke: var(--hs-color-fg-muted) !important;
+  fill: var(--hs-color-fg-muted) !important;
   stroke-width: 1.25 !important;
 }

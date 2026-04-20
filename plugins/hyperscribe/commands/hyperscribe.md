@@ -37,9 +37,8 @@ $ARGUMENTS
 1. **Understand intent.** What is the user trying to communicate visually?
    - Architecture/flow → Mermaid or ArchitectureGrid
    - Comparison → Comparison or DataTable
-   - Timeline of events → Timeline
-   - Step-by-step instructions → StepList
-   - Metrics summary → Dashboard with KPICards and Charts
+   - Ordered guidance / milestone recap → StepList
+   - Metrics summary → KPICards, Charts, and DataTable
    - Code review → CodeDiff + Callouts
    - Essay-style explanation → Page with Sections, Headings, Prose, and embedded components
 
@@ -65,7 +64,7 @@ $ARGUMENTS
    **Rules:**
    - `parts[0]` must be `hyperscribe/Page`. Use `hyperscribe/SlideDeck` only if user explicitly asked for slides (then use `/hyperscribe:slides` instead).
    - `props` contains ONLY semantic data. NEVER specify colors, fonts, sizes, or layout classes.
-   - Use `children` for container nesting (Page/Section/SlideDeck). Use `props.panels[].child` for Dashboard.
+   - Use `children` for container nesting (Page/Section).
    - Section `id` must be kebab-case (`[a-z0-9][a-z0-9-]*`).
    - Enum values are case-sensitive (e.g., Callout.severity: `info`, `warn`, etc., not `Warning`).
 
@@ -117,8 +116,8 @@ If the CLI exits with status 2 (schema validation failure), stderr contains line
 | "Draw/diagram a system" | Mermaid (flowchart) or ArchitectureGrid |
 | "Compare A and B" | Comparison |
 | "Show steps to X" | StepList |
-| "Timeline of X" | Timeline |
-| "Dashboard with metrics" | Dashboard + KPICards + Charts |
+| "Timeline of X" | StepList or sectioned prose recap |
+| "Metrics summary" | KPICards + Chart + DataTable |
 | "Explain X" | Page + Sections + Prose + Callouts |
 | "Review this diff" | use `/hyperscribe:diff` |
 | "Make slides about X" | use `/hyperscribe:slides` |

@@ -39,3 +39,10 @@ test("Chart: optional xLabel/yLabel included as figcaption", () => {
   assert.match(html, /Month/);
   assert.match(html, /USD/);
 });
+
+test("Chart: line charts expose hover-friendly point radii and tooltip labels", () => {
+  const html = Chart({ kind: "line", data: sampleData, unit: "$" });
+  assert.match(html, /"pointRadius":4/);
+  assert.match(html, /"pointHoverRadius":6/);
+  assert.match(html, /tooltip/);
+});

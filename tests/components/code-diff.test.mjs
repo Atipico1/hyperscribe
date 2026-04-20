@@ -46,3 +46,8 @@ test("CodeDiff: multiple hunks separated", () => {
   const matches = html.match(/hs-diff-hunk(?!-header)/g) || [];
   assert.equal(matches.length, 2);
 });
+
+test("CodeDiff: does not preserve blank newline text nodes between rendered lines", () => {
+  const html = CodeDiff({ filename: "f", lang: "js", hunks: [{ before: "a\nb", after: "a\nc" }] });
+  assert.doesNotMatch(html, /<\/span>\n<span class="hs-diff-line/);
+});

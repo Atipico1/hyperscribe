@@ -52,21 +52,24 @@ function categorize(name) {
   if (["Image"].some(x => name.endsWith("/" + x))) return "Media";
   if (["Callout", "KPICard"].some(x => name.endsWith("/" + x))) return "Emphasis";
   if (["CodeBlock", "CodeDiff"].some(x => name.endsWith("/" + x))) return "Code";
-  if (["Mermaid", "Sequence", "ArchitectureGrid", "FlowChart"].some(x => name.endsWith("/" + x))) return "Diagrams";
-  if (["DataTable", "Chart", "PrettyChart", "Comparison"].some(x => name.endsWith("/" + x))) return "Data";
-  if (["Timeline", "StepList"].some(x => name.endsWith("/" + x))) return "Narrative";
-  if (["Dashboard"].some(x => name.endsWith("/" + x))) return "Dashboard";
+  if (["Mermaid", "Sequence", "ArchitectureGrid", "FlowChart", "Quadrant", "Swimlane"].some(x => name.endsWith("/" + x))) return "Diagrams";
+  if (["DataTable", "Chart", "Comparison"].some(x => name.endsWith("/" + x))) return "Data";
+  if (["StepList"].some(x => name.endsWith("/" + x))) return "Narrative";
   if (["SlideDeck", "Slide"].some(x => name.endsWith("/" + x))) return "Slides";
   return "Other";
 }
 
-const CATEGORY_ORDER = ["Structure", "Media", "Emphasis", "Code", "Diagrams", "Data", "Narrative", "Dashboard", "Slides", "Other"];
+const CATEGORY_ORDER = ["Structure", "Media", "Emphasis", "Code", "Diagrams", "Data", "Narrative", "Other"];
 
 const byCategory = {};
 for (const [name, schema] of Object.entries(catalog.components)) {
   const cat = categorize(name);
   (byCategory[cat] ||= []).push([name, schema]);
 }
+
+const SLIDE_COMPONENTS = new Set(["hyperscribe/SlideDeck", "hyperscribe/Slide"]);
+const totalComponents = Object.keys(catalog.components).length;
+const defaultComponents = Object.keys(catalog.components).filter(name => !SLIDE_COMPONENTS.has(name)).length;
 
 let md = `# Hyperscribe Component Catalog — ${catalog.version}
 
@@ -89,7 +92,11 @@ Required envelope fields: ${catalog.envelope.required.map(f => `\`${f}\``).join(
 
 Root component must be \`${catalog.envelope.root_component}\`.
 
-## Components (${Object.keys(catalog.components).length} total)
+## Components (${defaultComponents} default + ${totalComponents - defaultComponents} slide-mode-only)
+
+The default \`/hyperscribe\` page mode uses the components below.
+
+\`hyperscribe/SlideDeck\` and \`hyperscribe/Slide\` are **slide-mode-only** components owned by \`/hyperscribe:slides\`.
 
 `;
 
@@ -101,10 +108,17 @@ for (const cat of CATEGORY_ORDER) {
   }
 }
 
+if (byCategory.Slides) {
+  md += `## Slide Mode Only\n\nThese components are intentionally separated from the default page-mode inventory. Use them through \`/hyperscribe:slides\`, not through the default \`/hyperscribe\` flow.\n\n`;
+  for (const [name, schema] of byCategory.Slides) {
+    md += renderComponent(name, schema) + "\n";
+  }
+}
+
 md += `## Rules
 
 - \`props\` must contain ONLY semantic data — never colors, fonts, sizes, or layout hints.
-- \`children\` is used for container components (Page, Section, SlideDeck). For Dashboard, nested content goes in \`props.panels[].child\` instead.
+- \`children\` is used for container components (Page, Section). In slide mode, \`SlideDeck\` owns \`Slide[]\`.
 - Unknown component names or props are rejected at schema validation (exit 2).
 - Enum values are case-sensitive.
 - String patterns (e.g. Section.id) are regex-matched.

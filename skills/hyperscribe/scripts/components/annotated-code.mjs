@@ -1,4 +1,5 @@
 import { escape } from "../lib/html.mjs";
+import { highlightCode, languageLabel, normalizeLang } from "../lib/code-format.mjs";
 
 function pinLabel(n, style) {
   if (style === "lettered") {
@@ -8,10 +9,13 @@ function pinLabel(n, style) {
 }
 
 export function AnnotatedCode(props) {
-  const lang = escape(props.lang || "text");
+  const lang = normalizeLang(props.lang);
+  const langLabel = languageLabel(props.lang);
   const filename = props.filename
     ? `<div class="hs-annotated-code-filename">${escape(props.filename)}</div>`
     : "";
+  const badge = `<span class="hs-annotated-code-badge hs-code-badge">${escape(langLabel)}</span>`;
+  const meta = `<div class="hs-annotated-code-meta">${filename}${badge}</div>`;
   const pinStyle = props.pinStyle === "lettered" ? "lettered" : "numbered";
   const anns = Array.isArray(props.annotations) ? props.annotations : [];
 
@@ -24,12 +28,14 @@ export function AnnotatedCode(props) {
   }
 
   const codeLines = String(props.code ?? "").split(/\r?\n/);
+  const highlightedLines = highlightCode(props.code, lang);
   const codeBody = codeLines.map((raw, i) => {
     const lineNo = i + 1;
     const pins = (byLine.get(lineNo) || [])
       .map(a => `<span class="hs-annotated-code-pin">${escape(pinLabel(a.pin, pinStyle))}</span>`)
       .join("");
-    return `<tr class="hs-annotated-code-line"><td class="hs-annotated-code-lineno">${lineNo}</td><td class="hs-annotated-code-src"><pre>${escape(raw)}</pre>${pins}</td></tr>`;
+    const pinRail = `<span class="hs-annotated-code-pin-rail">${pins}</span>`;
+    return `<tr class="hs-annotated-code-line"><td class="hs-annotated-code-lineno">${lineNo}</td><td class="hs-annotated-code-src">${pinRail}<pre>${highlightedLines[i] || "&nbsp;"}</pre></td></tr>`;
   }).join("");
 
   const notes = anns.map(a => `
@@ -41,8 +47,8 @@ export function AnnotatedCode(props) {
   </div>
 </li>`).join("");
 
-  return `<div class="hs-annotated-code" data-lang="${lang}" data-pin-style="${pinStyle}">
-${filename}
+  return `<div class="hs-annotated-code" data-lang="${escape(lang)}" data-pin-style="${pinStyle}">
+${meta}
 <div class="hs-annotated-code-grid">
   <div class="hs-annotated-code-code">
     <table><tbody>${codeBody}</tbody></table>

@@ -29,7 +29,7 @@ $ claude
 
 ## Why Hyperscribe
 
-Hyperscribe is directly inspired by [nicobailon/visual-explainer](https://github.com/nicobailon/visual-explainer) — the idea that agents should reach for "open this in a browser" instead of ASCII art is theirs. What Hyperscribe changes is the contract between the model and the renderer. Visual-explainer asks the LLM to emit a complete HTML document; Hyperscribe asks it to emit a JSON envelope against a fixed catalog of 18 components, and ships the renderer itself.
+Hyperscribe is directly inspired by [nicobailon/visual-explainer](https://github.com/nicobailon/visual-explainer) — the idea that agents should reach for "open this in a browser" instead of ASCII art is theirs. What Hyperscribe changes is the contract between the model and the renderer. Visual-explainer asks the LLM to emit a complete HTML document; Hyperscribe asks it to emit a JSON envelope against a fixed catalog of 24 default page components plus 2 slide-mode-only components, and ships the renderer itself.
 
 That shift has three practical consequences:
 
@@ -157,7 +157,7 @@ The renderer writes the HTML file to `~/.hyperscribe/out/` with a slugified file
 
 ## Component catalog 🎯
 
-22 components across 10 categories. Full prop schemas, examples, and validation rules live in [`plugins/hyperscribe/references/catalog.md`](plugins/hyperscribe/references/catalog.md).
+24 default components plus 2 slide-mode-only components. Full prop schemas, examples, and validation rules live in [`plugins/hyperscribe/references/catalog.md`](plugins/hyperscribe/references/catalog.md).
 
 | Category | Component | Purpose | Children |
 |---|---|---|---|
@@ -174,13 +174,24 @@ The renderer writes the HTML file to `~/.hyperscribe/out/` with a slugified file
 | Diagrams | [`Sequence`](plugins/hyperscribe/references/catalog.md) | Native SVG sequence diagram (Notion-styled, no CDN) | forbidden |
 | Diagrams | [`ArchitectureGrid`](plugins/hyperscribe/references/catalog.md) | Card-based architecture with SVG connectors | forbidden |
 | Diagrams | [`FlowChart`](plugins/hyperscribe/references/catalog.md) | Native SVG directed graph (box/pill/diamond nodes, TD/LR, ranked layout) | forbidden |
+| Diagrams | [`Quadrant`](plugins/hyperscribe/references/catalog.md) | 2x2 prioritization matrix with plotted points | forbidden |
+| Diagrams | [`Swimlane`](plugins/hyperscribe/references/catalog.md) | Lane-based process diagram across roles on a shared timeline | forbidden |
+| Diagrams | [`DependencyGraph`](plugins/hyperscribe/references/catalog.md) | Ranked module/import dependency graph | forbidden |
+| Diagrams | [`ERDDiagram`](plugins/hyperscribe/references/catalog.md) | Entity-relationship diagram for DB/type schemas | forbidden |
 | Data | [`DataTable`](plugins/hyperscribe/references/catalog.md) | Semantic HTML table with columns / rows / caption | forbidden |
 | Data | [`Chart`](plugins/hyperscribe/references/catalog.md) | Chart.js wrapper (line / bar / pie / area / scatter) | forbidden |
-| Data | [`PrettyChart`](plugins/hyperscribe/references/catalog.md) | Native SVG bar/line with gradient fills + soft shadow | forbidden |
 | Data | [`Comparison`](plugins/hyperscribe/references/catalog.md) | N-way comparison (`vs` or `grid` mode) | forbidden |
-| Narrative | [`Timeline`](plugins/hyperscribe/references/catalog.md) | Time-ordered events (vertical or horizontal) | forbidden |
 | Narrative | [`StepList`](plugins/hyperscribe/references/catalog.md) | Ordered steps / checklist with done/doing/todo/skipped state | forbidden |
-| Dashboard | [`Dashboard`](plugins/hyperscribe/references/catalog.md) | 12-col grid of panels (children via `props.panels[].child`) | forbidden |
+| Structure | [`FileTree`](plugins/hyperscribe/references/catalog.md) | Directory/file structure visualization | forbidden |
+| Structure | [`FileCard`](plugins/hyperscribe/references/catalog.md) | Per-file summary card with role/LOC/export metadata | forbidden |
+| Code | [`AnnotatedCode`](plugins/hyperscribe/references/catalog.md) | Code block with pinned side annotations | forbidden |
+
+### Slide mode only
+
+These are intentionally separated from the default `/hyperscribe` page catalog.
+
+| Category | Component | Purpose | Children |
+|---|---|---|---|
 | Slides | [`SlideDeck`](plugins/hyperscribe/references/catalog.md) | Slide container; aspect 16:9 or 4:3 | required |
 | Slides | [`Slide`](plugins/hyperscribe/references/catalog.md) | Single slide (title / content / two-col / quote / image / section) | forbidden |
 

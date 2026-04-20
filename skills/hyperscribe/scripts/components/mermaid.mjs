@@ -15,7 +15,7 @@ if (!window.__hsMermaidLoaded) {
       themeVariables: {
         primaryColor: v('--hs-color-surface-alt', '#f6f5f4'),
         primaryTextColor: v('--hs-color-fg', 'rgba(0,0,0,0.95)'),
-        primaryBorderColor: 'rgba(0,0,0,0.12)',
+        primaryBorderColor: v('--hs-color-fg-muted', '#615d59'),
         lineColor: v('--hs-color-fg-muted', '#615d59'),
         actorBkg: v('--hs-color-surface-alt', '#f6f5f4'),
         actorTextColor: v('--hs-color-fg', 'rgba(0,0,0,0.95)'),

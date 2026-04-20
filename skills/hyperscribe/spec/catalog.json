@@ -228,6 +228,82 @@
         }
       }
     },
+    "hyperscribe/Quadrant": {
+      "description": "2x2 prioritization matrix with plotted points.",
+      "children": "forbidden",
+      "props": {
+        "xLabel": { "type": "string", "required": true },
+        "yLabel": { "type": "string", "required": true },
+        "quadrants": {
+          "type": "array",
+          "required": true,
+          "items": {
+            "type": "object",
+            "props": {
+              "id": { "type": "string", "required": true },
+              "title": { "type": "string", "required": true },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "props": {
+              "label": { "type": "string", "required": true },
+              "x": { "type": "number", "required": true },
+              "y": { "type": "number", "required": true },
+              "tag": { "type": "string" },
+              "tone": { "type": "string", "enum": ["accent", "muted", "success", "warn"] }
+            }
+          }
+        }
+      }
+    },
+    "hyperscribe/Swimlane": {
+      "description": "Lane-based process diagram laid out on a shared timeline.",
+      "children": "forbidden",
+      "props": {
+        "lanes": {
+          "type": "array",
+          "required": true,
+          "items": {
+            "type": "object",
+            "props": {
+              "id": { "type": "string", "required": true },
+              "title": { "type": "string", "required": true },
+              "subtitle": { "type": "string" }
+            }
+          }
+        },
+        "steps": {
+          "type": "array",
+          "required": true,
+          "items": {
+            "type": "object",
+            "props": {
+              "id": { "type": "string", "required": true },
+              "lane": { "type": "string", "required": true },
+              "title": { "type": "string", "required": true },
+              "description": { "type": "string" },
+              "tag": { "type": "string" }
+            }
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "props": {
+              "from": { "type": "string", "required": true },
+              "to": { "type": "string", "required": true },
+              "label": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
     "hyperscribe/DataTable": {
       "description": "Semantic HTML table.",
       "children": "forbidden",
@@ -279,34 +355,6 @@
         "unit": { "type": "string" }
       }
     },
-    "hyperscribe/PrettyChart": {
-      "description": "Native SVG bar or line chart with gradient fills and soft drop shadow. Prefer over hyperscribe/Chart when visual polish matters.",
-      "children": "forbidden",
-      "props": {
-        "kind": { "type": "string", "enum": ["bar", "line"], "required": true },
-        "data": {
-          "type": "object",
-          "required": true,
-          "props": {
-            "labels": { "type": "array", "items": { "type": "string" }, "required": true },
-            "series": {
-              "type": "array",
-              "required": true,
-              "items": {
-                "type": "object",
-                "props": {
-                  "name": { "type": "string", "required": true },
-                  "values": { "type": "array", "items": { "type": "number" }, "required": true }
-                }
-              }
-            }
-          }
-        },
-        "title": { "type": "string" },
-        "yLabel": { "type": "string" },
-        "unit": { "type": "string" }
-      }
-    },
     "hyperscribe/Comparison": {
       "description": "N-way comparison layout.",
       "children": "forbidden",
@@ -333,26 +381,6 @@
         "mode": { "type": "string", "enum": ["vs", "grid"], "required": true }
       }
     },
-    "hyperscribe/Timeline": {
-      "description": "Time-ordered events.",
-      "children": "forbidden",
-      "props": {
-        "items": {
-          "type": "array",
-          "required": true,
-          "items": {
-            "type": "object",
-            "props": {
-              "when": { "type": "string", "required": true },
-              "title": { "type": "string", "required": true },
-              "body": { "type": "string" },
-              "tag": { "type": "string" }
-            }
-          }
-        },
-        "orientation": { "type": "string", "enum": ["vertical", "horizontal"], "required": true }
-      }
-    },
     "hyperscribe/StepList": {
       "description": "Ordered steps / checklist.",
       "children": "forbidden",
@@ -370,23 +398,6 @@
           }
         },
         "numbered": { "type": "boolean", "default": true }
-      }
-    },
-    "hyperscribe/Dashboard": {
-      "description": "12-col grid of panels.",
-      "children": "forbidden",
-      "props": {
-        "panels": {
-          "type": "array",
-          "required": true,
-          "items": {
-            "type": "object",
-            "props": {
-              "span": { "type": "number", "enum": [1, 2, 3, 4], "required": true },
-              "child": { "type": "object", "required": true, "description": "Nested component, limited to KPICard/Chart/DataTable/Callout" }
-            }
-          }
-        }
       }
     },
     "hyperscribe/SlideDeck": {

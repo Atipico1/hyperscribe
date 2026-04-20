@@ -18,14 +18,13 @@ import { Mermaid } from "./components/mermaid.mjs";
 import { Sequence } from "./components/sequence.mjs";
 import { ArchitectureGrid } from "./components/architecture-grid.mjs";
 import { FlowChart } from "./components/flow-chart.mjs";
-import { Timeline } from "./components/timeline.mjs";
+import { Quadrant } from "./components/quadrant.mjs";
+import { Swimlane } from "./components/swimlane.mjs";
 import { StepList } from "./components/step-list.mjs";
 import { Comparison } from "./components/comparison.mjs";
 import { Chart } from "./components/chart.mjs";
-import { PrettyChart } from "./components/pretty-chart.mjs";
 import { CodeDiff } from "./components/code-diff.mjs";
 import { KPICard } from "./components/kpi-card.mjs";
-import { Dashboard } from "./components/dashboard.mjs";
 import { SlideDeck } from "./components/slide-deck.mjs";
 import { Slide } from "./components/slide.mjs";
 import { FileTree } from "./components/file-tree.mjs";
@@ -54,14 +53,13 @@ const REGISTRY = {
   "hyperscribe/Sequence": Sequence,
   "hyperscribe/ArchitectureGrid": ArchitectureGrid,
   "hyperscribe/FlowChart": FlowChart,
-  "hyperscribe/Timeline": Timeline,
+  "hyperscribe/Quadrant": Quadrant,
+  "hyperscribe/Swimlane": Swimlane,
   "hyperscribe/StepList": StepList,
   "hyperscribe/Comparison": Comparison,
   "hyperscribe/Chart": Chart,
-  "hyperscribe/PrettyChart": PrettyChart,
   "hyperscribe/CodeDiff": CodeDiff,
   "hyperscribe/KPICard": KPICard,
-  "hyperscribe/Dashboard": Dashboard,
   "hyperscribe/SlideDeck": SlideDeck,
   "hyperscribe/Slide": Slide,
   "hyperscribe/FileTree": FileTree,
@@ -116,12 +114,6 @@ function collectUsedComponents(node, set = new Set()) {
   if (typeof node.component === "string") set.add(node.component);
   if (Array.isArray(node.children)) {
     for (const c of node.children) collectUsedComponents(c, set);
-  }
-  // Dashboard: panels[].child is a nested component
-  if (node.component === "hyperscribe/Dashboard" && Array.isArray(node.props?.panels)) {
-    for (const p of node.props.panels) {
-      if (p && typeof p.child === "object") collectUsedComponents(p.child, set);
-    }
   }
   return set;
 }

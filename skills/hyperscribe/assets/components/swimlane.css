@@ -1,0 +1,107 @@
+.hs-swimlane {
+  margin: var(--hs-space-5) 0;
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-comfort);
+  overflow: hidden;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--hs-color-surface-alt) 60%, transparent), transparent);
+}
+
+.hs-swimlane-lanes {
+  display: flex;
+  flex-direction: column;
+}
+
+.hs-swimlane-lane + .hs-swimlane-lane {
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.hs-swimlane-lane {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+}
+
+.hs-swimlane-lane-head {
+  padding: var(--hs-space-4);
+  border-right: 1px solid rgba(0,0,0,0.08);
+  background: color-mix(in srgb, var(--hs-color-surface-alt) 82%, transparent);
+}
+
+.hs-swimlane-lane-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.hs-swimlane-lane-subtitle {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--hs-color-fg-muted);
+}
+
+.hs-swimlane-track {
+  display: grid;
+  grid-template-columns: repeat(var(--hs-swimlane-cols), minmax(160px, 1fr));
+  gap: var(--hs-space-3);
+  padding: var(--hs-space-4);
+}
+
+.hs-swimlane-slot {
+  min-height: 112px;
+}
+
+.hs-swimlane-slot-empty {
+  border: 1px dashed rgba(0,0,0,0.08);
+  border-radius: var(--hs-radius-std);
+  background: color-mix(in srgb, var(--hs-color-surface-alt) 55%, transparent);
+}
+
+.hs-swimlane-step {
+  height: 100%;
+  padding: var(--hs-space-3);
+  border: var(--hs-border-whisper);
+  border-radius: var(--hs-radius-std);
+  background: color-mix(in srgb, var(--hs-color-surface) 96%, transparent);
+  box-shadow: var(--hs-shadow-card);
+}
+
+.hs-swimlane-step-head {
+  display: flex;
+  align-items: center;
+  gap: var(--hs-space-2);
+}
+
+.hs-swimlane-step-title {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.hs-swimlane-step-tag {
+  padding: 2px 6px;
+  border-radius: var(--hs-radius-pill);
+  background: var(--hs-color-badge-bg);
+  color: var(--hs-color-badge-text);
+  font-family: var(--hs-font-mono);
+  font-size: 11px;
+}
+
+.hs-swimlane-step-description {
+  margin-top: var(--hs-space-2);
+  font-size: 13px;
+  color: var(--hs-color-fg-muted);
+}
+
+.hs-swimlane-edges {
+  margin: 0;
+  padding: var(--hs-space-3) var(--hs-space-4) var(--hs-space-4) 188px;
+  display: grid;
+  gap: 6px;
+  list-style: decimal;
+  color: var(--hs-color-fg-muted);
+  font-size: 13px;
+}
+
+.hs-swimlane-edge-label {
+  margin-left: 6px;
+  color: var(--hs-color-accent);
+  font-weight: 600;
+}

@@ -19,19 +19,26 @@ export function Chart(props) {
   const kind = props.kind;
   const data = props.data;
   const chartKind = kind === "area" ? "line" : kind; // area = line with fill
+  const isPointChart = kind === "line" || kind === "area" || kind === "scatter";
   const datasets = data.series.map(s => ({
     name: s.name,
     label: s.name,
     data: s.values,
-    fill: kind === "area"
+    fill: kind === "area",
+    pointRadius: isPointChart ? 4 : undefined,
+    pointHoverRadius: isPointChart ? 6 : undefined,
+    pointHitRadius: isPointChart ? 16 : undefined,
+    borderWidth: isPointChart ? 2 : undefined
   }));
   const config = {
     type: chartKind,
     data: { labels: data.labels, datasets },
     options: {
       responsive: true,
+      interaction: isPointChart ? { mode: "nearest", intersect: false } : undefined,
       plugins: {
-        legend: { display: datasets.length > 1 }
+        legend: { display: datasets.length > 1 },
+        tooltip: { enabled: true }
       },
       scales: ["pie"].includes(kind) ? undefined : {
         x: { title: { display: !!props.xLabel, text: props.xLabel || "" }},
@@ -47,7 +54,20 @@ export function Chart(props) {
   const initScript = `
 (function(){
   var id = '${canvasId}';
+  var unit = ${JSON.stringify(props.unit || "")};
   var config = JSON.parse('${escapeJson(JSON.stringify(config))}');
+  config.options = config.options || {};
+  config.options.plugins = config.options.plugins || {};
+  config.options.plugins.tooltip = config.options.plugins.tooltip || {};
+  config.options.plugins.tooltip.enabled = true;
+  config.options.plugins.tooltip.callbacks = {
+    label: function(ctx) {
+      var prefix = ctx.dataset && ctx.dataset.label ? ctx.dataset.label + ': ' : '';
+      var raw = ctx.raw;
+      if (raw && typeof raw === 'object' && raw.y != null) raw = raw.y;
+      return prefix + (unit ? unit : '') + raw;
+    }
+  };
   function render() {
     var canvas = document.getElementById(id);
     if (!canvas || !window.Chart) { setTimeout(render, 50); return; }

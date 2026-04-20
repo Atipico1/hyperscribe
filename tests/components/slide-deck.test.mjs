@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { SlideDeck } from "../../plugins/hyperscribe/scripts/components/slide-deck.mjs";
 
 test("SlideDeck: wraps with aspect class", () => {
@@ -44,4 +45,11 @@ test("SlideDeck: escapes footer", () => {
 test("SlideDeck: includes navigation JS with idempotent guard", () => {
   const html = SlideDeck({ aspect: "16:9" }, () => "");
   assert.match(html, /window\.__hsDeckLoaded/);
+});
+
+test("SlideDeck CSS: keeps slide viewport palette independent from page mode", () => {
+  const css = readFileSync(new URL("../../plugins/hyperscribe/assets/components/slide-deck.css", import.meta.url), "utf8");
+  assert.match(css, /--hs-slide-bg: #ffffff/);
+  assert.match(css, /--hs-color-fg: var\(--hs-slide-fg\)/);
+  assert.match(css, /\.hs-deck-slides \{\s*position: relative;\s*background: var\(--hs-slide-bg\)/m);
 });
