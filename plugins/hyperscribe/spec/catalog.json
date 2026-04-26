@@ -430,16 +430,6 @@
         "caption": { "type": "string" }
       }
     },
-    "hyperscribe/DependencyGraph": {
-      "description": "Module/import dependency visualization (ranked layout).",
-      "children": "forbidden",
-      "props": {
-        "nodes": { "type": "array", "required": true, "description": "Array of { id, label, type?: 'module'|'package'|'external', tag?: string }" },
-        "edges": { "type": "array", "required": true, "description": "Array of { from, to, kind?: 'import'|'type'|'runtime', cyclic?: boolean }" },
-        "layout": { "type": "string", "enum": ["ranks"], "required": true },
-        "ranks": { "type": "array", "required": true, "description": "Array of arrays of node ids (caller-supplied layout)" }
-      }
-    },
     "hyperscribe/FileCard": {
       "description": "Per-file summary card — name, path, LOC, responsibility, exports, change state.",
       "children": "forbidden",

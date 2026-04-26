@@ -19,7 +19,7 @@ Required envelope fields: `a2ui_version`, `catalog`, `parts`.
 
 Root component must be `hyperscribe/Page`.
 
-## Components (24 default + 2 slide-mode-only)
+## Components (23 default + 2 slide-mode-only)
 
 The default `/hyperscribe` page mode uses the components below.
 
@@ -72,6 +72,34 @@ Markdown paragraph block (inline formatting + lists).
 | Prop | Type | Required | Notes |
 |---|---|---|---|
 | `markdown` | `string` | **required** |  |
+
+### `hyperscribe/FileTree`
+
+Directory/file structure visualization. Recursive nodes with optional highlights.
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `nodes` | `array<any>` | **required** |  |
+| `showIcons` | `boolean` | optional | default: `true` |
+| `caption` | `string` | optional |  |
+
+### `hyperscribe/FileCard`
+
+Per-file summary card — name, path, LOC, responsibility, exports, change state.
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `name` | `string` | **required** |  |
+| `path` | `string` | optional |  |
+| `loc` | `number` | optional |  |
+| `responsibility` | `string` | **required** |  |
+| `exports` | `array<any>` | optional |  |
+| `state` | `"modified" | "added" | "removed" | "stable"` | optional | default: `"stable"` |
+| `icon` | `string` | optional |  |
 
 ## Media
 
@@ -142,6 +170,20 @@ Before/after unified diff.
 | `filename` | `string` | **required** |  |
 | `lang` | `string` | **required** |  |
 | `hunks` | `array<{ before: string, after: string, atLine: number? }>` | **required** |  |
+
+### `hyperscribe/AnnotatedCode`
+
+Code block with numbered pins linking to side annotations.
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `lang` | `string` | **required** |  |
+| `code` | `string` | **required** |  |
+| `filename` | `string` | optional |  |
+| `annotations` | `array<any>` | **required** |  |
+| `pinStyle` | `"numbered" | "lettered"` | optional | default: `"numbered"` |
 
 ## Diagrams
 
@@ -219,6 +261,18 @@ Lane-based process diagram laid out on a shared timeline.
 | `steps` | `array<{ id: string, lane: string, title: string, description: string?, tag: string? }>` | **required** |  |
 | `edges` | `array<{ from: string, to: string, label: string? }>` | optional |  |
 
+### `hyperscribe/ERDDiagram`
+
+Entity-relationship diagram — DB/type schemas with pk/fk/nullable markers and cardinality links.
+
+- **Children:** forbidden
+
+| Prop | Type | Required | Notes |
+|---|---|---|---|
+| `entities` | `array<any>` | **required** |  |
+| `relationships` | `array<any>` | **required** |  |
+| `layout` | `"grid" | "columns"` | optional | default: `"grid"` |
+
 ## Data
 
 ### `hyperscribe/DataTable`
@@ -272,75 +326,6 @@ Ordered steps / checklist.
 |---|---|---|---|
 | `steps` | `array<{ title: string, body: string, state: "done" | "doing" | "todo" | "skipped"? }>` | **required** |  |
 | `numbered` | `boolean` | optional | default: `true` |
-
-## Other
-
-### `hyperscribe/FileTree`
-
-Directory/file structure visualization. Recursive nodes with optional highlights.
-
-- **Children:** forbidden
-
-| Prop | Type | Required | Notes |
-|---|---|---|---|
-| `nodes` | `array<any>` | **required** |  |
-| `showIcons` | `boolean` | optional | default: `true` |
-| `caption` | `string` | optional |  |
-
-### `hyperscribe/DependencyGraph`
-
-Module/import dependency visualization (ranked layout).
-
-- **Children:** forbidden
-
-| Prop | Type | Required | Notes |
-|---|---|---|---|
-| `nodes` | `array<any>` | **required** |  |
-| `edges` | `array<any>` | **required** |  |
-| `layout` | `"ranks"` | **required** |  |
-| `ranks` | `array<any>` | **required** |  |
-
-### `hyperscribe/FileCard`
-
-Per-file summary card — name, path, LOC, responsibility, exports, change state.
-
-- **Children:** forbidden
-
-| Prop | Type | Required | Notes |
-|---|---|---|---|
-| `name` | `string` | **required** |  |
-| `path` | `string` | optional |  |
-| `loc` | `number` | optional |  |
-| `responsibility` | `string` | **required** |  |
-| `exports` | `array<any>` | optional |  |
-| `state` | `"modified" | "added" | "removed" | "stable"` | optional | default: `"stable"` |
-| `icon` | `string` | optional |  |
-
-### `hyperscribe/AnnotatedCode`
-
-Code block with numbered pins linking to side annotations.
-
-- **Children:** forbidden
-
-| Prop | Type | Required | Notes |
-|---|---|---|---|
-| `lang` | `string` | **required** |  |
-| `code` | `string` | **required** |  |
-| `filename` | `string` | optional |  |
-| `annotations` | `array<any>` | **required** |  |
-| `pinStyle` | `"numbered" | "lettered"` | optional | default: `"numbered"` |
-
-### `hyperscribe/ERDDiagram`
-
-Entity-relationship diagram — DB/type schemas with pk/fk/nullable markers and cardinality links.
-
-- **Children:** forbidden
-
-| Prop | Type | Required | Notes |
-|---|---|---|---|
-| `entities` | `array<any>` | **required** |  |
-| `relationships` | `array<any>` | **required** |  |
-| `layout` | `"grid" | "columns"` | optional | default: `"grid"` |
 
 ## Slide Mode Only
 

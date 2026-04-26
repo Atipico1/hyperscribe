@@ -150,7 +150,7 @@ Most useful pages mix 2-3 of these, but one should dominate.
 Prefer these page recipes:
 
 - **Architecture explainer**:
-  `Page` -> `Section` overview with `Prose` or `Callout` -> `ArchitectureGrid` or `Mermaid` -> supporting `FileTree` / `FileCard` / `DependencyGraph`
+  `Page` -> `Section` overview with `Prose` or `Callout` -> supporting `ArchitectureGrid`, `FlowChart`, `Swimlane`, `FileTree`, or `FileCard`
 - **Process walkthrough**:
   `Page` -> `Section` summary -> `Sequence` or `FlowChart` -> `StepList` -> `Callout` for failure modes or decisions
 - **Comparison / decision memo**:
@@ -158,9 +158,9 @@ Prefer these page recipes:
 - **Code / diff explainer**:
   `Page` -> architecture or flow context -> `CodeDiff` / `AnnotatedCode` / `CodeBlock` -> `Callout` risks -> `StepList` next actions
 - **Repo / system recap**:
-  `Page` -> short `Prose` summary -> one dominant diagram -> one evidence block (`FileTree`, `DependencyGraph`, `DataTable`, or `Comparison`)
+  `Page` -> short `Prose` summary -> one dominant diagram -> one evidence block (`FileTree`, `FileCard`, `DataTable`, or `Comparison`)
   For repo explainers, the first content section should usually be diagram-led, anchored by `ArchitectureGrid`, `Mermaid`, `FlowChart`, or `Sequence`.
-  Use `FileTree`, `DependencyGraph`, `FileCard`, or `AnnotatedCode` as evidence surfaces instead of long explanatory prose.
+  Use `FileTree`, `FileCard`, or `AnnotatedCode` as evidence surfaces instead of long explanatory prose.
 
 ### 4. Scale information density deliberately
 
@@ -222,7 +222,7 @@ Rules:
 
 ## Component inventory
 
-24 default components across 7 categories. See `references/catalog.md` for full prop schemas and examples.
+23 default components across 7 categories. See `references/catalog.md` for full prop schemas and examples.
 
 `hyperscribe/SlideDeck` and `hyperscribe/Slide` are **slide-mode-only** components owned by `/hyperscribe:slides`. They are intentionally excluded from the default page-mode inventory below.
 
@@ -248,7 +248,6 @@ Rules:
 | Data | `hyperscribe/Comparison` | N-way comparison. Props: `items[]`, `mode` (`vs`\|`grid`). |
 | Narrative | `hyperscribe/StepList` | Ordered steps / checklist. Props: `steps[]`, `numbered?`. |
 | Structure | `hyperscribe/FileTree` | Directory/file structure. Props: `nodes` (recursive), `showIcons?`, `caption?`. |
-| Diagrams | `hyperscribe/DependencyGraph` | Module import graph (ranked). Props: `nodes`, `edges`, `layout: "ranks"`, `ranks`. |
 | Structure | `hyperscribe/FileCard` | Per-file summary card. Props: `name`, `path?`, `loc?`, `responsibility`, `exports?[]`, `state?`. |
 | Code | `hyperscribe/AnnotatedCode` | Code with pinned side annotations. Props: `lang`, `code`, `annotations[]`, `pinStyle?`. |
 | Diagrams | `hyperscribe/ERDDiagram` | DB/type ERD. Props: `entities[]`, `relationships[]`, `layout?`. |

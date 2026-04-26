@@ -52,10 +52,12 @@ function categorize(name) {
   if (["Image"].some(x => name.endsWith("/" + x))) return "Media";
   if (["Callout", "KPICard"].some(x => name.endsWith("/" + x))) return "Emphasis";
   if (["CodeBlock", "CodeDiff"].some(x => name.endsWith("/" + x))) return "Code";
-  if (["Mermaid", "Sequence", "ArchitectureGrid", "FlowChart", "Quadrant", "Swimlane"].some(x => name.endsWith("/" + x))) return "Diagrams";
+  if (["Mermaid", "Sequence", "ArchitectureGrid", "FlowChart", "Quadrant", "Swimlane", "ERDDiagram"].some(x => name.endsWith("/" + x))) return "Diagrams";
   if (["DataTable", "Chart", "Comparison"].some(x => name.endsWith("/" + x))) return "Data";
   if (["StepList"].some(x => name.endsWith("/" + x))) return "Narrative";
   if (["SlideDeck", "Slide"].some(x => name.endsWith("/" + x))) return "Slides";
+  if (["FileTree", "FileCard"].some(x => name.endsWith("/" + x))) return "Structure";
+  if (["AnnotatedCode"].some(x => name.endsWith("/" + x))) return "Code";
   return "Other";
 }
 

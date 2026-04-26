@@ -383,44 +383,56 @@ html:not([data-mode="dark"]) .hs-mode-icon-sun  { display: none; }
     if (container.dataset.hsZoomInit) return;
     container.dataset.hsZoomInit = "1";
 
-    // Move existing children into a transform stage.
     var stage = document.createElement("div");
     stage.className = "hs-zoom-stage";
     while (container.firstChild) stage.appendChild(container.firstChild);
     container.appendChild(stage);
 
-    // Controls
     var controls = document.createElement("div");
     controls.className = "hs-zoom-controls";
     controls.innerHTML =
-      '<button type="button" class="hs-zoom-btn" data-zoom="in"    aria-label="Zoom in"    title="Zoom in (Ctrl/Cmd + wheel)">＋</button>' +
-      '<button type="button" class="hs-zoom-btn" data-zoom="out"   aria-label="Zoom out"   title="Zoom out">−</button>' +
+      '<button type="button" class="hs-zoom-btn" data-zoom="in" aria-label="Zoom in" title="Zoom in (Ctrl/Cmd + wheel)">＋</button>' +
+      '<button type="button" class="hs-zoom-btn" data-zoom="out" aria-label="Zoom out" title="Zoom out">−</button>' +
       '<button type="button" class="hs-zoom-btn" data-zoom="reset" aria-label="Reset zoom" title="Reset">⟲</button>';
     container.appendChild(controls);
 
-    var scale = 1, tx = 0, ty = 0;
-    var MIN = 0.2, MAX = 5;
+    var scale = 1;
+    var tx = 0;
+    var ty = 0;
+    var MIN = 0.2;
+    var MAX = 5;
 
     function apply() {
       stage.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + scale + ")";
     }
-    function clamp(s) { return Math.max(MIN, Math.min(MAX, s)); }
+
+    function clampScale(next) {
+      return Math.max(MIN, Math.min(MAX, next));
+    }
+
     function zoomAt(newScale, cx, cy) {
-      var ns = clamp(newScale);
-      if (ns === scale) return;
-      var r = ns / scale;
-      tx = cx - (cx - tx) * r;
-      ty = cy - (cy - ty) * r;
-      scale = ns;
+      var next = clampScale(newScale);
+      if (next === scale) return;
+      var ratio = next / scale;
+      tx = cx - (cx - tx) * ratio;
+      ty = cy - (cy - ty) * ratio;
+      scale = next;
       apply();
     }
-    function reset() { scale = 1; tx = 0; ty = 0; apply(); }
+
+    function reset() {
+      scale = 1;
+      tx = 0;
+      ty = 0;
+      apply();
+    }
+
     function center() {
       return { cx: container.clientWidth / 2, cy: container.clientHeight / 2 };
     }
 
-    controls.addEventListener("click", function (e) {
-      var btn = e.target.closest(".hs-zoom-btn");
+    controls.addEventListener("click", function (event) {
+      var btn = event.target.closest(".hs-zoom-btn");
       if (!btn) return;
       var op = btn.getAttribute("data-zoom");
       var c = center();
@@ -429,39 +441,47 @@ html:not([data-mode="dark"]) .hs-mode-icon-sun  { display: none; }
       else reset();
     });
 
-    container.addEventListener("wheel", function (e) {
-      // Only hijack wheel when Ctrl/Cmd is held — otherwise let the page scroll.
-      if (!(e.ctrlKey || e.metaKey)) return;
-      e.preventDefault();
+    container.addEventListener("wheel", function (event) {
+      if (!(event.ctrlKey || event.metaKey)) return;
+      event.preventDefault();
       var rect = container.getBoundingClientRect();
-      var cx = e.clientX - rect.left;
-      var cy = e.clientY - rect.top;
-      var factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+      var cx = event.clientX - rect.left;
+      var cy = event.clientY - rect.top;
+      var factor = event.deltaY < 0 ? 1.1 : 1 / 1.1;
       zoomAt(scale * factor, cx, cy);
     }, { passive: false });
 
-    // Drag to pan
-    var dragging = false, lastX = 0, lastY = 0, activePointer = null;
-    stage.addEventListener("pointerdown", function (e) {
-      if (e.button !== 0) return;
-      if (e.target.closest(".hs-zoom-controls")) return;
+    var dragging = false;
+    var lastX = 0;
+    var lastY = 0;
+    var activePointer = null;
+
+    stage.addEventListener("pointerdown", function (event) {
+      if (event.button !== 0) return;
+      if (event.target.closest(".hs-zoom-controls")) return;
       dragging = true;
-      lastX = e.clientX; lastY = e.clientY; activePointer = e.pointerId;
-      try { stage.setPointerCapture(e.pointerId); } catch (_) {}
+      lastX = event.clientX;
+      lastY = event.clientY;
+      activePointer = event.pointerId;
+      try { stage.setPointerCapture(event.pointerId); } catch (_) {}
     });
-    stage.addEventListener("pointermove", function (e) {
-      if (!dragging || e.pointerId !== activePointer) return;
-      tx += e.clientX - lastX;
-      ty += e.clientY - lastY;
-      lastX = e.clientX; lastY = e.clientY;
+
+    stage.addEventListener("pointermove", function (event) {
+      if (!dragging || event.pointerId !== activePointer) return;
+      tx += event.clientX - lastX;
+      ty += event.clientY - lastY;
+      lastX = event.clientX;
+      lastY = event.clientY;
       apply();
     });
-    function endDrag(e) {
-      if (e && e.pointerId !== activePointer) return;
+
+    function endDrag(event) {
+      if (event && event.pointerId !== activePointer) return;
       dragging = false;
       activePointer = null;
-      try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
+      try { stage.releasePointerCapture(event.pointerId); } catch (_) {}
     }
+
     stage.addEventListener("pointerup", endDrag);
     stage.addEventListener("pointercancel", endDrag);
     stage.addEventListener("pointerleave", function () { dragging = false; });
@@ -477,7 +497,6 @@ html:not([data-mode="dark"]) .hs-mode-icon-sun  { display: none; }
     initAll();
   }
 
-  // Expose for content injected after load (e.g. Mermaid-rendered SVG).
   window.__hsInitZoom = initAll;
 })();
 </script>

@@ -52,7 +52,7 @@ Prompt-tuning notes from the diagram-first feedback loops live in [`benchmark/fe
 <!-- components-gallery:start -->
 ## Components Gallery
 
-Visual previews for 20 non-text page-mode components.
+Visual previews for 19 non-text page-mode components.
 
 <table>
 <tr>
@@ -176,13 +176,6 @@ Visual previews for 20 non-text page-mode components.
 </td>
 </tr>
 <tr>
-<td width="25%" align="center" valign="top">
-  <sub><code>DependencyGraph</code></sub>
-  <br />
-  <a href="assets/component-gallery/dependency-graph.webp">
-    <img src="assets/component-gallery/dependency-graph.webp" alt="DependencyGraph component preview" width="100%" />
-  </a>
-</td>
 <td width="25%" align="center" valign="top">
   <sub><code>FileCard</code></sub>
   <br />
@@ -342,7 +335,7 @@ The renderer writes the HTML file to `~/.hyperscribe/out/` with a slugified file
 
 ## Component catalog 🎯
 
-24 default components plus 2 slide-mode-only components. Full prop schemas, examples, and validation rules live in [`plugins/hyperscribe/references/catalog.md`](plugins/hyperscribe/references/catalog.md).
+23 default components plus 2 slide-mode-only components. Full prop schemas, examples, and validation rules live in [`plugins/hyperscribe/references/catalog.md`](plugins/hyperscribe/references/catalog.md).
 
 | Category | Component | Purpose | Children |
 |---|---|---|---|
@@ -361,7 +354,6 @@ The renderer writes the HTML file to `~/.hyperscribe/out/` with a slugified file
 | Diagrams | [`FlowChart`](plugins/hyperscribe/references/catalog.md) | Native SVG directed graph (box/pill/diamond nodes, TD/LR, ranked layout) | forbidden |
 | Diagrams | [`Quadrant`](plugins/hyperscribe/references/catalog.md) | 2x2 prioritization matrix with plotted points | forbidden |
 | Diagrams | [`Swimlane`](plugins/hyperscribe/references/catalog.md) | Lane-based process diagram across roles on a shared sequence | forbidden |
-| Diagrams | [`DependencyGraph`](plugins/hyperscribe/references/catalog.md) | Ranked module/import dependency graph | forbidden |
 | Diagrams | [`ERDDiagram`](plugins/hyperscribe/references/catalog.md) | Entity-relationship diagram for DB/type schemas | forbidden |
 | Data | [`DataTable`](plugins/hyperscribe/references/catalog.md) | Semantic HTML table with columns / rows / caption | forbidden |
 | Data | [`Chart`](plugins/hyperscribe/references/catalog.md) | Chart.js wrapper (line / bar / pie / area / scatter) | forbidden |
@@ -379,6 +371,10 @@ These are intentionally separated from the default `/hyperscribe` page catalog.
 |---|---|---|---|
 | Slides | [`SlideDeck`](plugins/hyperscribe/references/catalog.md) | Slide container; aspect 16:9 or 4:3 | required |
 | Slides | [`Slide`](plugins/hyperscribe/references/catalog.md) | Single slide (title / content / two-col / quote / image / section) | forbidden |
+| Structure | [`FileTree`](plugins/hyperscribe/references/catalog.md) | Directory/file structure visualization | forbidden |
+| Structure | [`FileCard`](plugins/hyperscribe/references/catalog.md) | Per-file summary card with responsibility and exports | forbidden |
+| Code | [`AnnotatedCode`](plugins/hyperscribe/references/catalog.md) | Code block with pinned side annotations | forbidden |
+| Diagrams | [`ERDDiagram`](plugins/hyperscribe/references/catalog.md) | Entity relationship diagram for DB/type models | forbidden |
 
 The design system is Notion-inspired — warm neutrals, whisper borders, Inter font fallback chain — and every visual decision is owned by the renderer. Components carry semantic data only; styling props (`color`, `backgroundColor`, `fontSize`, `className`, etc.) are rejected by the schema. If a page wants a "red warning box" the envelope asks for `Callout severity="warn"`, never a hex code.
 
