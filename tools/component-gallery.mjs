@@ -376,26 +376,6 @@ export const GALLERY_COMPONENTS = [
       }
     }
   ]), { captureScale: 1.35, captureWidth: "920px" }),
-  galleryEntry("hyperscribe/DependencyGraph", "DependencyGraph", () => page("DependencyGraph", [
-    {
-      component: "hyperscribe/DependencyGraph",
-      props: {
-        layout: "ranks",
-        nodes: [
-          { id: "prompt", label: "prompt.ts", type: "module" },
-          { id: "render", label: "render.mjs", type: "module" },
-          { id: "schema", label: "catalog.json", type: "data" },
-          { id: "chart", label: "chart.js", type: "external" }
-        ],
-        edges: [
-          { from: "prompt", to: "render", kind: "import" },
-          { from: "render", to: "schema", kind: "import" },
-          { from: "render", to: "chart", kind: "import" }
-        ],
-        ranks: [["prompt"], ["render"], ["schema", "chart"]]
-      }
-    }
-  ]), { captureScale: 1.25, captureWidth: "980px" }),
   galleryEntry("hyperscribe/FileCard", "FileCard", () => page("FileCard", [
     {
       component: "hyperscribe/FileCard",
@@ -473,6 +453,8 @@ export const README_GALLERY_COMPONENTS = GALLERY_COMPONENTS.filter(
   (entry) => !README_HIDDEN_COMPONENTS.has(entry.component)
 );
 
+export const README_GALLERY_COUNT = README_GALLERY_COMPONENTS.length;
+
 export function buildReadmeGallerySection(entries = README_GALLERY_COMPONENTS) {
   const rows = [];
   const columns = 4;
@@ -499,7 +481,7 @@ export function buildReadmeGallerySection(entries = README_GALLERY_COMPONENTS) {
     GALLERY_MARKER_START,
     "## Components Gallery",
     "",
-    "Visual previews for 20 non-text page-mode components.",
+    `Visual previews for ${README_GALLERY_COUNT} non-text page-mode components.`,
     "",
     "<table>",
     rows.join("\n"),

@@ -3,7 +3,7 @@ name: hyperscribe-share
 description: Deploy a previously rendered Hyperscribe HTML file to Vercel and return a live shareable URL. Use whenever the user asks to "share", "publish", "deploy", or "send" a Hyperscribe output. Requires the `vercel` CLI (`npm i -g vercel`, then `vercel login`) and the `hyperscribe` skill for the share script.
 license: MIT
 metadata:
-  version: "0.5.1-alpha"
+  version: "0.5.2-alpha"
   requires: "hyperscribe"
 ---
 

@@ -3,7 +3,7 @@ name: hyperscribe
 description: Generate self-contained HTML pages and slide decks (diagrams, comparison tables, architecture overviews, diff reviews, visual recaps) by emitting semantic component JSON. Use whenever a visual artifact communicates better than terminal prose — proactively trigger on 4+ row tables, ASCII flowcharts, multi-stage pipelines, or explicit "make a diagram / slides / recap" requests.
 license: MIT
 metadata:
-  version: "0.5.1-alpha"
+  version: "0.5.2-alpha"
   compatibility: "Requires Node.js 20+ and a browser to view output"
 ---
 
@@ -138,12 +138,30 @@ Most useful pages mix 2-3 of these, but one should dominate.
 ### 2. Pick the dominant visual surface first
 
 - Use `ArchitectureGrid` when card content matters more than exact edge routing.
-- Use `Mermaid` when the relationships themselves are the main thing to understand.
-- Use `Sequence` for actor-message timelines.
+- Use `Mermaid` as the compatibility fallback for diagram types the native catalog does not cover.
+- Use `Sequence` for actor-message timelines and request/response traces.
 - Use `FlowChart` for simple pipelines with ranked stages and explicit decisions.
+- Use `Swimlane` when the same process must be grouped by role, team, service, or lane.
+- Use `Quadrant` for 2x2 prioritization, risk, or positioning matrices.
 - Use `Comparison` or `DataTable` when the user needs side-by-side evaluation rather than a diagram.
 - Use `Chart` only when the numbers themselves carry the point; do not chart tiny or mostly categorical data just to make the page feel visual.
 - Use `StepList` when sequence matters but a diagram would add noise.
+
+### 2.1 Resolve close calls
+
+| If deciding between | Prefer this | When |
+|---|---|---|
+| `Sequence` vs `Swimlane` | `Sequence` | Actors exchange messages over time. |
+| `Sequence` vs `Swimlane` | `Swimlane` | Work moves across lanes and ownership is the point. |
+| `FlowChart` vs `Swimlane` | `FlowChart` | The stages are ordered and lane ownership is secondary. |
+| `ArchitectureGrid` vs `FlowChart` | `ArchitectureGrid` | The user needs module/service shape, responsibilities, or boundaries. |
+| `ArchitectureGrid` vs `FlowChart` | `FlowChart` | The user needs a pipeline, decision path, or lifecycle. |
+| `Comparison` vs `Quadrant` | `Comparison` | Options need bullets, trade-offs, or verdicts. |
+| `Comparison` vs `Quadrant` | `Quadrant` | Positioning on two axes is the main message. |
+| `DataTable` vs `Chart` | `DataTable` | Exact values, labels, or rows matter. |
+| `DataTable` vs `Chart` | `Chart` | Shape, trend, or magnitude is the main point. |
+| `CodeBlock` vs `AnnotatedCode` | `AnnotatedCode` | Specific lines need explanation. |
+| `CodeBlock` vs `CodeDiff` | `CodeDiff` | The change itself is the point. |
 
 ### 3. Compose around that surface
 
@@ -159,7 +177,7 @@ Prefer these page recipes:
   `Page` -> architecture or flow context -> `CodeDiff` / `AnnotatedCode` / `CodeBlock` -> `Callout` risks -> `StepList` next actions
 - **Repo / system recap**:
   `Page` -> short `Prose` summary -> one dominant diagram -> one evidence block (`FileTree`, `FileCard`, `DataTable`, or `Comparison`)
-  For repo explainers, the first content section should usually be diagram-led, anchored by `ArchitectureGrid`, `Mermaid`, `FlowChart`, or `Sequence`.
+  For repo explainers, the first content section should usually be diagram-led, anchored by `ArchitectureGrid`, `FlowChart`, `Swimlane`, or `Sequence`.
   Use `FileTree`, `FileCard`, or `AnnotatedCode` as evidence surfaces instead of long explanatory prose.
 
 ### 4. Scale information density deliberately
@@ -169,12 +187,13 @@ Prefer these page recipes:
 - If the content is dense, prefer multiple focused sections over one overloaded mega-diagram.
 - If labels would become long paragraphs inside nodes, use `ArchitectureGrid` + surrounding prose instead of forcing everything into `Mermaid`.
 - For repo explainers, architecture explainers, and system walkthroughs, use **no more than 2 Prose blocks** unless the user explicitly asks for a prose-heavy artifact.
-- For repo explainers, include at least one of `ArchitectureGrid`, `Mermaid`, `FlowChart`, `Sequence`, or `Comparison` as the dominant visual surface.
+- For repo explainers, include at least one of `ArchitectureGrid`, `FlowChart`, `Swimlane`, `Sequence`, or `Comparison` as the dominant visual surface.
 
 ### 5. Avoid weak compositions
 
 - Do not stack unrelated components just to show variety.
 - Do not use both `Mermaid` and `FlowChart` for the same exact relationship unless they tell different stories.
+- Do not use both `Sequence` and `Swimlane` for the same exact process unless one shows messages and the other shows ownership.
 - Do not open with a table when a diagram would explain the system faster.
 - Do not open with long prose when the user asked for something visual.
 - Do not use `Chart` where a `DataTable` or `Comparison` would be more legible.
@@ -317,7 +336,7 @@ Retry policy: up to **2 automatic retries** adjusting the JSON each time. After 
 ## Limitations (v1)
 
 - No streaming render — full JSON is produced, then rendered end-to-end.
-- No custom / third-party components — catalog is fixed at 24 default page components plus 2 slide-only components.
+- No custom / third-party components — catalog is fixed at 23 default page components plus 2 slide-only components.
 - No direct styling overrides in props. Users may place `~/.hyperscribe/theme.json` to override CSS token values at the **renderer** level.
 - Themeable renderer. Built-in themes are `studio`, `midnight`, `void`, and `gallery`.
 - No multi-page envelopes — one `Page` per default invocation. Slide mode uses one `SlideDeck`.

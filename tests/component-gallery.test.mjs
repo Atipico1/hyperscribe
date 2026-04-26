@@ -3,12 +3,13 @@ import assert from "node:assert/strict";
 
 import {
   GALLERY_COMPONENTS,
+  README_GALLERY_COUNT,
   README_GALLERY_COMPONENTS,
   buildReadmeGallerySection
 } from "../tools/component-gallery.mjs";
 
-test("component gallery: includes the 24 default page-mode components", () => {
-  assert.equal(GALLERY_COMPONENTS.length, 24);
+test("component gallery: includes the 23 default page-mode components", () => {
+  assert.equal(GALLERY_COMPONENTS.length, 23);
   assert.equal(
     GALLERY_COMPONENTS.some((entry) => entry.component === "hyperscribe/SlideDeck"),
     false
@@ -20,7 +21,8 @@ test("component gallery: includes the 24 default page-mode components", () => {
 });
 
 test("component gallery: README gallery excludes the 4 text-only components", () => {
-  assert.equal(README_GALLERY_COMPONENTS.length, 20);
+  assert.equal(README_GALLERY_COMPONENTS.length, 19);
+  assert.equal(README_GALLERY_COUNT, 19);
   for (const name of [
     "hyperscribe/Page",
     "hyperscribe/Section",
@@ -39,7 +41,7 @@ test("component gallery: renders README section with image links for every compo
 
   assert.match(section, /## Components Gallery/);
   assert.match(section, /<table>/);
-  assert.match(section, /Visual previews for 20 non-text page-mode components\./);
+  assert.match(section, /Visual previews for 19 non-text page-mode components\./);
   assert.match(section, /assets\/component-gallery\/image\.webp/);
   assert.match(section, /assets\/component-gallery\/callout\.webp/);
   assert.match(section, /assets\/component-gallery\/kpi-card\.webp/);

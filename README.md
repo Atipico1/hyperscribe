@@ -197,6 +197,7 @@ Visual previews for 19 non-text page-mode components.
     <img src="assets/component-gallery/erd-diagram.webp" alt="ERDDiagram component preview" width="100%" />
   </a>
 </td>
+<td width="25%"></td>
 </tr>
 </table>
 <!-- components-gallery:end -->
@@ -205,7 +206,7 @@ Visual previews for 19 non-text page-mode components.
 
 What I wanted was a better contract between the model and the renderer.
 
-Instead of asking the LLM to emit a complete HTML document, Hyperscribe asks it to emit a JSON envelope against a fixed catalog of 24 default page components plus 2 slide-mode-only components, and ships the renderer itself.
+Instead of asking the LLM to emit a complete HTML document, Hyperscribe asks it to emit a JSON envelope against a fixed catalog of 23 default page components plus 2 slide-mode-only components, and ships the renderer itself.
 
 That shift has three practical consequences:
 

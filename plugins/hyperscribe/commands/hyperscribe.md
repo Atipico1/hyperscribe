@@ -41,7 +41,7 @@ $ARGUMENTS
    - Metrics summary → KPICards, Charts, and DataTable
    - Code review → CodeDiff + Callouts
    - Essay-style explanation → Page with Sections, Headings, Prose, and embedded components
-   - Repo / project explainer → start diagram-first with `ArchitectureGrid`, `FlowChart`, `Sequence`, or `Mermaid`, then use `FileTree`, `DependencyGraph`, `FileCard`, or `AnnotatedCode` as evidence
+   - Repo / project explainer → start diagram-first with `ArchitectureGrid`, `FlowChart`, `Sequence`, or `Mermaid`, then use `FileTree`, `FileCard`, or `AnnotatedCode` as evidence
 
 2. **Read the catalog.** If you are uncertain about any component's schema or props, read `plugins/hyperscribe/references/catalog.md` BEFORE building the JSON.
 
